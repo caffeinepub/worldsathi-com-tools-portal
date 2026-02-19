@@ -1,0 +1,296 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Reorganize homepage with New Tools section, generate category hero gradients, and style tool action buttons",
+  "requirements": [
+    {
+      "id": "REQ-43",
+      "summary": "Reorganize homepage sections in priority order: Hero, New Tools, Top Categories, Best Tools, Trust Signals, Footer. Move Quick Category Access before Browse By Category.",
+      "acceptanceCriteria": [
+        "Homepage displays sections in the specified order: Hero, New Tools, Categories, Best Tools, Trust Signals, Footer",
+        "Quick Category Access appears before Browse By Category",
+        "All existing components (HeroSection, TrustSignals) remain functional",
+        "Layout maintains responsive behavior on mobile and desktop"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Reorganize section rendering order to match the priority structure: (1) HeroSection, (2) New Tools section (new component), (3) CategoryCards for Top Tools Categories, (4) FeaturedToolsSection for Best Tools/Social Proof, (5) PopularToolsByCategory, (6) TrustSignals. Move the Sidebar's QuickCategoryShortcuts to appear before the CategoryCards in the main content flow. Maintain responsive grid layout and ensure all sections have proper spacing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-44",
+      "summary": "Create New/Recently Added Tools section displaying 6-8 latest tools with 'NEW' badges in grid layout.",
+      "acceptanceCriteria": [
+        "New Tools section displays 6-8 recently added tools",
+        "Tools show 'NEW' badge or similar visual indicator",
+        "Section uses consistent tool card format with all required fields",
+        "Grid layout matches other homepage sections"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/NewToolsSection.tsx",
+          "operation": "create",
+          "description": "Create a new component that displays recently added tools in a grid layout. Accept a 'tools' array prop and render up to 6-8 tool cards with name, short description, category badge, Free/Paid indicator, cost, and CTA button. Add a 'NEW' badge (using shadcn Badge component with variant='secondary') positioned at the top-right of each card. Include a section heading 'New Arrivals' or 'Recently Added Tools' with appropriate styling. Use the same card styling and hover effects as FeaturedToolsSection for consistency. Structure the grid as a responsive layout (2 columns on mobile, 3 on tablet, 4 on desktop)."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Import and render the NewToolsSection component after HeroSection and before CategoryCards. Pass the first 6-8 tools from ALL_TOOLS as the tools prop to simulate recently added tools. Position this section prominently in the visual hierarchy to emphasize new arrivals."
+        }
+      ]
+    },
+    {
+      "id": "REQ-45",
+      "summary": "Generate unique gradient backgrounds for each of 13 categories and 8 tool pages following consistent diagonal pattern.",
+      "acceptanceCriteria": [
+        "Unique gradient generated for each of 13 categories",
+        "Unique gradient generated for each tool page",
+        "All gradients follow consistent visual pattern",
+        "Gradients saved as static files in frontend/public/assets/generated/",
+        "Filenames include dimensions in format: name.dim_WIDTHxHEIGHT.png"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/category-calculators-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with warm orange-red tones (#FF6B35 to #F7931E) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Calculators category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-converters-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with blue-purple tones (#4A90E2 to #9B59B6) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Converters category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-generators-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with green-teal tones (#00D084 to #00B4D8) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Generators category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-analyzers-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with pink-magenta tones (#FF6B9D to #C44569) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Analyzers category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-productivity-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with yellow-amber tones (#FFD93D to #F97F51) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Productivity category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-text-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with cyan-blue tones (#17EAD9 to #6078EA) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Text Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-image-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with purple-violet tones (#8E44AD to #5B2C6F) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Image Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-data-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with emerald-green tones (#2ECC71 to #27AE60) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Data Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-seo-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with indigo-blue tones (#3742FA to #5352ED) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the SEO Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-developer-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with slate-gray tones (#546E7A to #34495E) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Developer Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-finance-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with gold-yellow tones (#F9CA24 to #F0932B) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Finance Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-health-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with red-pink tones (#EB3B5A to #FA8231) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Health Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/category-education-tools-hero-gradient.dim_1200x400.png",
+          "operation": "create",
+          "description": "Generate gradient background with orange-yellow tones (#FFA502 to #FF7979) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Education Tools category."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-percentage-calculator-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with warm orange tones (#FF8C42 to #FFA07A) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Percentage Calculator tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-bmi-calculator-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with health-themed red-pink tones (#E74C3C to #EC7063) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the BMI Calculator tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-unit-converter-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with blue-purple tones (#5DADE2 to #A569BD) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Unit Converter tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-currency-converter-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with gold-green tones (#F4D03F to #52BE80) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Currency Converter tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-password-generator-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with security-themed dark blue-green tones (#1ABC9C to #2C3E50) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Password Generator tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-qr-generator-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with tech-themed cyan-purple tones (#00CEC9 to #6C5CE7) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the QR Code Generator tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-text-analyzer-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with text-themed cyan-blue tones (#3498DB to #5DADE2) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Text Analyzer tool page."
+        },
+        {
+          "path": "frontend/public/assets/generated/tool-pomodoro-timer-gradient.dim_1200x300.png",
+          "operation": "create",
+          "description": "Generate gradient background with productivity-themed yellow-orange tones (#F39C12 to #E67E22) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Pomodoro Timer tool page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-46",
+      "summary": "Update CategoryHero component to use generated gradient background images for each category's unique visual identity.",
+      "acceptanceCriteria": [
+        "CategoryHero component renders unique gradient background per category",
+        "Gradients load from static asset path",
+        "Background images scale and position correctly",
+        "All 13 categories display their unique gradients"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/CategoryHero.tsx",
+          "operation": "modify",
+          "description": "Add gradient background image support to CategoryHero component. Create a mapping object that associates each category id with its corresponding gradient image path (frontend/public/assets/generated/category-{categoryId}-hero-gradient.dim_1200x400.png). Update the component to use this gradient as a background-image CSS property on the main container, with appropriate background-size: cover and background-position: center. Ensure the gradient images are referenced using the exact workspace paths including .dim_1200x400 dimension suffix. Maintain existing text content, icon display, and decorative elements while layering them over the gradient background. Add a semi-transparent overlay if needed to ensure text remains readable over all gradient colors."
+        }
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "summary": "Add hero sections with unique gradient backgrounds to all tool pages, position breadcrumbs under hero, include tool name and category badge in hero.",
+      "acceptanceCriteria": [
+        "All tool pages display hero section with unique gradient background",
+        "Hero section includes tool name and category badge",
+        "Breadcrumb navigation positioned directly under hero section",
+        "Hero sections maintain consistent height and styling across tools"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ToolHero.tsx",
+          "operation": "create",
+          "description": "Create a new ToolHero component that displays a small hero section for individual tool pages. Accept props for toolName, categoryId, and gradientFilename. Render a compact hero section (approximately 200-300px height) with the gradient background image loaded from frontend/public/assets/generated/{gradientFilename}. Include the tool name as a large heading and render a CategoryBadge component for the tool's category. Use background-size: cover and background-position: center for the gradient. Add a subtle overlay to ensure text readability. Style the component to match the visual design of CategoryHero but with smaller dimensions appropriate for tool pages."
+        },
+        {
+          "path": "frontend/src/pages/tools/ToolPageTemplate.tsx",
+          "operation": "modify",
+          "description": "Update ToolPageTemplate to integrate the new ToolHero component. Accept an additional 'gradientFilename' prop that specifies which gradient image to use. Restructure the layout to render ToolHero at the top of the page, followed immediately by the Breadcrumbs component (move breadcrumbs from current position to directly under the hero). Pass the tool's metadata (name, categoryId) and gradientFilename to ToolHero. Ensure the breadcrumb styling transitions smoothly from the hero section. Maintain all existing ToolPageTemplate functionality including tool interface area, UsabilityGuide, FAQ accordion, sidebar, and usage tracking."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator1.tsx",
+          "operation": "modify",
+          "description": "Update the Percentage Calculator tool page to pass gradientFilename='tool-percentage-calculator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing calculator functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator3.tsx",
+          "operation": "modify",
+          "description": "Update the BMI Calculator tool page to pass gradientFilename='tool-bmi-calculator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing calculator functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Converter1.tsx",
+          "operation": "modify",
+          "description": "Update the Unit Converter tool page to pass gradientFilename='tool-unit-converter-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing converter functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Converter2.tsx",
+          "operation": "modify",
+          "description": "Update the Currency Converter tool page to pass gradientFilename='tool-currency-converter-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing converter functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Generator1.tsx",
+          "operation": "modify",
+          "description": "Update the Password Generator tool page to pass gradientFilename='tool-password-generator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing generator functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Generator2.tsx",
+          "operation": "modify",
+          "description": "Update the QR Code Generator tool page to pass gradientFilename='tool-qr-generator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing generator functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Analyzer1.tsx",
+          "operation": "modify",
+          "description": "Update the Text Analyzer tool page to pass gradientFilename='tool-text-analyzer-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing analyzer functionality remains intact."
+        },
+        {
+          "path": "frontend/src/pages/tools/Productivity1.tsx",
+          "operation": "modify",
+          "description": "Update the Pomodoro Timer tool page to pass gradientFilename='tool-pomodoro-timer-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing timer functionality remains intact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-48",
+      "summary": "Apply primary button styling with borders, solid backgrounds, shadows, and hover effects to all tool action buttons across 8+ tool pages.",
+      "acceptanceCriteria": [
+        "All tool action buttons use Button component with variant='primary'",
+        "Buttons display solid backgrounds with borders and shadows",
+        "Hover effects swap background and font colors",
+        "Button styling matches redesigned buttons throughout the site",
+        "All 8+ tool pages updated (calculators, converters, generators, analyzers, productivity)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Calculator1.tsx",
+          "operation": "modify",
+          "description": "Update the Percentage Calculator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleCalculate}>Calculate</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors. Verify the button styling matches the redesigned Button component used throughout the application."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator3.tsx",
+          "operation": "modify",
+          "description": "Update the BMI Calculator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleCalculate}>Calculate BMI</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Converter1.tsx",
+          "operation": "modify",
+          "description": "Update the Unit Converter's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleConvert}>Convert</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Converter2.tsx",
+          "operation": "modify",
+          "description": "Update the Currency Converter's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleConvert}>Convert Currency</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Generator1.tsx",
+          "operation": "modify",
+          "description": "Update the Password Generator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleGenerate}>Generate Password</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors. If there are additional buttons (like copy-to-clipboard), apply the same primary styling to maintain consistency."
+        },
+        {
+          "path": "frontend/src/pages/tools/Generator2.tsx",
+          "operation": "modify",
+          "description": "Update the QR Code Generator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleGenerate}>Generate QR Code</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors. If there's a download button, also apply primary styling for consistency."
+        },
+        {
+          "path": "frontend/src/pages/tools/Analyzer1.tsx",
+          "operation": "modify",
+          "description": "Update the Text Analyzer's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleAnalyze}>Analyze Text</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Productivity1.tsx",
+          "operation": "modify",
+          "description": "Update the Pomodoro Timer's action buttons (Start, Pause, Reset) to use the Button component with variant='primary'. Replace any existing button elements with <Button variant='primary' onClick={handleStart}>Start</Button>, <Button variant='primary' onClick={handlePause}>Pause</Button>, and <Button variant='primary' onClick={handleReset}>Reset</Button>. Ensure all buttons display with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+        }
+      ]
+    }
+  ]
+}

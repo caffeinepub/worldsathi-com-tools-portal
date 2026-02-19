@@ -1,0 +1,622 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "WordPress portal for Worldsathi.com: mobile-first tools hub with 125+ tools across multiple categories, advanced search/filtering, e-commerce-style tool pages with step-by-step guides and visual engagement, 10+ blog posts, improved FAQ, backend admin panel for content management, freemium model, multilingual support (English+Hindi), PWA features, GDPR compliance, SEO optimization, and community engagement",
+  "architectural_notes": [
+    "WordPress with Astra child theme + Elementor for mobile-first responsive design",
+    "WCAG 2.1 AA accessibility + GDPR/CCPA compliance required",
+    "Core Web Vitals optimization target: <2-3s load time",
+    "Plugin stack: WooCommerce, Yoast SEO, WP Rocket, CookieYes, WPML/Polylang, Wordfence",
+    "PWA features for offline access and app-like experience",
+    "RESTful API with rate limiting for premium tier integrations",
+    "Schema.org markup: SoftwareApplication, HowTo, FAQPage for all tool pages",
+    "Cloudflare CDN + server-side caching + lazy loading for performance",
+    "Version control via GitHub with CI/CD pipeline for safe deployments",
+    "Privacy-first: LocalStorage for free tier limits, anonymized premium history"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Gradient background for Calculators category hero section with warm orange-red tones, diagonal pattern from top-left to bottom-right (category-calculators-hero-gradient.dim_1200x400.png)\n- Gradient background for Converters category hero section with blue-purple tones, diagonal pattern from top-left to bottom-right (category-converters-hero-gradient.dim_1200x400.png)\n- Gradient background for Generators category hero section with green-teal tones, diagonal pattern from top-left to bottom-right (category-generators-hero-gradient.dim_1200x400.png)\n- Gradient background for Analyzers category hero section with pink-magenta tones, diagonal pattern from top-left to bottom-right (category-analyzers-hero-gradient.dim_1200x400.png)\n- Gradient background for Productivity category hero section with yellow-amber tones, diagonal pattern from top-left to bottom-right (category-productivity-hero-gradient.dim_1200x400.png)\n- Gradient background for Text Tools category hero section with cyan-blue tones, diagonal pattern from top-left to bottom-right (category-text-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Image Tools category hero section with purple-violet tones, diagonal pattern from top-left to bottom-right (category-image-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Data Tools category hero section with emerald-green tones, diagonal pattern from top-left to bottom-right (category-data-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for SEO Tools category hero section with indigo-blue tones, diagonal pattern from top-left to bottom-right (category-seo-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Developer Tools category hero section with slate-gray tones, diagonal pattern from top-left to bottom-right (category-developer-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Finance Tools category hero section with gold-yellow tones, diagonal pattern from top-left to bottom-right (category-finance-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Health Tools category hero section with red-pink tones, diagonal pattern from top-left to bottom-right (category-health-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Education Tools category hero section with orange-yellow tones, diagonal pattern from top-left to bottom-right (category-education-tools-hero-gradient.dim_1200x400.png)\n- Gradient background for Percentage Calculator tool with warm orange tones, diagonal pattern (tool-percentage-calculator-gradient.dim_1200x300.png)\n- Gradient background for BMI Calculator tool with health-themed red-pink tones, diagonal pattern (tool-bmi-calculator-gradient.dim_1200x300.png)\n- Gradient background for Unit Converter tool with blue-purple tones, diagonal pattern (tool-unit-converter-gradient.dim_1200x300.png)\n- Gradient background for Currency Converter tool with gold-green tones, diagonal pattern (tool-currency-converter-gradient.dim_1200x300.png)\n- Gradient background for Password Generator tool with security-themed dark blue-green tones, diagonal pattern (tool-password-generator-gradient.dim_1200x300.png)\n- Gradient background for QR Code Generator tool with tech-themed cyan-purple tones, diagonal pattern (tool-qr-generator-gradient.dim_1200x300.png)\n- Gradient background for Text Analyzer tool with text-themed cyan-blue tones, diagonal pattern (tool-text-analyzer-gradient.dim_1200x300.png)\n- Gradient background for Pomodoro Timer tool with productivity-themed yellow-orange tones, diagonal pattern (tool-pomodoro-timer-gradient.dim_1200x300.png)",
+  "existing_features": [
+    {
+      "id": "feature-the-request-specifies-wordpress-with-astra-child-theme-elementor-and-numerous-wordpress-specific-plugins-woocommerce-yoast-seo-wp-rocket-cookieyes-updraftplus-wordfence-wpml-polylang-tidio-etc-this-platform-generates-react-motoko-applications-on-the-internet-computer-and-cannot-generate-wordpress-sites-php-code-or-integrate-wordpress-plugins-recommend-building-an-equivalent-react-based-tools-portal-with-internet-identity-authentication-motoko-backend-for-data-persistence-and-native-implementations-of-the-requested-features-within-platform-capabilities",
+      "title": "The request specifies WordPress with Astra child theme, Elementor, and numerous WordPress-specific plugins (WooCommerce, Yoast SEO, WP Rocket, CookieYes, UpdraftPlus, Wordfence, WPML/Polylang, Tidio, etc.). This platform generates React + Motoko applications on the Internet Computer and cannot generate WordPress sites, PHP code, or integrate WordPress plugins. Recommend building an equivalent React-based tools portal with Internet Identity authentication, Motoko backend for data persistence, and native implementations of the requested features within platform capabilities.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-mobile-first-responsive-homepage-with-a-hero-section-containing-brand-identity-tagline-and-primary-cta-button-include-a-grid-layout-displaying-featured-tools-organized-by-category-with-clear-navigation-add-trust-signals-section-and-featured-blog-tutorial-cards",
+      "title": "Create a mobile-first, responsive homepage with a hero section containing brand identity, tagline, and primary CTA button. Include a grid layout displaying featured tools organized by category with clear navigation. Add trust signals section and featured blog/tutorial cards.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-10-individual-tool-pages-each-with-a-single-purpose-url-each-tool-page-must-include-clearly-labeled-input-fields-with-unique-ids-output-display-areas-with-ids-for-ai-parsing-an-faq-section-related-tools-suggestions-and-be-optimized-for-mobile-first-usage-tools-should-execute-client-side-where-possible-for-privacy-and-performance",
+      "title": "Implement 10 individual tool pages, each with a single-purpose URL. Each tool page must include clearly labeled input fields with unique IDs, output display areas with IDs for AI parsing, an FAQ section, related tools suggestions, and be optimized for mobile-first usage. Tools should execute client-side where possible for privacy and performance.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-premium-dashboard-accessible-after-internet-identity-authentication-include-sections-for-saved-favorited-tools-tool-usage-history-anonymized-api-key-management-interface-with-key-generation-and-revocation-controls-basic-analytics-visualization-and-support-ticket-access",
+      "title": "Create a premium dashboard accessible after Internet Identity authentication. Include sections for saved/favorited tools, tool usage history (anonymized), API key management interface with key generation and revocation controls, basic analytics visualization, and support ticket access.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-blog-section-with-a-list-view-and-individual-article-pages-create-3-sample-seo-optimized-articles-covering-tool-tutorials-comparisons-or-how-to-guides-articles-should-have-semantic-html-structure-with-proper-heading-hierarchy-meta-descriptions-and-be-mobile-responsive",
+      "title": "Implement a blog section with a list view and individual article pages. Create 3 sample SEO-optimized articles covering tool tutorials, comparisons, or how-to guides. Articles should have semantic HTML structure with proper heading hierarchy, meta descriptions, and be mobile-responsive.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-legal-compliance-pages-including-privacy-policy-terms-of-service-cookie-policy-and-data-rights-export-deletion-request-form-each-page-should-have-clear-scannable-sections-with-appropriate-headings-include-gdpr-ccpa-compliance-language-and-user-data-rights-information",
+      "title": "Create legal compliance pages including Privacy Policy, Terms of Service, Cookie Policy, and Data Rights (export/deletion request form). Each page should have clear, scannable sections with appropriate headings. Include GDPR/CCPA compliance language and user data rights information.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-community-forum-or-q-a-section-with-thread-listing-individual-thread-views-post-creation-form-and-basic-moderation-capabilities-users-should-be-able-to-create-topics-reply-to-threads-and-upvote-helpful-content-authentication-via-internet-identity-is-required-for-posting",
+      "title": "Implement a community forum or Q&A section with thread listing, individual thread views, post creation form, and basic moderation capabilities. Users should be able to create topics, reply to threads, and upvote helpful content. Authentication via Internet Identity is required for posting.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-free-tier-usage-limits-using-localstorage-to-track-daily-monthly-usage-counts-for-each-tool-display-remaining-usage-to-users-and-prompt-for-premium-upgrade-when-limits-are-reached-ensure-limits-are-privacy-preserving-and-do-not-require-server-side-tracking-for-free-users",
+      "title": "Implement free tier usage limits using LocalStorage to track daily/monthly usage counts for each tool. Display remaining usage to users and prompt for premium upgrade when limits are reached. Ensure limits are privacy-preserving and do not require server-side tracking for free users.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-gamification-system-with-badges-streaks-and-engagement-rewards-track-user-activities-tool-usage-forum-participation-consecutive-login-days-and-award-badges-accordingly-display-badge-collection-and-current-streak-on-user-dashboard-implement-visual-badge-icons-and-reward-notifications",
+      "title": "Create a gamification system with badges, streaks, and engagement rewards. Track user activities (tool usage, forum participation, consecutive login days) and award badges accordingly. Display badge collection and current streak on user dashboard. Implement visual badge icons and reward notifications.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-user-onboarding-flow-with-a-guided-tour-for-new-users-create-an-interactive-walkthrough-highlighting-key-features-tool-discovery-saving-favorites-premium-benefits-community-forum-include-skip-and-dismiss-options-show-onboarding-only-on-first-visit-tracked-via-localstorage-or-user-profile",
+      "title": "Implement a user onboarding flow with a guided tour for new users. Create an interactive walkthrough highlighting key features (tool discovery, saving favorites, premium benefits, community forum). Include skip and dismiss options. Show onboarding only on first visit, tracked via LocalStorage or user profile.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-brand-kit-with-logo-brand-colors-and-typography-create-a-design-system-with-consistent-color-palette-font-hierarchy-spacing-and-component-styling-apply-brand-identity-consistently-across-all-pages-and-components-ensure-visual-coherence-and-professional-appearance-throughout-the-application",
+      "title": "Integrate brand kit with logo, brand colors, and typography. Create a design system with consistent color palette, font hierarchy, spacing, and component styling. Apply brand identity consistently across all pages and components. Ensure visual coherence and professional appearance throughout the application.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-all-generated-brand-assets-logo-variations-hero-backgrounds-tool-category-icons-badge-icons-as-static-files-from-frontend-public-assets-generated-do-not-route-generated-images-through-the-backend-ensure-images-are-referenced-with-correct-paths-in-components",
+      "title": "Render all generated brand assets (logo variations, hero backgrounds, tool category icons, badge icons) as static files from frontend/public/assets/generated. Do not route generated images through the backend. Ensure images are referenced with correct paths in components.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expand-the-tool-library-from-10-to-125-tools-across-multiple-categories-each-tool-must-follow-the-existing-toolpagetemplate-pattern-with-labeled-input-fields-output-display-areas-faq-sections-and-related-tools-suggestions-tools-should-be-organized-into-logical-categories-calculators-converters-generators-analyzers-productivity-text-tools-image-tools-data-tools-seo-tools-developer-tools-etc",
+      "title": "Expand the tool library from 10 to 125 tools across multiple categories. Each tool must follow the existing ToolPageTemplate pattern with labeled input fields, output display areas, FAQ sections, and related tools suggestions. Tools should be organized into logical categories (calculators, converters, generators, analyzers, productivity, text tools, image tools, data tools, SEO tools, developer tools, etc.).",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-advanced-search-and-filtering-functionality-for-tools-add-a-search-input-that-filters-tools-by-name-and-description-add-category-filter-dropdowns-and-utility-type-filters-display-filtered-results-in-the-same-e-commerce-style-grid-layout-include-sorting-options-alphabetical-most-popular-recently-added",
+      "title": "Implement advanced search and filtering functionality for tools. Add a search input that filters tools by name and description. Add category filter dropdowns and utility type filters. Display filtered results in the same e-commerce-style grid layout. Include sorting options (alphabetical, most popular, recently added).",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-overall-gui-and-design-system-with-more-eye-catching-visual-elements-improve-color-schemes-with-better-contrast-and-visual-hierarchy-add-gradient-backgrounds-modern-card-shadows-hover-effects-and-smooth-transitions-incorporate-more-icons-and-visual-dividers-ensure-the-design-feels-modern-professional-and-engaging-while-maintaining-consistency-with-the-worldsathi-brand-identity",
+      "title": "Enhance the overall GUI and design system with more eye-catching visual elements. Improve color schemes with better contrast and visual hierarchy. Add gradient backgrounds, modern card shadows, hover effects, and smooth transitions. Incorporate more icons and visual dividers. Ensure the design feels modern, professional, and engaging while maintaining consistency with the Worldsathi brand identity.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-backend-admin-panel-accessible-only-to-authorized-administrators-implement-admin-authentication-using-internet-identity-with-role-based-access-control-create-admin-pages-for-managing-blog-posts-create-edit-delete-publish-unpublish-managing-tools-add-edit-remove-categorize-viewing-user-statistics-moderating-forum-content-edit-delete-posts-threads-and-managing-user-accounts-admin-routes-should-be-protected-and-not-accessible-to-regular-users",
+      "title": "Build a backend admin panel accessible only to authorized administrators. Implement admin authentication using Internet Identity with role-based access control. Create admin pages for managing blog posts (create, edit, delete, publish/unpublish), managing tools (add, edit, remove, categorize), viewing user statistics, moderating forum content (edit, delete posts/threads), and managing user accounts. Admin routes should be protected and not accessible to regular users.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-structure-the-codebase-for-maximum-expandability-customization-and-readability-follow-consistent-naming-conventions-add-comprehensive-inline-comments-explaining-complex-logic-create-reusable-utility-functions-and-components-implement-proper-typescript-types-throughout-organize-files-into-logical-folder-structures-and-ensure-all-components-are-modular-and-testable-add-a-comprehensive-readme-with-setup-instructions-architecture-overview-and-contribution-guidelines",
+      "title": "Structure the codebase for maximum expandability, customization, and readability. Follow consistent naming conventions, add comprehensive inline comments explaining complex logic, create reusable utility functions and components, implement proper TypeScript types throughout, organize files into logical folder structures, and ensure all components are modular and testable. Add a comprehensive README with setup instructions, architecture overview, and contribution guidelines.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-unique-differentiating-features-to-make-the-platform-stand-out-implement-ai-powered-tool-recommendations-based-on-user-usage-history-create-a-tool-comparison-feature-allowing-users-to-compare-specs-and-features-side-by-side-add-advanced-usage-analytics-showing-personal-productivity-insights-and-tool-usage-patterns-implement-tool-collections-allowing-users-to-create-and-share-curated-tool-bundles-add-keyboard-shortcuts-for-power-users-to-navigate-and-use-tools-efficiently",
+      "title": "Add unique differentiating features to make the platform stand out. Implement AI-powered tool recommendations based on user usage history. Create a tool comparison feature allowing users to compare specs and features side-by-side. Add advanced usage analytics showing personal productivity insights and tool usage patterns. Implement tool collections allowing users to create and share curated tool bundles. Add keyboard shortcuts for power users to navigate and use tools efficiently.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-theme-switcher-component-with-a-toggle-button-that-allows-users-to-switch-between-light-and-dark-modes-with-light-mode-set-as-the-default-theme",
+      "title": "Create a theme switcher component with a toggle button that allows users to switch between light and dark modes, with light mode set as the default theme",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-text-colors-headings-paragraphs-and-ui-elements-automatically-adjust-their-font-colors-based-on-the-selected-theme-to-maintain-proper-contrast-and-readability-in-both-light-and-dark-modes",
+      "title": "Ensure all text colors, headings, paragraphs, and UI elements automatically adjust their font colors based on the selected theme to maintain proper contrast and readability in both light and dark modes",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-oklch-color-system-in-frontend-index-css-to-ensure-proper-color-definitions-for-both-light-and-dark-themes-maintaining-the-current-color-palette-structure-while-improving-contrast-ratios",
+      "title": "Update the existing OKLCH color system in frontend/index.css to ensure proper color definitions for both light and dark themes, maintaining the current color palette structure while improving contrast ratios",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-simplified-homepage-with-hero-section-containing-brand-identity-tagline-and-primary-cta-button-display-a-focused-grid-of-5-10-featured-tools-organized-by-category-with-clear-navigation-include-trust-signals-section-showing-platform-statistics",
+      "title": "Create a simplified homepage with hero section containing brand identity, tagline, and primary CTA button. Display a focused grid of 5-10 featured tools organized by category with clear navigation. Include trust signals section showing platform statistics.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-5-10-essential-tool-pages-covering-different-utility-categories-text-tools-word-counter-case-converter-calculators-percentage-bmi-converters-unit-currency-generators-password-qr-code-and-productivity-tools-pomodoro-timer-each-tool-page-must-follow-the-toolpagetemplate-pattern-with-labeled-input-fields-output-display-areas-faq-section-and-related-tools-suggestions",
+      "title": "Implement 5-10 essential tool pages covering different utility categories: text tools (word counter, case converter), calculators (percentage, BMI), converters (unit, currency), generators (password, QR code), and productivity tools (Pomodoro timer). Each tool page must follow the ToolPageTemplate pattern with labeled input fields, output display areas, FAQ section, and related tools suggestions.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-basic-search-functionality-that-filters-the-5-10-tools-by-name-and-description-add-category-filter-dropdown-to-allow-users-to-view-tools-by-category-display-filtered-results-in-the-same-grid-layout-used-on-the-homepage",
+      "title": "Implement basic search functionality that filters the 5-10 tools by name and description. Add category filter dropdown to allow users to view tools by category. Display filtered results in the same grid layout used on the homepage.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-theme-switcher-light-dark-mode-is-functional-with-light-mode-as-default-verify-all-text-colors-headings-paragraphs-and-ui-elements-automatically-adjust-based-on-selected-theme-with-proper-contrast-ratios-meeting-wcag-aa-standards-persist-theme-preference-using-localstorage",
+      "title": "Ensure the theme switcher (light/dark mode) is functional with light mode as default. Verify all text colors, headings, paragraphs, and UI elements automatically adjust based on selected theme with proper contrast ratios meeting WCAG AA standards. Persist theme preference using localStorage.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-internet-identity-authentication-with-login-logout-functionality-display-authentication-status-in-the-header-navigation-show-login-button-for-anonymous-users-and-logout-option-for-authenticated-users",
+      "title": "Configure Internet Identity authentication with login/logout functionality. Display authentication status in the header/navigation. Show login button for anonymous users and logout option for authenticated users.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-simplified-user-dashboard-accessible-after-authentication-showing-saved-favorited-tools-section-and-basic-usage-statistics-include-a-profile-setup-dialog-for-new-users-to-enter-their-display-name",
+      "title": "Create a simplified user dashboard accessible after authentication showing saved/favorited tools section and basic usage statistics. Include a profile setup dialog for new users to enter their display name.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-all-button-components-throughout-the-application-to-establish-clear-visual-hierarchy-with-three-distinct-variants-primary-buttons-solid-backgrounds-with-strong-shadows-and-hover-effects-secondary-buttons-outlined-with-transparent-backgrounds-and-ghost-buttons-minimal-styling-with-hover-states-apply-stronger-visual-contrast-using-borders-background-colors-from-the-existing-oklch-color-system-and-box-shadows-ensure-all-button-variants-meet-wcag-aa-contrast-standards-in-both-light-and-dark-themes",
+      "title": "Redesign all button components throughout the application to establish clear visual hierarchy with three distinct variants: primary buttons (solid backgrounds with strong shadows and hover effects), secondary buttons (outlined with transparent backgrounds), and ghost buttons (minimal styling with hover states). Apply stronger visual contrast using borders, background colors from the existing OKLCH color system, and box shadows. Ensure all button variants meet WCAG AA contrast standards in both light and dark themes.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-dedicated-category-pages-for-each-of-the-13-tool-categories-defined-in-frontend-src-constants-categories-ts-each-category-page-should-include-a-smaller-hero-section-with-the-category-name-icon-and-description-followed-by-a-complete-listing-of-all-tools-belonging-to-that-category-displayed-in-the-same-e-commerce-style-grid-layout-used-on-the-homepage-implement-category-specific-routes-e-g-category-calculators-category-text-tools",
+      "title": "Create dedicated category pages for each of the 13 tool categories defined in frontend/src/constants/categories.ts. Each category page should include a smaller hero section with the category name, icon, and description, followed by a complete listing of all tools belonging to that category displayed in the same e-commerce-style grid layout used on the homepage. Implement category-specific routes (e.g., /category/calculators, /category/text-tools).",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-filter-and-sort-functionality-to-category-pages-allowing-users-to-refine-tool-listings-within-each-category-implement-dropdown-filters-for-subcategories-or-tool-types-and-sorting-options-alphabetical-most-popular-recently-added-display-the-currently-active-filters-and-allow-users-to-clear-them-ensure-filtering-and-sorting-work-seamlessly-with-the-existing-toolgrid-component-patterns",
+      "title": "Add filter and sort functionality to category pages allowing users to refine tool listings within each category. Implement dropdown filters for subcategories or tool types and sorting options (alphabetical, most popular, recently added). Display the currently active filters and allow users to clear them. Ensure filtering and sorting work seamlessly with the existing ToolGrid component patterns.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-within-each-category-page-implement-a-featured-popular-tools-section-that-displays-3-5-most-popular-or-featured-tools-from-that-category-prominently-at-the-top-of-the-page-before-the-full-tool-listing-use-a-distinct-visual-treatment-larger-cards-featured-badge-or-highlighted-border-to-differentiate-these-tools-from-the-regular-grid-below",
+      "title": "Within each category page, implement a featured/popular tools section that displays 3-5 most popular or featured tools from that category prominently at the top of the page, before the full tool listing. Use a distinct visual treatment (larger cards, featured badge, or highlighted border) to differentiate these tools from the regular grid below.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-breadcrumb-navigation-on-every-page-throughout-the-application-showing-the-hierarchical-path-from-homepage-to-the-current-page-for-tool-pages-breadcrumbs-should-show-home-category-tool-name-for-category-pages-home-category-name-for-other-pages-like-dashboard-blog-forum-home-page-name-use-the-existing-tanstack-router-link-component-for-navigation-and-style-breadcrumbs-with-separators-chevrons-or-slashes-and-proper-hover-states",
+      "title": "Implement breadcrumb navigation on every page throughout the application showing the hierarchical path from homepage to the current page. For tool pages, breadcrumbs should show: Home > Category > Tool Name. For category pages: Home > Category Name. For other pages like Dashboard, Blog, Forum: Home > Page Name. Use the existing TanStack Router Link component for navigation and style breadcrumbs with separators (chevrons or slashes) and proper hover states.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-tool-pages-following-the-toolpagetemplate-pattern-to-include-comprehensive-structured-information-matching-woocommerce-product-page-layouts-add-clearly-visible-category-and-subcategory-badges-at-the-top-of-the-page-a-detailed-tool-introduction-section-explaining-what-the-tool-does-and-its-primary-benefits-and-a-step-by-step-usability-guide-with-numbered-instructions-showing-users-exactly-how-to-use-the-tool-maintain-the-existing-tool-interface-card-faq-accordion-and-related-tools-sidebar-while-integrating-these-new-sections",
+      "title": "Enhance tool pages following the ToolPageTemplate pattern to include comprehensive structured information matching WooCommerce product page layouts. Add clearly visible category and subcategory badges at the top of the page, a detailed tool introduction section explaining what the tool does and its primary benefits, and a step-by-step usability guide with numbered instructions showing users exactly how to use the tool. Maintain the existing tool interface card, FAQ accordion, and related tools sidebar while integrating these new sections.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-transform-the-homepage-to-match-woocommerce-style-product-catalog-experience-reorganize-the-existing-toolgrid-into-distinct-product-focused-sections-including-featured-tools-top-6-8-tools-with-larger-cards-popular-tools-by-category-grid-organized-by-category-with-category-headers-and-quick-category-access-visual-category-cards-with-icons-linking-to-category-pages-maintain-the-existing-herosection-and-trustsignals-components-while-enhancing-the-overall-e-commerce-catalog-feel-with-proper-section-spacing-dividers-and-visual-hierarchy",
+      "title": "Transform the homepage to match WooCommerce-style product catalog experience. Reorganize the existing ToolGrid into distinct product-focused sections including: Featured Tools (top 6-8 tools with larger cards), Popular Tools by category (grid organized by category with category headers), and Quick Category Access (visual category cards with icons linking to category pages). Maintain the existing HeroSection and TrustSignals components while enhancing the overall e-commerce catalog feel with proper section spacing, dividers, and visual hierarchy.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-sidebar-content-area-to-the-homepage-right-column-and-tool-pages-utilizing-the-available-space-after-the-main-content-based-on-ux-best-practices-for-tools-platforms-implement-three-sidebar-sections-trending-tools-top-5-most-used-tools-with-usage-indicators-quick-category-shortcuts-linked-list-of-all-13-categories-for-fast-navigation-and-recent-blog-posts-3-most-recent-blog-articles-with-thumbnails-and-titles-ensure-the-sidebar-is-sticky-on-desktop-and-collapses-appropriately-on-mobile-viewports",
+      "title": "Add a sidebar content area to the homepage right column and tool pages utilizing the available space after the main content. Based on UX best practices for tools platforms, implement three sidebar sections: Trending Tools (top 5 most used tools with usage indicators), Quick Category Shortcuts (linked list of all 13 categories for fast navigation), and Recent Blog Posts (3 most recent blog articles with thumbnails and titles). Ensure the sidebar is sticky on desktop and collapses appropriately on mobile viewports.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-reorganize-homepage-sections-in-the-following-priority-order-from-top-to-bottom-1-hero-section-with-value-proposition-and-clear-call-to-action-2-new-recently-added-tools-section-displaying-the-latest-tools-added-to-the-platform-3-top-tools-categories-with-visual-thumbnails-icons-to-help-users-segment-quickly-4-best-tools-social-proof-highlighting-popular-items-5-trust-signals-content-including-customer-testimonials-reviews-and-links-to-latest-blog-posts-6-footer-navigation-move-the-quick-category-access-section-to-appear-before-the-browse-by-category-section",
+      "title": "Reorganize homepage sections in the following priority order from top to bottom: (1) Hero Section with Value Proposition and clear Call-to-Action, (2) New/Recently Added Tools section displaying the latest tools added to the platform, (3) Top Tools Categories with visual thumbnails/icons to help users segment quickly, (4) Best Tools/Social Proof highlighting popular items, (5) Trust Signals & Content including customer testimonials, reviews, and links to latest blog posts, (6) Footer Navigation. Move the Quick Category Access section to appear before the Browse By Category section.",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-recently-added-tools-section-component-for-the-homepage-that-displays-the-most-recently-added-tools-to-the-platform-show-6-8-tools-in-a-grid-layout-with-a-section-heading-new-arrivals-or-recently-added-tools-use-the-same-tool-card-format-as-other-sections-name-short-description-category-free-paid-indicator-cost-cta-button-mark-these-tools-visually-with-a-new-badge-or-similar-indicator",
+      "title": "Create a New/Recently Added Tools section component for the homepage that displays the most recently added tools to the platform. Show 6-8 tools in a grid layout with a section heading 'New Arrivals' or 'Recently Added Tools'. Use the same tool card format as other sections (name, short description, category, Free/Paid indicator, cost, CTA button). Mark these tools visually with a 'NEW' badge or similar indicator.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-unique-gradient-backgrounds-for-each-of-the-13-tool-categories-and-for-individual-tool-pages-gradients-should-follow-a-consistent-pattern-same-direction-similar-style-but-use-different-color-combinations-that-are-unique-to-each-category-tool-save-generated-gradient-images-to-frontend-public-assets-generated-with-descriptive-filenames-like-category-calculators-hero-gradient-dim-1200x400-png-category-converters-hero-gradient-dim-1200x400-png-tool-percentage-calculator-hero-gradient-dim-1200x400-png-etc",
+      "title": "Generate unique gradient backgrounds for each of the 13 tool categories and for individual tool pages. Gradients should follow a consistent pattern (same direction, similar style) but use different color combinations that are unique to each category/tool. Save generated gradient images to frontend/public/assets/generated/ with descriptive filenames like category-calculators-hero-gradient.dim_1200x400.png, category-converters-hero-gradient.dim_1200x400.png, tool-percentage-calculator-hero-gradient.dim_1200x400.png, etc.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-categoryhero-component-to-use-the-generated-gradient-background-images-as-hero-section-backgrounds-each-category-should-display-its-unique-gradient-e-g-category-calculators-hero-gradient-png-for-calculators-category-ensure-gradients-are-loaded-from-frontend-public-assets-generated-and-properly-sized",
+      "title": "Update CategoryHero component to use the generated gradient background images as hero section backgrounds. Each category should display its unique gradient (e.g., category-calculators-hero-gradient.png for Calculators category). Ensure gradients are loaded from frontend/public/assets/generated/ and properly sized.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-hero-sections-with-unique-gradient-backgrounds-to-all-tool-pages-following-the-toolpagetemplate-pattern-each-tool-should-display-its-generated-gradient-background-in-a-small-hero-section-at-the-top-of-the-page-position-breadcrumb-navigation-directly-under-the-hero-section-the-hero-should-include-the-tool-name-and-category-badge",
+      "title": "Add hero sections with unique gradient backgrounds to all tool pages following the ToolPageTemplate pattern. Each tool should display its generated gradient background in a small hero section at the top of the page. Position breadcrumb navigation directly under the hero section. The hero should include the tool name and category badge.",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-primary-button-styling-to-all-tool-action-buttons-calculate-convert-generate-submit-analyze-etc-within-tool-interface-components-update-all-tool-pages-calculator1-calculator2-calculator3-converter1-converter2-generator1-generator2-analyzer1-productivity1-to-use-the-redesigned-button-component-with-variant-primary-ensure-buttons-have-borders-solid-background-colors-from-the-oklch-color-system-box-shadows-and-hover-effects-that-swap-background-and-font-colors-matching-the-button-redesign-implemented-throughout-the-application",
+      "title": "Apply primary button styling to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, etc.) within tool interface components. Update all tool pages (Calculator1, Calculator2, Calculator3, Converter1, Converter2, Generator1, Generator2, Analyzer1, Productivity1) to use the redesigned Button component with variant='primary'. Ensure buttons have borders, solid background colors from the OKLCH color system, box shadows, and hover effects that swap background and font colors, matching the button redesign implemented throughout the application.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "WordPress core setup with Astra child theme and Elementor",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Homepage with hero section, tool grid, category navigation, trust signals",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "10 single tool pages with input/output fields, FAQ, Schema.org markup",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Premium dashboard with saved tools, API key management, analytics",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Legal pages (Privacy Policy, Terms, Cookie Policy, Data Rights)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Blog section with 3 sample SEO-optimized articles",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Community forum/Q&A setup",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Multilingual support (English + Hindi) with WPML/Polylang",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "PWA integration for offline mode",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Free tier tools with LocalStorage usage limits",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Premium tier with bulk operations, API access, collaboration features",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Gamification system (badges, streaks, engagement rewards)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "User onboarding flow with guided tour",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Brand kit integration (logo, colors, fonts)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Performance & accessibility audit reports",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Store user data in Motoko backend including user profiles (linked to Internet Identity principal), saved tools/favorites, usage history (anonymized), API keys with rate limit tracking, forum posts and threads, and blog articles. Implement data models with proper access control ensuring users can only access their own data.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Expand tool library to 125+ tools organized across multiple categories with consistent structure",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Implement advanced search and filtering system for tools (by category, utility type, popularity)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Redesign tool pages with e-commerce-style layouts, step-by-step usage guides, 'why use this' sections, and visual/graphical elements for engagement",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Enhance FAQ sections with comprehensive Q&A for each tool and general site FAQs",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Create 10+ relevant, SEO-optimized blog posts covering tool tutorials, industry insights, and how-to guides",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Build backend admin panel with authentication for managing posts, tools, users, and community content",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Improve overall GUI/UX with eye-catching, modern design elements and enhanced visual hierarchy",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Structure codebase for expandability, customization, readability, and easy deployment to external web servers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Add unique differentiating features (AI-powered tool recommendations, comparison tools, usage analytics, tool collections)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Redesign tool pages to match e-commerce product page layouts. Add prominent tool name and description header, usage statistics (times used, popularity badge), step-by-step usage guide section with numbered steps, 'Why Use This Tool' section with bullet points highlighting benefits, visual elements including tool category icons and engagement graphics, related tools carousel at bottom, and improved FAQ accordion with comprehensive Q&A.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Expand the blog section from 3 to at least 10 relevant, SEO-optimized blog posts. Posts should cover tool tutorials, comparison guides, how-to articles, industry insights, and productivity tips. Each post must have proper semantic HTML structure, meta descriptions, heading hierarchy, and be mobile-responsive. Include featured images for each post and organize by categories/tags.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Replace dummy content on the community forum page with real, meaningful placeholder threads and posts. Create at least 10 example forum threads covering common topics like tool usage questions, feature requests, troubleshooting, tips and tricks, and community discussions. Each thread should have 2-5 sample posts demonstrating proper forum interaction.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-42",
+      "summary": "Improve and expand FAQ sections throughout the application. Add a comprehensive global FAQ page covering account management, pricing, privacy, tool usage, and technical questions. Enhance individual tool FAQ sections with at least 5-7 relevant questions per tool covering common usage questions, limitations, best practices, and troubleshooting. Implement FAQ search functionality and organize FAQs by category.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-43",
+      "summary": "Implement theme switcher with light mode as default. Add toggle button in navigation for light/dark mode selection. Ensure all font colors automatically adjust based on selected theme with proper contrast. Persist user theme preference across sessions.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-45",
+      "summary": "Persist the user's theme preference across browser sessions using localStorage so the selected theme is restored on subsequent visits",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-52",
+      "summary": "Ensure the Motoko backend supports basic operations for this foundation phase: getUserProfile to retrieve user data, saveToolToFavorites to save tools, and trackToolUsage to log tool usage. Backend should handle both anonymous and authenticated users appropriately.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-53",
+      "summary": "Redesign all buttons with stronger visual contrast including borders, backgrounds, shadows, and establish clear button hierarchy with primary, secondary, and ghost variants",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-54",
+      "summary": "Create dedicated category pages for each tool category with smaller hero sections, complete tool listings filtered by category, sort/filter functionality within categories, and prominently displayed featured/popular tools for each category",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-55",
+      "summary": "Add breadcrumb navigation on every page to show user location and enable easy navigation back through the hierarchy",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-56",
+      "summary": "Transform tool pages into WooCommerce-style product pages with proper title, description, category/subcategory labels, detailed tool introduction section, and comprehensive step-by-step usability guide",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-57",
+      "summary": "Enhance homepage with WooCommerce-style product catalog sections including featured tools, popular tools, category showcase, and proper category selection interface",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-58",
+      "summary": "Add sidebar content on tool pages and homepage right column with trending tools, recent blog posts, and quick category shortcuts to utilize available space effectively",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-59",
+      "summary": "Reorganize homepage with specific section order: Hero Section with Value Proposition and CTA, New/Recently Added Tools section, Top Tools Categories with visual thumbnails/icons, Best Tools/Social Proof highlighting popular items, Trust Signals & Content (testimonials, reviews, blog links), and Footer Navigation. Move Quick Category Access before Browse By Category section.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-60",
+      "summary": "Standardize tool card display throughout the platform to show: tool name, short description (3-5 words), category badge, Free/Paid indicator, Cost (0.00 or actual price), and CTA button to open the tool. Apply this card format consistently across homepage, category pages, and search results.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-61",
+      "summary": "Add unique gradient background hero sections to every category page and tool page. Generate consistent pattern gradients that are unique per category/tool. Position breadcrumb navigation directly under each hero section.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-62",
+      "summary": "Apply primary button styling to all tool action buttons (Calculate, Convert, Generate, etc.) within tool interfaces. Implement borders, background colors, border type, and hover effects that swap background and font colors, matching the redesigned button system used throughout the site.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Worldsathi.com Tools Portal",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

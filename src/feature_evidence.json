@@ -1,0 +1,140 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-reorganize-homepage-sections-in-the-following-priority-order-from-top-to-bottom-1-hero-section-with-value-proposition-and-clear-call-to-action-2-new-recently-added-tools-section-displaying-the-latest-tools-added-to-the-platform-3-top-tools-categories-with-visual-thumbnails-icons-to-help-users-segment-quickly-4-best-tools-social-proof-highlighting-popular-items-5-trust-signals-content-including-customer-testimonials-reviews-and-links-to-latest-blog-posts-6-footer-navigation-move-the-quick-category-access-section-to-appear-before-the-browse-by-category-section",
+      "featureTitle": "Reorganize homepage sections in the following priority order from top to bottom: (1) Hero Section with Value Proposition and clear Call-to-Action, (2) New/Recently Added Tools section displaying the latest tools added to the platform, (3) Top Tools Categories with visual thumbnails/icons to help users segment quickly, (4) Best Tools/Social Proof highlighting popular items, (5) Trust Signals & Content including customer testimonials, reviews, and links to latest blog posts, (6) Footer Navigation. Move the Quick Category Access section to appear before the Browse By Category section.",
+      "files": [
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-43"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-new-recently-added-tools-section-component-for-the-homepage-that-displays-the-most-recently-added-tools-to-the-platform-show-6-8-tools-in-a-grid-layout-with-a-section-heading-new-arrivals-or-recently-added-tools-use-the-same-tool-card-format-as-other-sections-name-short-description-category-free-paid-indicator-cost-cta-button-mark-these-tools-visually-with-a-new-badge-or-similar-indicator",
+      "featureTitle": "Create a New/Recently Added Tools section component for the homepage that displays the most recently added tools to the platform. Show 6-8 tools in a grid layout with a section heading 'New Arrivals' or 'Recently Added Tools'. Use the same tool card format as other sections (name, short description, category, Free/Paid indicator, cost, CTA button). Mark these tools visually with a 'NEW' badge or similar indicator.",
+      "files": [
+        "frontend/src/components/NewToolsSection.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-44"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-unique-gradient-backgrounds-for-each-of-the-13-tool-categories-and-for-individual-tool-pages-gradients-should-follow-a-consistent-pattern-same-direction-similar-style-but-use-different-color-combinations-that-are-unique-to-each-category-tool-save-generated-gradient-images-to-frontend-public-assets-generated-with-descriptive-filenames-like-category-calculators-hero-gradient-dim-1200x400-png-category-converters-hero-gradient-dim-1200x400-png-tool-percentage-calculator-hero-gradient-dim-1200x400-png-etc",
+      "featureTitle": "Generate unique gradient backgrounds for each of the 13 tool categories and for individual tool pages. Gradients should follow a consistent pattern (same direction, similar style) but use different color combinations that are unique to each category/tool. Save generated gradient images to frontend/public/assets/generated/ with descriptive filenames like category-calculators-hero-gradient.dim_1200x400.png, category-converters-hero-gradient.dim_1200x400.png, tool-percentage-calculator-hero-gradient.dim_1200x400.png, etc.",
+      "files": [],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-45"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-categoryhero-component-to-use-the-generated-gradient-background-images-as-hero-section-backgrounds-each-category-should-display-its-unique-gradient-e-g-category-calculators-hero-gradient-png-for-calculators-category-ensure-gradients-are-loaded-from-frontend-public-assets-generated-and-properly-sized",
+      "featureTitle": "Update CategoryHero component to use the generated gradient background images as hero section backgrounds. Each category should display its unique gradient (e.g., category-calculators-hero-gradient.png for Calculators category). Ensure gradients are loaded from frontend/public/assets/generated/ and properly sized.",
+      "files": [
+        "frontend/src/components/CategoryHero.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-46"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-hero-sections-with-unique-gradient-backgrounds-to-all-tool-pages-following-the-toolpagetemplate-pattern-each-tool-should-display-its-generated-gradient-background-in-a-small-hero-section-at-the-top-of-the-page-position-breadcrumb-navigation-directly-under-the-hero-section-the-hero-should-include-the-tool-name-and-category-badge",
+      "featureTitle": "Add hero sections with unique gradient backgrounds to all tool pages following the ToolPageTemplate pattern. Each tool should display its generated gradient background in a small hero section at the top of the page. Position breadcrumb navigation directly under the hero section. The hero should include the tool name and category badge.",
+      "files": [
+        "frontend/src/components/ToolHero.tsx",
+        "frontend/src/pages/tools/Analyzer1.tsx",
+        "frontend/src/pages/tools/Calculator1.tsx",
+        "frontend/src/pages/tools/Calculator3.tsx",
+        "frontend/src/pages/tools/Converter1.tsx",
+        "frontend/src/pages/tools/Converter2.tsx",
+        "frontend/src/pages/tools/Generator1.tsx",
+        "frontend/src/pages/tools/Generator2.tsx",
+        "frontend/src/pages/tools/Productivity1.tsx",
+        "frontend/src/pages/tools/ToolPageTemplate.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-47"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-primary-button-styling-to-all-tool-action-buttons-calculate-convert-generate-submit-analyze-etc-within-tool-interface-components-update-all-tool-pages-calculator1-calculator2-calculator3-converter1-converter2-generator1-generator2-analyzer1-productivity1-to-use-the-redesigned-button-component-with-variant-primary-ensure-buttons-have-borders-solid-background-colors-from-the-oklch-color-system-box-shadows-and-hover-effects-that-swap-background-and-font-colors-matching-the-button-redesign-implemented-throughout-the-application",
+      "featureTitle": "Apply primary button styling to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, etc.) within tool interface components. Update all tool pages (Calculator1, Calculator2, Calculator3, Converter1, Converter2, Generator1, Generator2, Analyzer1, Productivity1) to use the redesigned Button component with variant='primary'. Ensure buttons have borders, solid background colors from the OKLCH color system, box shadows, and hover effects that swap background and font colors, matching the button redesign implemented throughout the application.",
+      "files": [
+        "frontend/src/pages/tools/Analyzer1.tsx",
+        "frontend/src/pages/tools/Calculator1.tsx",
+        "frontend/src/pages/tools/Calculator3.tsx",
+        "frontend/src/pages/tools/Converter1.tsx",
+        "frontend/src/pages/tools/Converter2.tsx",
+        "frontend/src/pages/tools/Generator1.tsx",
+        "frontend/src/pages/tools/Generator2.tsx",
+        "frontend/src/pages/tools/Productivity1.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-48"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "kind": "build_request",
+  "title": "Reorganize homepage with New Tools section, generate category hero gradients, and style tool action buttons",
+  "projectName": "Worldsathi Tools Portal",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-43",
+      "text": "Reorganize homepage sections in the following priority order from top to bottom: (1) Hero Section with Value Proposition and clear Call-to-Action, (2) New/Recently Added Tools section displaying the latest tools added to the platform, (3) Top Tools Categories with visual thumbnails/icons to help users segment quickly, (4) Best Tools/Social Proof highlighting popular items, (5) Trust Signals & Content including customer testimonials, reviews, and links to latest blog posts, (6) Footer Navigation. Move the Quick Category Access section to appear before the Browse By Category section.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Hero Section (Above the Fold): A large banner with your primary Value Proposition and a clear Call-to-Action (CTA). New Arrivals / Featured Tools: Top Tools Categories: Use visual thumbnails or icons to help \"browsers\" segment themselves quickly into specific departments. Best Tools/ Social Proof: Highlight popular items to build trust through the principle of social proof. Trust Signals & Content: Customer testimonials, reviews, and links to your latest blog posts or brand story. Footer Navigation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Homepage displays sections in the specified order: Hero, New Tools, Categories, Best Tools, Trust Signals, Footer",
+        "Quick Category Access appears before Browse By Category",
+        "All existing components (HeroSection, TrustSignals) remain functional",
+        "Layout maintains responsive behavior on mobile and desktop"
+      ]
+    },
+    {
+      "id": "REQ-44",
+      "text": "Create a New/Recently Added Tools section component for the homepage that displays the most recently added tools to the platform. Show 6-8 tools in a grid layout with a section heading 'New Arrivals' or 'Recently Added Tools'. Use the same tool card format as other sections (name, short description, category, Free/Paid indicator, cost, CTA button). Mark these tools visually with a 'NEW' badge or similar indicator.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Yes, I want \"New/Recently Added Tools\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "New Tools section displays 6-8 recently added tools",
+        "Tools show 'NEW' badge or similar visual indicator",
+        "Section uses consistent tool card format with all required fields",
+        "Grid layout matches other homepage sections"
+      ]
+    },
+    {
+      "id": "REQ-45",
+      "text": "Generate unique gradient backgrounds for each of the 13 tool categories and for individual tool pages. Gradients should follow a consistent pattern (same direction, similar style) but use different color combinations that are unique to each category/tool. Save generated gradient images to frontend/public/assets/generated/ with descriptive filenames like category-calculators-hero-gradient.dim_1200x400.png, category-converters-hero-gradient.dim_1200x400.png, tool-percentage-calculator-hero-gradient.dim_1200x400.png, etc.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Please generate unique but consistent(in pattern) gradient backgrounds for each category/tool"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Unique gradient generated for each of 13 categories",
+        "Unique gradient generated for each tool page",
+        "All gradients follow consistent visual pattern",
+        "Gradients saved as static files in frontend/public/assets/generated/",
+        "Filenames include dimensions in format: name.dim_WIDTHxHEIGHT.png"
+      ]
+    },
+    {
+      "id": "REQ-46",
+      "text": "Update CategoryHero component to use the generated gradient background images as hero section backgrounds. Each category should display its unique gradient (e.g., category-calculators-hero-gradient.png for Calculators category). Ensure gradients are loaded from frontend/public/assets/generated/ and properly sized.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Every category or tool page must have a small hero section with a different background image or gradient background"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CategoryHero component renders unique gradient background per category",
+        "Gradients load from static asset path",
+        "Background images scale and position correctly",
+        "All 13 categories display their unique gradients"
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "text": "Add hero sections with unique gradient backgrounds to all tool pages following the ToolPageTemplate pattern. Each tool should display its generated gradient background in a small hero section at the top of the page. Position breadcrumb navigation directly under the hero section. The hero should include the tool name and category badge.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Every category or tool page must have a small hero section with a different background image or gradient background. A breadcrumb menu under the hero section."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All tool pages display hero section with unique gradient background",
+        "Hero section includes tool name and category badge",
+        "Breadcrumb navigation positioned directly under hero section",
+        "Hero sections maintain consistent height and styling across tools"
+      ]
+    },
+    {
+      "id": "REQ-48",
+      "text": "Apply primary button styling to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, etc.) within tool interface components. Update all tool pages (Calculator1, Calculator2, Calculator3, Converter1, Converter2, Generator1, Generator2, Analyzer1, Productivity1) to use the redesigned Button component with variant='primary'. Ensure buttons have borders, solid background colors from the OKLCH color system, box shadows, and hover effects that swap background and font colors, matching the button redesign implemented throughout the application.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "I am referring to the action buttons within each tool's interface (like \"Calculate,\" \"Convert,\" \"Generate\") that execute the tool's function. I want to confirm that these should use the primary button styling (border, background color, border type, hover effect- change background color with font-color background colour and hover effects, matching the other redesigned buttons throughout the site."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All tool action buttons use Button component with variant='primary'",
+        "Buttons display solid backgrounds with borders and shadows",
+        "Hover effects swap background and font colors",
+        "Button styling matches redesigned buttons throughout the site",
+        "All 8+ tool pages updated (calculators, converters, generators, analyzers, productivity)"
+      ]
+    }
+  ],
+  "constraints": [
+    "All gradients must follow a consistent visual pattern (same direction, similar style)",
+    "Gradient images must be saved as static files in frontend/public/assets/generated/",
+    "Do not route generated images through the backend",
+    "Maintain existing ToolPageTemplate structure and component hierarchy",
+    "Button styling must use existing OKLCH color system variables",
+    "Preserve all existing functionality while applying new styles"
+  ],
+  "nonGoals": [
+    "Changing the overall layout structure of tool pages beyond hero section addition",
+    "Modifying backend Motoko code",
+    "Altering the existing Button component API or variants",
+    "Creating new tool categories beyond the existing 13",
+    "Implementing new tool functionality or features"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Gradient background for Calculators category hero section with warm orange-red tones, diagonal pattern from top-left to bottom-right (category-calculators-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Converters category hero section with blue-purple tones, diagonal pattern from top-left to bottom-right (category-converters-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Generators category hero section with green-teal tones, diagonal pattern from top-left to bottom-right (category-generators-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Analyzers category hero section with pink-magenta tones, diagonal pattern from top-left to bottom-right (category-analyzers-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Productivity category hero section with yellow-amber tones, diagonal pattern from top-left to bottom-right (category-productivity-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Text Tools category hero section with cyan-blue tones, diagonal pattern from top-left to bottom-right (category-text-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Image Tools category hero section with purple-violet tones, diagonal pattern from top-left to bottom-right (category-image-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Data Tools category hero section with emerald-green tones, diagonal pattern from top-left to bottom-right (category-data-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for SEO Tools category hero section with indigo-blue tones, diagonal pattern from top-left to bottom-right (category-seo-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Developer Tools category hero section with slate-gray tones, diagonal pattern from top-left to bottom-right (category-developer-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Finance Tools category hero section with gold-yellow tones, diagonal pattern from top-left to bottom-right (category-finance-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Health Tools category hero section with red-pink tones, diagonal pattern from top-left to bottom-right (category-health-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Education Tools category hero section with orange-yellow tones, diagonal pattern from top-left to bottom-right (category-education-tools-hero-gradient.dim_1200x400.png)",
+      "Gradient background for Percentage Calculator tool with warm orange tones, diagonal pattern (tool-percentage-calculator-gradient.dim_1200x300.png)",
+      "Gradient background for BMI Calculator tool with health-themed red-pink tones, diagonal pattern (tool-bmi-calculator-gradient.dim_1200x300.png)",
+      "Gradient background for Unit Converter tool with blue-purple tones, diagonal pattern (tool-unit-converter-gradient.dim_1200x300.png)",
+      "Gradient background for Currency Converter tool with gold-green tones, diagonal pattern (tool-currency-converter-gradient.dim_1200x300.png)",
+      "Gradient background for Password Generator tool with security-themed dark blue-green tones, diagonal pattern (tool-password-generator-gradient.dim_1200x300.png)",
+      "Gradient background for QR Code Generator tool with tech-themed cyan-purple tones, diagonal pattern (tool-qr-generator-gradient.dim_1200x300.png)",
+      "Gradient background for Text Analyzer tool with text-themed cyan-blue tones, diagonal pattern (tool-text-analyzer-gradient.dim_1200x300.png)",
+      "Gradient background for Pomodoro Timer tool with productivity-themed yellow-orange tones, diagonal pattern (tool-pomodoro-timer-gradient.dim_1200x300.png)"
+    ],
+    "edits": []
+  }
+}

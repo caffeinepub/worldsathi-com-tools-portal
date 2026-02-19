@@ -1,0 +1,188 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-19T17:22:22.871Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 6,
+    "implemented": 6,
+    "items": [
+      {
+        "id": "REQ-43",
+        "summary": "Reorganize homepage sections in the following priority order from top to bottom: (1) Hero Section with Value Proposition and clear Call-to-Action, (2) New/Recently Added Tools section displaying the latest tools added to the platform, (3) Top Tools Categories with visual thumbnails/icons to help users segment quickly, (4) Best Tools/Social Proof highlighting popular items, (5) Trust Signals & Content including customer testimonials, reviews, and links to latest blog posts, (6) Footer Navigation. Move the Quick Category Access section to appear before the Browse By Category section.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/HomePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-44",
+        "summary": "Create a New/Recently Added Tools section component for the homepage that displays the most recently added tools to the platform. Show 6-8 tools in a grid layout with a section heading 'New Arrivals' or 'Recently Added Tools'. Use the same tool card format as other sections (name, short description, category, Free/Paid indicator, cost, CTA button). Mark these tools visually with a 'NEW' badge or similar indicator.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/NewToolsSection.tsx",
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/NewToolsSection.tsx",
+          "frontend/src/pages/HomePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-45",
+        "summary": "Generate unique gradient backgrounds for each of the 13 tool categories and for individual tool pages. Gradients should follow a consistent pattern (same direction, similar style) but use different color combinations that are unique to each category/tool. Save generated gradient images to frontend/public/assets/generated/ with descriptive filenames like category-calculators-hero-gradient.dim_1200x400.png, category-converters-hero-gradient.dim_1200x400.png, tool-percentage-calculator-hero-gradient.dim_1200x400.png, etc.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/category-calculators-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-converters-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-generators-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-analyzers-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-productivity-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-text-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-image-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-data-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-seo-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-developer-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-finance-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-health-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-education-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/tool-percentage-calculator-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-bmi-calculator-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-unit-converter-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-currency-converter-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-password-generator-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-qr-generator-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-text-analyzer-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-pomodoro-timer-gradient.dim_1200x300.png"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/category-calculators-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-converters-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-generators-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-analyzers-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-productivity-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-text-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-image-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-data-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-seo-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-developer-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-finance-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-health-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/category-education-tools-hero-gradient.dim_1200x400.png",
+          "frontend/public/assets/generated/tool-percentage-calculator-gradient.dim_1200x300.png",
+          "frontend/public/assets/generated/tool-bmi-calculator-gradient.dim_1200x300.png"
+        ]
+      },
+      {
+        "id": "REQ-46",
+        "summary": "Update CategoryHero component to use the generated gradient background images as hero section backgrounds. Each category should display its unique gradient (e.g., category-calculators-hero-gradient.png for Calculators category). Ensure gradients are loaded from frontend/public/assets/generated/ and properly sized.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/CategoryHero.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/CategoryHero.tsx"
+        ]
+      },
+      {
+        "id": "REQ-47",
+        "summary": "Add hero sections with unique gradient backgrounds to all tool pages following the ToolPageTemplate pattern. Each tool should display its generated gradient background in a small hero section at the top of the page. Position breadcrumb navigation directly under the hero section. The hero should include the tool name and category badge.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ToolHero.tsx",
+          "frontend/src/pages/tools/ToolPageTemplate.tsx",
+          "frontend/src/pages/tools/Calculator1.tsx",
+          "frontend/src/pages/tools/Calculator3.tsx",
+          "frontend/src/pages/tools/Converter1.tsx",
+          "frontend/src/pages/tools/Converter2.tsx",
+          "frontend/src/pages/tools/Generator1.tsx",
+          "frontend/src/pages/tools/Generator2.tsx",
+          "frontend/src/pages/tools/Analyzer1.tsx",
+          "frontend/src/pages/tools/Productivity1.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ToolHero.tsx",
+          "frontend/src/pages/tools/ToolPageTemplate.tsx",
+          "frontend/src/pages/tools/Calculator1.tsx",
+          "frontend/src/pages/tools/Calculator3.tsx",
+          "frontend/src/pages/tools/Converter1.tsx",
+          "frontend/src/pages/tools/Converter2.tsx",
+          "frontend/src/pages/tools/Generator1.tsx",
+          "frontend/src/pages/tools/Generator2.tsx",
+          "frontend/src/pages/tools/Analyzer1.tsx",
+          "frontend/src/pages/tools/Productivity1.tsx"
+        ]
+      },
+      {
+        "id": "REQ-48",
+        "summary": "Apply primary button styling to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, etc.) within tool interface components. Update all tool pages (Calculator1, Calculator2, Calculator3, Converter1, Converter2, Generator1, Generator2, Analyzer1, Productivity1) to use the redesigned Button component with variant='primary'. Ensure buttons have borders, solid background colors from the OKLCH color system, box shadows, and hover effects that swap background and font colors, matching the button redesign implemented throughout the application.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/tools/Calculator1.tsx",
+          "frontend/src/pages/tools/Calculator3.tsx",
+          "frontend/src/pages/tools/Converter1.tsx",
+          "frontend/src/pages/tools/Converter2.tsx",
+          "frontend/src/pages/tools/Generator1.tsx",
+          "frontend/src/pages/tools/Generator2.tsx",
+          "frontend/src/pages/tools/Analyzer1.tsx",
+          "frontend/src/pages/tools/Productivity1.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/tools/Calculator1.tsx",
+          "frontend/src/pages/tools/Calculator3.tsx",
+          "frontend/src/pages/tools/Converter1.tsx",
+          "frontend/src/pages/tools/Converter2.tsx",
+          "frontend/src/pages/tools/Generator1.tsx",
+          "frontend/src/pages/tools/Generator2.tsx",
+          "frontend/src/pages/tools/Analyzer1.tsx",
+          "frontend/src/pages/tools/Productivity1.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/category-analyzers-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-calculators-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-converters-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-data-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-developer-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-education-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-finance-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-generators-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-health-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-image-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-productivity-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-seo-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/category-text-tools-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-bmi-calculator-gradient.dim_1200x300.png",
+    "frontend/public/assets/generated/tool-percentage-calculator-gradient.dim_1200x300.png",
+    "frontend/src/components/CategoryHero.tsx",
+    "frontend/src/components/NewToolsSection.tsx",
+    "frontend/src/components/ToolHero.tsx",
+    "frontend/src/pages/CategoryPage.tsx",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/tools/Analyzer1.tsx",
+    "frontend/src/pages/tools/Calculator1.tsx",
+    "frontend/src/pages/tools/Calculator3.tsx",
+    "frontend/src/pages/tools/Converter1.tsx",
+    "frontend/src/pages/tools/Converter2.tsx",
+    "frontend/src/pages/tools/Generator1.tsx",
+    "frontend/src/pages/tools/Generator2.tsx",
+    "frontend/src/pages/tools/Productivity1.tsx",
+    "frontend/src/pages/tools/ToolPageTemplate.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
