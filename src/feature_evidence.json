@@ -2,291 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-visible-borders-to-all-tool-action-buttons-calculate-convert-generate-submit-analyze-reset-clear-across-calculators-converters-and-text-tools-categories-apply-border-styling-using-oklch-color-system-variables-with-proper-contrast-in-both-light-and-dark-themes-ensure-borders-are-clearly-visible-and-establish-strong-visual-boundaries-around-buttons",
-      "featureTitle": "Add visible borders to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, Reset, Clear) across calculators, converters, and text-tools categories. Apply border styling using OKLCH color system variables with proper contrast in both light and dark themes. Ensure borders are clearly visible and establish strong visual boundaries around buttons.",
-      "files": [
-        "frontend/src/pages/tools/Calculator1.tsx",
-        "frontend/src/pages/tools/Calculator3.tsx",
-        "frontend/src/pages/tools/Calculator4.tsx",
-        "frontend/src/pages/tools/Calculator5.tsx",
-        "frontend/src/pages/tools/Calculator6.tsx",
-        "frontend/src/pages/tools/Converter1.tsx",
-        "frontend/src/pages/tools/Converter2.tsx",
-        "frontend/src/pages/tools/Converter3.tsx",
-        "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-        "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-        "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
-        "frontend/src/pages/tools/text-tools/TextReverser.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-160"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-percentage-calculator-calculator1-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-calculate-and-reset-buttons-how-to-use-section-with-numbered-steps-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar-ensure-all-metadata-exists-in-frontend-src-constants-tools-ts",
-      "featureTitle": "Complete implementation of Percentage Calculator (Calculator1) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section, FAQ accordion, and related tools sidebar. Ensure all metadata exists in frontend/src/constants/tools.ts.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Calculator1.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-162"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-bmi-calculator-calculator3-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-calculate-and-reset-buttons-how-to-use-section-with-numbered-steps-comprehensive-about-the-tool-section-including-health-category-information-faq-accordion-and-related-tools-sidebar-ensure-all-metadata-exists-in-frontend-src-constants-tools-ts",
-      "featureTitle": "Complete implementation of BMI Calculator (Calculator3) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section including health category information, FAQ accordion, and related tools sidebar. Ensure all metadata exists in frontend/src/constants/tools.ts.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Calculator3.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-163"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-tip-calculator-calculator4-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-calculate-and-reset-buttons-how-to-use-section-with-numbered-steps-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar-ensure-preset-tip-percentages-and-split-bill-functionality-work-correctly",
-      "featureTitle": "Complete implementation of Tip Calculator (Calculator4) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section, FAQ accordion, and related tools sidebar. Ensure preset tip percentages and split bill functionality work correctly.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Calculator4.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-164"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-loan-calculator-calculator5-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-calculate-and-reset-buttons-showing-monthly-payment-total-payment-and-total-interest-calculations-include-how-to-use-section-comprehensive-about-the-tool-section-explaining-amortization-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Loan Calculator (Calculator5) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons showing monthly payment, total payment, and total interest calculations. Include How to Use section, comprehensive About the Tool section explaining amortization, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Calculator5.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-165"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-compound-interest-calculator-calculator6-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-calculate-and-reset-buttons-supporting-multiple-compounding-frequencies-annually-to-daily-include-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Compound Interest Calculator (Calculator6) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons supporting multiple compounding frequencies (annually to daily). Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Calculator6.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-166"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-unit-converter-converter1-with-all-required-sections-hero-section-with-vibrant-gradient-background-regenerate-if-currently-gray-main-tool-interface-card-with-convert-and-reset-buttons-for-length-measurements-include-dropdown-menus-with-solid-backgrounds-fix-transparency-issues-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Unit Converter (Converter1) with all required sections: hero section with vibrant gradient background (regenerate if currently gray), main tool interface card with Convert and Reset buttons for length measurements. Include dropdown menus with solid backgrounds (fix transparency issues), How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Converter1.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-167"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-currency-converter-converter2-with-all-required-sections-hero-section-with-vibrant-gradient-background-regenerate-if-currently-gray-main-tool-interface-card-with-convert-and-reset-buttons-include-dropdown-menus-with-solid-backgrounds-fix-transparency-issues-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Currency Converter (Converter2) with all required sections: hero section with vibrant gradient background (regenerate if currently gray), main tool interface card with Convert and Reset buttons. Include dropdown menus with solid backgrounds (fix transparency issues), How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Converter2.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-168"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-temperature-converter-converter3-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-convert-and-reset-buttons-for-celsius-fahrenheit-and-kelvin-conversions-include-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Temperature Converter (Converter3) with all required sections: hero section with unique gradient background, main tool interface card with Convert and Reset buttons for Celsius, Fahrenheit, and Kelvin conversions. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/Converter3.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-169"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-character-counter-text-tools-category-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-analyze-and-reset-buttons-that-count-characters-with-without-spaces-words-sentences-paragraphs-and-lines-include-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Character Counter (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Analyze and Reset buttons that count characters with/without spaces, words, sentences, paragraphs, and lines. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/text-tools/CharacterCounter.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-170"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-case-converter-text-tools-category-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-convert-and-reset-buttons-supporting-multiple-case-formats-uppercase-lowercase-title-case-sentence-case-alternating-case-include-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Case Converter (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Convert and Reset buttons supporting multiple case formats (uppercase, lowercase, title case, sentence case, alternating case). Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/text-tools/CaseConverter.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-171"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-text-reverser-text-tools-category-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-reverse-and-reset-buttons-supporting-both-character-by-character-and-word-by-word-reversal-modes-include-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Text Reverser (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Reverse and Reset buttons supporting both character-by-character and word-by-word reversal modes. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/text-tools/TextReverser.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-172"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-complete-implementation-of-remove-duplicate-lines-tool-text-tools-category-with-all-required-sections-hero-section-with-unique-gradient-background-main-tool-interface-card-with-remove-duplicates-and-reset-buttons-supporting-case-sensitive-insensitive-matching-include-statistics-display-showing-original-lines-duplicates-removed-and-final-line-count-add-how-to-use-section-comprehensive-about-the-tool-section-faq-accordion-and-related-tools-sidebar",
-      "featureTitle": "Complete implementation of Remove Duplicate Lines tool (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Remove Duplicates and Reset buttons supporting case-sensitive/insensitive matching. Include statistics display showing original lines, duplicates removed, and final line count. Add How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-      "files": [
-        "frontend/src/constants/tools.ts",
-        "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-173"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-verify-all-13-tools-6-calculators-4-converters-3-text-tools-have-complete-tool-metadata-entries-in-frontend-src-constants-tools-ts-including-name-slug-description-category-tags-array-valid-lucide-react-icon-name-pricing-information-isfree-true-cost-0-00-usabilitysteps-array-with-4-6-numbered-instructions-comprehensive-about-object-introduction-keyfeatures-whobenefits-whychoose-and-faqs-array-with-5-7-relevant-questions-and-answers",
-      "featureTitle": "Verify all 13 tools (6 calculators, 4 converters, 3 text-tools) have complete tool metadata entries in frontend/src/constants/tools.ts including name, slug, description, category, tags array, valid Lucide React icon name, pricing information (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object (introduction, keyFeatures, whoBenefits, whyChoose), and faqs array with 5-7 relevant questions and answers.",
+      "featureId": "feature-verify-component-file-existence-for-all-tools-defined-in-frontend-src-constants-tools-ts-cross-reference-tool-metadata-slugs-and-categories-with-actual-component-files-in-frontend-src-pages-tools-identify-any-missing-component-files-that-would-cause-404-errors",
+      "featureTitle": "Verify component file existence for all tools defined in frontend/src/constants/tools.ts. Cross-reference tool metadata slugs and categories with actual component files in frontend/src/pages/tools/. Identify any missing component files that would cause 404 errors.",
       "files": [
         "frontend/src/constants/tools.ts"
       ],
@@ -300,26 +17,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-174"
+        "REQ-177"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-generate-or-verify-unique-vibrant-gradient-background-images-exist-for-all-13-tools-6-calculators-4-converters-3-text-tools-each-gradient-must-use-high-contrast-color-combinations-that-align-with-the-tool-s-parent-category-color-scheme-save-gradient-images-to-frontend-public-assets-generated-with-filenames-following-pattern-tool-slug-hero-gradient-dim-1200x400-png-regenerate-any-gray-or-low-contrast-gradients-with-vibrant-alternatives",
-      "featureTitle": "Generate or verify unique vibrant gradient background images exist for all 13 tools (6 calculators, 4 converters, 3 text-tools). Each gradient must use high-contrast color combinations that align with the tool's parent category color scheme. Save gradient images to frontend/public/assets/generated/ with filenames following pattern tool-[slug]-hero-gradient.dim_1200x400.png. Regenerate any gray or low-contrast gradients with vibrant alternatives.",
+      "featureId": "feature-fix-any-case-sensitivity-issues-in-route-definitions-and-component-imports-ensure-that-tool-slug-casing-in-urls-matches-component-file-naming-conventions-e-g-standarddeviationcalculator-tsx-vs-standard-deviation-calculator-in-url",
+      "featureTitle": "Fix any case sensitivity issues in route definitions and component imports. Ensure that tool slug casing in URLs matches component file naming conventions (e.g., StandardDeviationCalculator.tsx vs standard-deviation-calculator in URL).",
       "files": [
-        "frontend/src/pages/tools/Calculator1.tsx",
-        "frontend/src/pages/tools/Calculator3.tsx",
-        "frontend/src/pages/tools/Calculator4.tsx",
-        "frontend/src/pages/tools/Calculator5.tsx",
-        "frontend/src/pages/tools/Calculator6.tsx",
-        "frontend/src/pages/tools/Converter1.tsx",
-        "frontend/src/pages/tools/Converter2.tsx",
-        "frontend/src/pages/tools/Converter3.tsx",
-        "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-        "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-        "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
-        "frontend/src/pages/tools/text-tools/TextReverser.tsx"
+        "frontend/src/constants/tools.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -331,7 +37,76 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-175"
+        "REQ-178"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-tool-metadata-in-frontend-src-constants-tools-ts-for-the-first-batch-of-10-missing-tools-add-complete-metadata-entries-including-name-slug-matching-route-pattern-description-3-5-words-category-matching-existing-category-ids-tags-array-5-8-relevant-keywords-icon-valid-lucide-react-icon-name-pricing-information-isfree-true-cost-0-00-isnew-false-flag-usabilitysteps-array-with-4-6-numbered-instructions-about-object-with-comprehensive-content-introduction-paragraph-keyfeatures-array-with-4-6-bullet-points-whobenefits-array-with-2-3-user-personas-whychoose-array-with-2-3-competitive-advantages-and-faqs-array-with-5-7-relevant-questions-and-detailed-answers",
+      "featureTitle": "Update tool metadata in frontend/src/constants/tools.ts for the first batch of 10 missing tools. Add complete metadata entries including name, slug matching route pattern, description (3-5 words), category matching existing category IDs, tags array (5-8 relevant keywords), icon (valid Lucide React icon name), pricing information (isFree: true, cost: '0.00'), isNew: false flag, usabilitySteps array with 4-6 numbered instructions, about object with comprehensive content (introduction paragraph, keyFeatures array with 4-6 bullet points, whoBenefits array with 2-3 user personas, whyChoose array with 2-3 competitive advantages), and faqs array with 5-7 relevant questions and detailed answers.",
+      "files": [
+        "frontend/src/constants/tools.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-179"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-react-component-files-for-the-first-batch-of-10-restored-tools-in-appropriate-category-subdirectories-under-frontend-src-pages-tools-each-component-must-follow-the-toolpagetemplate-pattern-with-toolhero-section-displaying-unique-gradient-background-main-tool-interface-card-with-functional-inputs-outputs-and-action-buttons-calculate-convert-generate-with-primary-styling-and-reset-button-usabilityguide-section-with-numbered-step-by-step-instructions-aboutthetool-section-with-comprehensive-content-introduction-key-features-who-benefits-why-choose-faq-accordion-with-5-7-questions-and-conditionally-rendered-sections-where-applicable",
+      "featureTitle": "Create React component files for the first batch of 10 restored tools in appropriate category subdirectories under frontend/src/pages/tools/. Each component must follow the ToolPageTemplate pattern with ToolHero section displaying unique gradient background, main tool interface card with functional inputs/outputs and action buttons (Calculate/Convert/Generate with primary styling and Reset button), UsabilityGuide section with numbered step-by-step instructions, AboutTheTool section with comprehensive content (introduction, key features, who benefits, why choose), FAQ accordion with 5-7 questions, and conditionally rendered sections where applicable.",
+      "files": [
+        "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
+        "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
+        "frontend/src/pages/tools/calculators/DateCalculator.tsx",
+        "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
+        "frontend/src/pages/tools/converters/AreaConverter.tsx",
+        "frontend/src/pages/tools/converters/SpeedConverter.tsx",
+        "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx",
+        "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
+        "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
+        "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-180"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-distribute-the-10-restored-tools-strategically-across-categories-that-currently-have-fewer-tools-to-improve-category-balance-prioritize-categories-with-fewer-than-8-tools-selecting-useful-utility-tools-that-fit-each-category-s-purpose-document-which-categories-received-new-tools-and-their-current-tool-counts-for-tracking-progress-toward-the-125-tool-goal",
+      "featureTitle": "Distribute the 10 restored tools strategically across categories that currently have fewer tools to improve category balance. Prioritize categories with fewer than 8 tools, selecting useful utility tools that fit each category's purpose. Document which categories received new tools and their current tool counts for tracking progress toward the 125-tool goal.",
+      "files": [
+        "frontend/src/constants/tools.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-185"
       ],
       "confidence": "high"
     }

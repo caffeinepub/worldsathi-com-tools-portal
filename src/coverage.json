@@ -1,219 +1,27 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T19:18:33.362Z",
+  "generatedAt": "2026-02-20T19:56:09.348Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 16,
-    "implemented": 15,
+    "total": 10,
+    "implemented": 5,
     "items": [
       {
-        "id": "REQ-160",
-        "summary": "Add visible borders to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, Reset, Clear) across calculators, converters, and text-tools categories. Apply border styling using OKLCH color system variables with proper contrast in both light and dark themes. Ensure borders are clearly visible and establish strong visual boundaries around buttons.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/pages/tools/Calculator1.tsx",
-          "frontend/src/pages/tools/Calculator3.tsx",
-          "frontend/src/pages/tools/Calculator4.tsx",
-          "frontend/src/pages/tools/Calculator5.tsx",
-          "frontend/src/pages/tools/Calculator6.tsx",
-          "frontend/src/pages/tools/Converter1.tsx",
-          "frontend/src/pages/tools/Converter2.tsx",
-          "frontend/src/pages/tools/Converter3.tsx",
-          "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-          "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-          "frontend/src/pages/tools/text-tools/TextReverser.tsx",
-          "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Calculator1.tsx",
-          "frontend/src/pages/tools/Calculator3.tsx",
-          "frontend/src/pages/tools/Calculator4.tsx",
-          "frontend/src/pages/tools/Calculator5.tsx",
-          "frontend/src/pages/tools/Calculator6.tsx",
-          "frontend/src/pages/tools/Converter1.tsx",
-          "frontend/src/pages/tools/Converter2.tsx",
-          "frontend/src/pages/tools/Converter3.tsx",
-          "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-          "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-          "frontend/src/pages/tools/text-tools/TextReverser.tsx",
-          "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx"
-        ]
-      },
-      {
-        "id": "REQ-161",
-        "summary": "Fix tool routing issues for all tools in calculators, converters, and text-tools categories. Verify route definitions in frontend/src/App.tsx use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Ensure component file names match route imports and paths are consistent throughout the application.",
+        "id": "REQ-176",
+        "summary": "Audit all route definitions in frontend/src/App.tsx to identify tools showing 404 errors. Verify that route paths match the /tools/{category}/{tool-slug} URL pattern and that lazy-loaded component imports reference existing component files. Fix any mismatches between route paths, component file locations, and component names.",
         "status": "missing",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/App.tsx",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": []
       },
       {
-        "id": "REQ-162",
-        "summary": "Complete implementation of Percentage Calculator (Calculator1) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section, FAQ accordion, and related tools sidebar. Ensure all metadata exists in frontend/src/constants/tools.ts.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Calculator1.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Calculator1.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-163",
-        "summary": "Complete implementation of BMI Calculator (Calculator3) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section including health category information, FAQ accordion, and related tools sidebar. Ensure all metadata exists in frontend/src/constants/tools.ts.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Calculator3.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Calculator3.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-164",
-        "summary": "Complete implementation of Tip Calculator (Calculator4) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section, FAQ accordion, and related tools sidebar. Ensure preset tip percentages and split bill functionality work correctly.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Calculator4.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Calculator4.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-165",
-        "summary": "Complete implementation of Loan Calculator (Calculator5) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons showing monthly payment, total payment, and total interest calculations. Include How to Use section, comprehensive About the Tool section explaining amortization, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Calculator5.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Calculator5.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-166",
-        "summary": "Complete implementation of Compound Interest Calculator (Calculator6) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons supporting multiple compounding frequencies (annually to daily). Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Calculator6.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Calculator6.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-167",
-        "summary": "Complete implementation of Unit Converter (Converter1) with all required sections: hero section with vibrant gradient background (regenerate if currently gray), main tool interface card with Convert and Reset buttons for length measurements. Include dropdown menus with solid backgrounds (fix transparency issues), How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Converter1.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Converter1.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-168",
-        "summary": "Complete implementation of Currency Converter (Converter2) with all required sections: hero section with vibrant gradient background (regenerate if currently gray), main tool interface card with Convert and Reset buttons. Include dropdown menus with solid backgrounds (fix transparency issues), How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Converter2.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Converter2.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-169",
-        "summary": "Complete implementation of Temperature Converter (Converter3) with all required sections: hero section with unique gradient background, main tool interface card with Convert and Reset buttons for Celsius, Fahrenheit, and Kelvin conversions. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/Converter3.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/Converter3.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-170",
-        "summary": "Complete implementation of Character Counter (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Analyze and Reset buttons that count characters with/without spaces, words, sentences, paragraphs, and lines. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-171",
-        "summary": "Complete implementation of Case Converter (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Convert and Reset buttons supporting multiple case formats (uppercase, lowercase, title case, sentence case, alternating case). Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-172",
-        "summary": "Complete implementation of Text Reverser (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Reverse and Reset buttons supporting both character-by-character and word-by-word reversal modes. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/text-tools/TextReverser.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/text-tools/TextReverser.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-173",
-        "summary": "Complete implementation of Remove Duplicate Lines tool (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Remove Duplicates and Reset buttons supporting case-sensitive/insensitive matching. Include statistics display showing original lines, duplicates removed, and final line count. Add How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-174",
-        "summary": "Verify all 13 tools (6 calculators, 4 converters, 3 text-tools) have complete tool metadata entries in frontend/src/constants/tools.ts including name, slug, description, category, tags array, valid Lucide React icon name, pricing information (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object (introduction, keyFeatures, whoBenefits, whyChoose), and faqs array with 5-7 relevant questions and answers.",
+        "id": "REQ-177",
+        "summary": "Verify component file existence for all tools defined in frontend/src/constants/tools.ts. Cross-reference tool metadata slugs and categories with actual component files in frontend/src/pages/tools/. Identify any missing component files that would cause 404 errors.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/constants/tools.ts"
@@ -223,62 +31,142 @@
         ]
       },
       {
-        "id": "REQ-175",
-        "summary": "Generate or verify unique vibrant gradient background images exist for all 13 tools (6 calculators, 4 converters, 3 text-tools). Each gradient must use high-contrast color combinations that align with the tool's parent category color scheme. Save gradient images to frontend/public/assets/generated/ with filenames following pattern tool-[slug]-hero-gradient.dim_1200x400.png. Regenerate any gray or low-contrast gradients with vibrant alternatives.",
+        "id": "REQ-178",
+        "summary": "Fix any case sensitivity issues in route definitions and component imports. Ensure that tool slug casing in URLs matches component file naming conventions (e.g., StandardDeviationCalculator.tsx vs standard-deviation-calculator in URL).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/tools/Calculator1.tsx",
-          "frontend/src/pages/tools/Calculator3.tsx",
-          "frontend/src/pages/tools/Calculator4.tsx",
-          "frontend/src/pages/tools/Calculator5.tsx",
-          "frontend/src/pages/tools/Calculator6.tsx",
-          "frontend/src/pages/tools/Converter1.tsx",
-          "frontend/src/pages/tools/Converter2.tsx",
-          "frontend/src/pages/tools/Converter3.tsx",
-          "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-          "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-          "frontend/src/pages/tools/text-tools/TextReverser.tsx",
-          "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx"
+          "frontend/src/App.tsx",
+          "frontend/src/constants/tools.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/tools/Calculator1.tsx",
-          "frontend/src/pages/tools/Calculator3.tsx",
-          "frontend/src/pages/tools/Calculator4.tsx",
-          "frontend/src/pages/tools/Calculator5.tsx",
-          "frontend/src/pages/tools/Calculator6.tsx",
-          "frontend/src/pages/tools/Converter1.tsx",
-          "frontend/src/pages/tools/Converter2.tsx",
-          "frontend/src/pages/tools/Converter3.tsx",
-          "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-          "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-          "frontend/src/pages/tools/text-tools/TextReverser.tsx",
-          "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx"
+          "frontend/src/constants/tools.ts"
+        ]
+      },
+      {
+        "id": "REQ-179",
+        "summary": "Update tool metadata in frontend/src/constants/tools.ts for the first batch of 10 missing tools. Add complete metadata entries including name, slug matching route pattern, description (3-5 words), category matching existing category IDs, tags array (5-8 relevant keywords), icon (valid Lucide React icon name), pricing information (isFree: true, cost: '0.00'), isNew: false flag, usabilitySteps array with 4-6 numbered instructions, about object with comprehensive content (introduction paragraph, keyFeatures array with 4-6 bullet points, whoBenefits array with 2-3 user personas, whyChoose array with 2-3 competitive advantages), and faqs array with 5-7 relevant questions and detailed answers.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/constants/tools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/constants/tools.ts"
+        ]
+      },
+      {
+        "id": "REQ-180",
+        "summary": "Create React component files for the first batch of 10 restored tools in appropriate category subdirectories under frontend/src/pages/tools/. Each component must follow the ToolPageTemplate pattern with ToolHero section displaying unique gradient background, main tool interface card with functional inputs/outputs and action buttons (Calculate/Convert/Generate with primary styling and Reset button), UsabilityGuide section with numbered step-by-step instructions, AboutTheTool section with comprehensive content (introduction, key features, who benefits, why choose), FAQ accordion with 5-7 questions, and conditionally rendered sections where applicable.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
+          "frontend/src/pages/tools/calculators/DateCalculator.tsx",
+          "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
+          "frontend/src/pages/tools/converters/AreaConverter.tsx",
+          "frontend/src/pages/tools/converters/SpeedConverter.tsx",
+          "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
+          "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
+          "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
+          "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
+          "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
+          "frontend/src/pages/tools/calculators/DateCalculator.tsx",
+          "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
+          "frontend/src/pages/tools/converters/AreaConverter.tsx",
+          "frontend/src/pages/tools/converters/SpeedConverter.tsx",
+          "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
+          "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
+          "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
+          "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
+          "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx"
+        ]
+      },
+      {
+        "id": "REQ-181",
+        "summary": "Add route definitions in frontend/src/App.tsx for all 10 restored tools. Each route must use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Follow the existing routing pattern ensuring proper category slug inclusion in paths and consistent lazy loading implementation.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-182",
+        "summary": "Update backend/main.mo to include tool metadata entries for the 10 restored tools in the Motoko backend data structures. Ensure tool definitions include id, name, slug, category, description, and other required fields. Verify the backend can track favorites, usage history, and statistics for these tools.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-183",
+        "summary": "Verify that all 10 restored tools appear correctly throughout the application. Test that tools display in category page grids, homepage sections (Featured Tools, New Arrivals, Popular by Category where applicable), search results, and sidebar components. Ensure ToolCard components properly render tool icons, names, descriptions, and category badges for the restored tools.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/pages/CategoryPage.tsx",
+          "frontend/src/components/ToolCard.tsx",
+          "frontend/src/components/ToolGrid.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/pages/admin/ToolsDiagnostic.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-184",
+        "summary": "Test navigation to all 10 restored tool pages from various entry points including tool cards on homepage, category pages, search results, related tools sidebars, and direct URL access. Verify no 404 errors occur and all pages load with complete content including hero sections, tool interfaces, and supplementary sections.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/ToolHero.tsx",
+          "frontend/src/utils/breadcrumbHelpers.ts"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-185",
+        "summary": "Distribute the 10 restored tools strategically across categories that currently have fewer tools to improve category balance. Prioritize categories with fewer than 8 tools, selecting useful utility tools that fit each category's purpose. Document which categories received new tools and their current tool counts for tracking progress toward the 125-tool goal.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/constants/tools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/constants/tools.ts"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/tool-character-counter-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-currency-converter-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-percentage-calculator-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-unit-converter-hero-gradient.dim_1200x400.png",
+    "frontend/index.ts",
+    "frontend/public/assets/generated/tool-age-calculator-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-area-converter-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-barcode-generator-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-date-calculator-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-discount-calculator-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-favicon-generator-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-readability-analyzer-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-speed-converter-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-text-diff-checker-hero-gradient.dim_1200x400.png",
+    "frontend/public/assets/generated/tool-username-generator-hero-gradient.dim_1200x400.png",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
     "frontend/src/constants/tools.ts",
-    "frontend/src/pages/tools/Calculator1.tsx",
-    "frontend/src/pages/tools/Calculator3.tsx",
-    "frontend/src/pages/tools/Calculator4.tsx",
-    "frontend/src/pages/tools/Calculator5.tsx",
-    "frontend/src/pages/tools/Calculator6.tsx",
-    "frontend/src/pages/tools/Converter1.tsx",
-    "frontend/src/pages/tools/Converter2.tsx",
-    "frontend/src/pages/tools/Converter3.tsx",
-    "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
-    "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
-    "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
-    "frontend/src/pages/tools/text-tools/TextReverser.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
+    "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
+    "frontend/src/pages/tools/calculators/DateCalculator.tsx",
+    "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
+    "frontend/src/pages/tools/converters/AreaConverter.tsx",
+    "frontend/src/pages/tools/converters/SpeedConverter.tsx",
+    "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx",
+    "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
+    "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
+    "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

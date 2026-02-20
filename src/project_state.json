@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 53,
+  "projectStateVersion": 55,
   "summary": "WordPress portal for Worldsathi.com: mobile-first tools hub with 125+ tools across multiple categories, advanced search/filtering, e-commerce-style tool pages with step-by-step guides and visual engagement, 10+ blog posts, improved FAQ, backend admin panel for content management, freemium model, multilingual support (English+Hindi), PWA features, GDPR compliance, SEO optimization, and community engagement",
   "architectural_notes": [
     "WordPress with Astra child theme + Elementor for mobile-first responsive design",
@@ -16,7 +16,7 @@
   ],
   "known_issues": [],
   "isFixRequest": true,
-  "imageRequirements": "## Edit Images\n- Regenerate with vibrant colors if currently gray or low-contrast (tool-unit-converter-hero-gradient.dim_1200x400.png > tool-unit-converter-hero-gradient.dim_1200x400.png)\n- Regenerate with vibrant colors if currently gray or low-contrast (tool-currency-converter-hero-gradient.dim_1200x400.png > tool-currency-converter-hero-gradient.dim_1200x400.png)\n- Verify all calculator gradients are vibrant and high-contrast (tool-percentage-calculator-hero-gradient.dim_1200x400.png > tool-percentage-calculator-hero-gradient.dim_1200x400.png)\n- Verify all text-tools gradients are vibrant and high-contrast (tool-character-counter-hero-gradient.dim_1200x400.png > tool-character-counter-hero-gradient.dim_1200x400.png)",
+  "imageRequirements": "## Required Images\n- Vibrant gradient background for Age Calculator tool hero section with warm orange and yellow tones (tool-age-calculator-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Date Calculator tool hero section with blue and cyan tones (tool-date-calculator-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Discount Calculator tool hero section with green and teal tones (tool-discount-calculator-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Area Converter tool hero section with purple and magenta tones (tool-area-converter-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Speed Converter tool hero section with red and orange tones (tool-speed-converter-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Barcode Generator tool hero section with dark blue and electric blue tones (tool-barcode-generator-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Username Generator tool hero section with pink and purple tones (tool-username-generator-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Readability Analyzer tool hero section with green and lime tones (tool-readability-analyzer-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Text Diff Checker tool hero section with orange and amber tones (tool-text-diff-checker-hero-gradient.dim_1200x400.png)\n- Vibrant gradient background for Favicon Generator tool hero section with violet and indigo tones (tool-favicon-generator-hero-gradient.dim_1200x400.png)",
   "existing_features": [
     {
       "id": "feature-the-request-specifies-wordpress-with-astra-child-theme-elementor-and-numerous-wordpress-specific-plugins-woocommerce-yoast-seo-wp-rocket-cookieyes-updraftplus-wordfence-wpml-polylang-tidio-etc-this-platform-generates-react-motoko-applications-on-the-internet-computer-and-cannot-generate-wordpress-sites-php-code-or-integrate-wordpress-plugins-recommend-building-an-equivalent-react-based-tools-portal-with-internet-identity-authentication-motoko-backend-for-data-persistence-and-native-implementations-of-the-requested-features-within-platform-capabilities",
@@ -1105,6 +1105,46 @@
         "REQ-175"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-verify-component-file-existence-for-all-tools-defined-in-frontend-src-constants-tools-ts-cross-reference-tool-metadata-slugs-and-categories-with-actual-component-files-in-frontend-src-pages-tools-identify-any-missing-component-files-that-would-cause-404-errors",
+      "title": "Verify component file existence for all tools defined in frontend/src/constants/tools.ts. Cross-reference tool metadata slugs and categories with actual component files in frontend/src/pages/tools/. Identify any missing component files that would cause 404 errors.",
+      "reqIds": [
+        "REQ-177"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-any-case-sensitivity-issues-in-route-definitions-and-component-imports-ensure-that-tool-slug-casing-in-urls-matches-component-file-naming-conventions-e-g-standarddeviationcalculator-tsx-vs-standard-deviation-calculator-in-url",
+      "title": "Fix any case sensitivity issues in route definitions and component imports. Ensure that tool slug casing in URLs matches component file naming conventions (e.g., StandardDeviationCalculator.tsx vs standard-deviation-calculator in URL).",
+      "reqIds": [
+        "REQ-178"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-tool-metadata-in-frontend-src-constants-tools-ts-for-the-first-batch-of-10-missing-tools-add-complete-metadata-entries-including-name-slug-matching-route-pattern-description-3-5-words-category-matching-existing-category-ids-tags-array-5-8-relevant-keywords-icon-valid-lucide-react-icon-name-pricing-information-isfree-true-cost-0-00-isnew-false-flag-usabilitysteps-array-with-4-6-numbered-instructions-about-object-with-comprehensive-content-introduction-paragraph-keyfeatures-array-with-4-6-bullet-points-whobenefits-array-with-2-3-user-personas-whychoose-array-with-2-3-competitive-advantages-and-faqs-array-with-5-7-relevant-questions-and-detailed-answers",
+      "title": "Update tool metadata in frontend/src/constants/tools.ts for the first batch of 10 missing tools. Add complete metadata entries including name, slug matching route pattern, description (3-5 words), category matching existing category IDs, tags array (5-8 relevant keywords), icon (valid Lucide React icon name), pricing information (isFree: true, cost: '0.00'), isNew: false flag, usabilitySteps array with 4-6 numbered instructions, about object with comprehensive content (introduction paragraph, keyFeatures array with 4-6 bullet points, whoBenefits array with 2-3 user personas, whyChoose array with 2-3 competitive advantages), and faqs array with 5-7 relevant questions and detailed answers.",
+      "reqIds": [
+        "REQ-179"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-component-files-for-the-first-batch-of-10-restored-tools-in-appropriate-category-subdirectories-under-frontend-src-pages-tools-each-component-must-follow-the-toolpagetemplate-pattern-with-toolhero-section-displaying-unique-gradient-background-main-tool-interface-card-with-functional-inputs-outputs-and-action-buttons-calculate-convert-generate-with-primary-styling-and-reset-button-usabilityguide-section-with-numbered-step-by-step-instructions-aboutthetool-section-with-comprehensive-content-introduction-key-features-who-benefits-why-choose-faq-accordion-with-5-7-questions-and-conditionally-rendered-sections-where-applicable",
+      "title": "Create React component files for the first batch of 10 restored tools in appropriate category subdirectories under frontend/src/pages/tools/. Each component must follow the ToolPageTemplate pattern with ToolHero section displaying unique gradient background, main tool interface card with functional inputs/outputs and action buttons (Calculate/Convert/Generate with primary styling and Reset button), UsabilityGuide section with numbered step-by-step instructions, AboutTheTool section with comprehensive content (introduction, key features, who benefits, why choose), FAQ accordion with 5-7 questions, and conditionally rendered sections where applicable.",
+      "reqIds": [
+        "REQ-180"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-distribute-the-10-restored-tools-strategically-across-categories-that-currently-have-fewer-tools-to-improve-category-balance-prioritize-categories-with-fewer-than-8-tools-selecting-useful-utility-tools-that-fit-each-category-s-purpose-document-which-categories-received-new-tools-and-their-current-tool-counts-for-tracking-progress-toward-the-125-tool-goal",
+      "title": "Distribute the 10 restored tools strategically across categories that currently have fewer tools to improve category balance. Prioritize categories with fewer than 8 tools, selecting useful utility tools that fit each category's purpose. Document which categories received new tools and their current tool counts for tracking progress toward the 125-tool goal.",
+      "reqIds": [
+        "REQ-185"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -1697,6 +1737,46 @@
       "summary": "Fix tool routing issues for all tools in calculators, converters, and text-tools categories. Verify route definitions in frontend/src/App.tsx use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Ensure component file names match route imports and paths are consistent throughout the application.",
       "reqIds": [
         "REQ-161"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-155",
+      "summary": "Audit all route definitions in frontend/src/App.tsx to identify tools showing 404 errors. Verify that route paths match the /tools/{category}/{tool-slug} URL pattern and that lazy-loaded component imports reference existing component files. Fix any mismatches between route paths, component file locations, and component names.",
+      "reqIds": [
+        "REQ-176"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-160",
+      "summary": "Add route definitions in frontend/src/App.tsx for all 10 restored tools. Each route must use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Follow the existing routing pattern ensuring proper category slug inclusion in paths and consistent lazy loading implementation.",
+      "reqIds": [
+        "REQ-181"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-161",
+      "summary": "Update backend/main.mo to include tool metadata entries for the 10 restored tools in the Motoko backend data structures. Ensure tool definitions include id, name, slug, category, description, and other required fields. Verify the backend can track favorites, usage history, and statistics for these tools.",
+      "reqIds": [
+        "REQ-182"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-162",
+      "summary": "Verify that all 10 restored tools appear correctly throughout the application. Test that tools display in category page grids, homepage sections (Featured Tools, New Arrivals, Popular by Category where applicable), search results, and sidebar components. Ensure ToolCard components properly render tool icons, names, descriptions, and category badges for the restored tools.",
+      "reqIds": [
+        "REQ-183"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-163",
+      "summary": "Test navigation to all 10 restored tool pages from various entry points including tool cards on homepage, category pages, search results, related tools sidebars, and direct URL access. Verify no 404 errors occur and all pages load with complete content including hero sections, tool interfaces, and supplementary sections.",
+      "reqIds": [
+        "REQ-184"
       ],
       "status": "pending"
     }

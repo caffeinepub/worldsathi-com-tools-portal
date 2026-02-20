@@ -15,6 +15,7 @@ export interface Tool {
   'id' : bigint,
   'name' : string,
   'usageCount' : bigint,
+  'slug' : string,
   'description' : string,
   'category' : string,
   'iconUrl' : string,

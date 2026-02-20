@@ -1,16 +1,16 @@
 # Specification
 
 ## Summary
-**Goal:** Complete implementation of 13 tools across calculators, converters, and text-tools categories with visible button borders, fixed routing, complete metadata, and vibrant gradient backgrounds.
+**Goal:** Fix tool routing 404 errors and restore first batch of 10 missing tools to the Worldsathi Tools Portal.
 
 **Planned changes:**
-- Add visible borders to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, Reset, Clear) using OKLCH color variables
-- Fix tool routing issues for all tools in calculators, converters, and text-tools categories using correct /tools/{category}/{tool-slug} pattern
-- Complete implementation of 6 calculator tools: Percentage Calculator, BMI Calculator, Tip Calculator, Loan Calculator, Compound Interest Calculator, and existing calculators with all ToolPageTemplate sections
-- Complete implementation of 4 converter tools: Unit Converter, Currency Converter, Temperature Converter, and existing converters with all sections and solid dropdown backgrounds
-- Complete implementation of 3 text-tools: Character Counter, Case Converter, Text Reverser with all sections
-- Add Remove Duplicate Lines tool with case-sensitive/insensitive matching and statistics display
-- Verify complete tool metadata entries in tools.ts for all 13 tools including name, slug, description, category, tags, icon, pricing, usabilitySteps, about object, and FAQs
-- Regenerate vibrant high-contrast gradient backgrounds for any gray or low-contrast gradients
+- Audit and fix route definitions in frontend/src/App.tsx to eliminate 404 errors
+- Verify component file existence and fix case sensitivity issues in routing
+- Add complete metadata entries for 10 restored tools to frontend/src/constants/tools.ts
+- Create React component files for 10 tools following ToolPageTemplate pattern
+- Add route definitions for all 10 restored tools with lazy-loaded imports
+- Update backend/main.mo to include tool metadata for 10 restored tools
+- Distribute 10 tools strategically across categories with fewer existing tools
+- Test navigation and verify tools appear correctly throughout the application
 
-**User-visible outcome:** Users can access and use 13 fully implemented tools with clear button borders, proper navigation, comprehensive documentation sections, and vibrant visual design across calculators, converters, and text-tools categories.
+**User-visible outcome:** Users can successfully navigate to 10 newly restored tool pages without encountering 404 errors. The restored tools (Age Calculator, Date Calculator, Discount Calculator, Area Converter, Speed Converter, Barcode Generator, Username Generator, Readability Analyzer, Text Diff Checker, Favicon Generator) are discoverable through category pages, search results, and homepage sections, with fully functional interfaces following the established tool template pattern.

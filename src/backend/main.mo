@@ -2,16 +2,16 @@ import Map "mo:core/Map";
 import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
-import Nat "mo:core/Nat";
 import Iter "mo:core/Iter";
+import Nat "mo:core/Nat";
+import Migration "migration";
 import AccessControl "authorization/access-control";
+import MixinAuthorization "authorization/MixinAuthorization";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
-import MixinAuthorization "authorization/MixinAuthorization";
 
-
-// Declare actor using with-clause for migration
-
+// Use explicit with clause for migration
+(with migration = Migration.run)
 actor {
   type UserProfile = {
     displayName : Text;
@@ -21,13 +21,24 @@ actor {
     badges : [Text];
   };
 
-  type Tool = {
+  type ToolLegacy = {
     id : Nat;
     name : Text;
     description : Text;
     iconUrl : Text;
     favoriteCount : Nat;
     category : Text;
+    usageCount : Nat;
+  };
+
+  type Tool = {
+    id : Nat;
+    name : Text;
+    slug : Text;
+    category : Text;
+    description : Text;
+    iconUrl : Text;
+    favoriteCount : Nat;
     usageCount : Nat;
   };
 
@@ -75,76 +86,17 @@ actor {
     };
 
     let newTools = [
-      // Browsers (8)
-      { id = 1; name = "Safari"; description = "Web browser for Apple devices"; iconUrl = "safari.png"; favoriteCount = 0; category = "Browsers"; usageCount = 0 },
-      { id = 2; name = "Google Chrome"; description = "Popular cross-platform web browser"; iconUrl = "chrome.png"; favoriteCount = 0; category = "Browsers"; usageCount = 0 },
-      { id = 3; name = "Mozilla Firefox"; description = "Open-source web browser"; iconUrl = "firefox.png"; favoriteCount = 0; category = "Browsers"; usageCount = 0 },
-      { id = 4; name = "Opera"; description = "Feature-rich web browser"; iconUrl = "opera.png"; favoriteCount = 0; category = "Browsers"; usageCount = 0 },
-
-      // Productivity (8)
-      { id = 5; name = "Google Docs"; description = "Collaborative document editing"; iconUrl = "googledocs.png"; favoriteCount = 0; category = "Productivity"; usageCount = 0 },
-      { id = 6; name = "Google Sheets"; description = "Collaborative spreadsheet tool"; iconUrl = "googlesheets.png"; favoriteCount = 0; category = "Productivity"; usageCount = 0 },
-      { id = 7; name = "Microsoft Office Online"; description = "Online Office suite from Microsoft"; iconUrl = "officeonline.png"; favoriteCount = 0; category = "Productivity"; usageCount = 0 },
-      { id = 8; name = "Notion"; description = "All-in-one workspace for notes, tasks, and collaboration"; iconUrl = "notion.png"; favoriteCount = 0; category = "Productivity"; usageCount = 0 },
-
-      // Photography (12)
-      { id = 9; name = "Google Photos"; description = "Photo storage and organization"; iconUrl = "googlephotos.png"; favoriteCount = 0; category = "Photography"; usageCount = 0 },
-      { id = 10; name = "Pixlr Editor"; description = "Online photo editing tool"; iconUrl = "pixlr.png"; favoriteCount = 0; category = "Photography"; usageCount = 0 },
-      { id = 11; name = "Canva"; description = "Graphic design and photo editing platform"; iconUrl = "canva.png"; favoriteCount = 0; category = "Photography"; usageCount = 0 },
-
-      // Writing (12)
-      { id = 13; name = "Grammarly"; description = "Grammar and spell checking tool"; iconUrl = "grammarly.png"; favoriteCount = 0; category = "Writing"; usageCount = 0 },
-      { id = 14; name = "Hemingway Editor"; description = "Writing clarity and readability analysis"; iconUrl = "hemingway.png"; favoriteCount = 0; category = "Writing"; usageCount = 0 },
-      { id = 15; name = "Evernote"; description = "Note-taking and organization tool"; iconUrl = "evernote.png"; favoriteCount = 0; category = "Writing"; usageCount = 0 },
-      { id = 16; name = "Google Keep"; description = "Online note-taking and reminders"; iconUrl = "googlekeep.png"; favoriteCount = 0; category = "Writing"; usageCount = 0 },
-
-      // Video (12)
-      { id = 17; name = "YouTube"; description = "Video sharing and streaming platform"; iconUrl = "youtube.png"; favoriteCount = 0; category = "Video"; usageCount = 0 },
-      { id = 18; name = "Vimeo"; description = "Video hosting and sharing platform"; iconUrl = "vimeo.png"; favoriteCount = 0; category = "Video"; usageCount = 0 },
-      { id = 19; name = "Kapwing"; description = "Online video editing tool"; iconUrl = "kapwing.png"; favoriteCount = 0; category = "Video"; usageCount = 0 },
-      { id = 20; name = "Animoto"; description = "Online video creation platform"; iconUrl = "animoto.png"; favoriteCount = 0; category = "Video"; usageCount = 0 },
-
-      // Audio (12)
-      { id = 21; name = "Spotify"; description = "Music streaming platform"; iconUrl = "spotify.png"; favoriteCount = 0; category = "Audio"; usageCount = 0 },
-      { id = 22; name = "SoundCloud"; description = "Music sharing and streaming platform"; iconUrl = "soundcloud.png"; favoriteCount = 0; category = "Audio"; usageCount = 0 },
-      { id = 23; name = "Audacity"; description = "Audio recording and editing software"; iconUrl = "audacity.png"; favoriteCount = 0; category = "Audio"; usageCount = 0 },
-      { id = 24; name = "Anchor"; description = "Podcast creation and distribution platform"; iconUrl = "anchor.png"; favoriteCount = 0; category = "Audio"; usageCount = 0 },
-
-      // Drawing (12)
-      { id = 25; name = "Sketchpad"; description = "Online drawing and sketching tool"; iconUrl = "sketchpad.png"; favoriteCount = 0; category = "Drawing"; usageCount = 0 },
-      { id = 26; name = "Aggie.io"; description = "Collaborative drawing platform"; iconUrl = "aggie.png"; favoriteCount = 0; category = "Drawing"; usageCount = 0 },
-
-      // Social (8)
-      { id = 33; name = "Facebook"; description = "Social networking and communication"; iconUrl = "facebook.png"; favoriteCount = 0; category = "Social"; usageCount = 0 },
-      { id = 34; name = "Twitter"; description = "Social networking and microblogging platform"; iconUrl = "twitter.png"; favoriteCount = 0; category = "Social"; usageCount = 0 },
-
-      // Education (8)
-      { id = 41; name = "Khan Academy"; description = "Free online courses and learning tool"; iconUrl = "khanacademy.png"; favoriteCount = 0; category = "Education"; usageCount = 0 },
-      { id = 42; name = "Coursera"; description = "Online courses and certificate programs"; iconUrl = "coursera.png"; favoriteCount = 0; category = "Education"; usageCount = 0 },
-
-      // Webmail (8)
-      { id = 49; name = "Gmail"; description = "Email service by Google"; iconUrl = "gmail.png"; favoriteCount = 0; category = "Webmail"; usageCount = 0 },
-      { id = 50; name = "Outlook"; description = "Email service by Microsoft"; iconUrl = "outlook.png"; favoriteCount = 0; category = "Webmail"; usageCount = 0 },
-
-      // Shopping (8)
-      { id = 57; name = "Amazon"; description = "Online shopping and marketplace"; iconUrl = "amazon.png"; favoriteCount = 0; category = "Shopping"; usageCount = 0 },
-      { id = 58; name = "eBay"; description = "Online marketplace for auctions and sales"; iconUrl = "ebay.png"; favoriteCount = 0; category = "Shopping"; usageCount = 0 },
-
-      // News (8)
-      { id = 65; name = "Google News"; description = "Aggregated news and headlines"; iconUrl = "googlenews.png"; favoriteCount = 0; category = "News"; usageCount = 0 },
-      { id = 66; name = "BBC News"; description = "International news and coverage"; iconUrl = "bbcnews.png"; favoriteCount = 0; category = "News"; usageCount = 0 },
-
-      // Weather (4)
-      { id = 73; name = "Weather.com"; description = "Weather forecasts and information"; iconUrl = "weatherdotcom.png"; favoriteCount = 0; category = "Weather"; usageCount = 0 },
-      { id = 74; name = "AccuWeather"; description = "Weather forecasts and radar"; iconUrl = "accuweather.png"; favoriteCount = 0; category = "Weather"; usageCount = 0 },
-
-      // Finance (4)
-      { id = 77; name = "Mint"; description = "Personal finance and budgeting tool"; iconUrl = "mint.png"; favoriteCount = 0; category = "Finance"; usageCount = 0 },
-      { id = 78; name = "Robinhood"; description = "Stock trading and investing platform"; iconUrl = "robinhood.png"; favoriteCount = 0; category = "Finance"; usageCount = 0 },
-
-      // Communication (8)
-      { id = 81; name = "Slack"; description = "Team messaging and collaboration platform"; iconUrl = "slack.png"; favoriteCount = 0; category = "Communication"; usageCount = 0 },
-      { id = 82; name = "Zoom"; description = "Video conferencing and calls tool"; iconUrl = "zoom.png"; favoriteCount = 0; category = "Communication"; usageCount = 0 }
+      // Restored tools (10)
+      { id = 1; name = "Web Browser"; slug = "web-browser"; description = "Browse the internet securely"; iconUrl = "browser.png"; favoriteCount = 0; category = "Browsers"; usageCount = 0 },
+      { id = 2; name = "Password Manager"; slug = "password-manager"; description = "Store and manage passwords"; iconUrl = "password-manager.png"; favoriteCount = 0; category = "Security"; usageCount = 0 },
+      { id = 3; name = "Cloud Storage"; slug = "cloud-storage"; description = "Safely store and access files online"; iconUrl = "cloud-storage.png"; favoriteCount = 0; category = "Productivity"; usageCount = 0 },
+      { id = 4; name = "VPN"; slug = "vpn"; description = "Secure your internet connection with a Virtual Private Network"; iconUrl = "vpn.png"; favoriteCount = 0; category = "Security"; usageCount = 0 },
+      { id = 5; name = "Music Streaming"; slug = "music-streaming"; description = "Listen to your favorite music online"; iconUrl = "music-streaming.png"; favoriteCount = 0; category = "Entertainment"; usageCount = 0 },
+      { id = 6; name = "Video Streaming"; slug = "video-streaming"; description = "Watch movies and TV shows online"; iconUrl = "video-streaming.png"; favoriteCount = 0; category = "Entertainment"; usageCount = 0 },
+      { id = 7; name = "Online Banking"; slug = "online-banking"; description = "Manage your money with online banking"; iconUrl = "banking.png"; favoriteCount = 0; category = "Finance"; usageCount = 0 },
+      { id = 8; name = "Online Shopping"; slug = "online-shopping"; description = "Shop for items and clothes online"; iconUrl = "shopping.png"; favoriteCount = 0; category = "Shopping"; usageCount = 0 },
+      { id = 9; name = "Travel Booking"; slug = "travel-booking"; description = "Book flights, hotels, and trips online"; iconUrl = "travel.png"; favoriteCount = 0; category = "Travel"; usageCount = 0 },
+      { id = 10; name = "Social Media"; slug = "social-media"; description = "Stay connected with friends and family"; iconUrl = "social-media.png"; favoriteCount = 0; category = "Social"; usageCount = 0 }
     ];
 
     for (tool in newTools.values()) {
