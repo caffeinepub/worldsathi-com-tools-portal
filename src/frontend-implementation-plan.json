@@ -1,294 +1,502 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Reorganize homepage with New Tools section, generate category hero gradients, and style tool action buttons",
+  "title": "Complete Calculator, Converter, and Text-Tools Categories with Button Borders and Routing Fixes",
   "requirements": [
     {
-      "id": "REQ-43",
-      "summary": "Reorganize homepage sections in priority order: Hero, New Tools, Top Categories, Best Tools, Trust Signals, Footer. Move Quick Category Access before Browse By Category.",
+      "id": "REQ-160",
+      "summary": "Add visible borders to all tool action buttons across calculators, converters, and text-tools categories using OKLCH color system variables with proper contrast in both light and dark themes",
       "acceptanceCriteria": [
-        "Homepage displays sections in the specified order: Hero, New Tools, Categories, Best Tools, Trust Signals, Footer",
-        "Quick Category Access appears before Browse By Category",
-        "All existing components (HeroSection, TrustSignals) remain functional",
-        "Layout maintains responsive behavior on mobile and desktop"
+        "All tool action buttons in calculators category have visible borders",
+        "All tool action buttons in converters category have visible borders",
+        "All tool action buttons in text-tools category have visible borders",
+        "Border styling works correctly in both light and dark themes",
+        "Borders use OKLCH color variables for proper contrast",
+        "Visual boundaries are clear and professional"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/HomePage.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Reorganize section rendering order to match the priority structure: (1) HeroSection, (2) New Tools section (new component), (3) CategoryCards for Top Tools Categories, (4) FeaturedToolsSection for Best Tools/Social Proof, (5) PopularToolsByCategory, (6) TrustSignals. Move the Sidebar's QuickCategoryShortcuts to appear before the CategoryCards in the main content flow. Maintain responsive grid layout and ensure all sections have proper spacing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-44",
-      "summary": "Create New/Recently Added Tools section displaying 6-8 latest tools with 'NEW' badges in grid layout.",
-      "acceptanceCriteria": [
-        "New Tools section displays 6-8 recently added tools",
-        "Tools show 'NEW' badge or similar visual indicator",
-        "Section uses consistent tool card format with all required fields",
-        "Grid layout matches other homepage sections"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/NewToolsSection.tsx",
-          "operation": "create",
-          "description": "Create a new component that displays recently added tools in a grid layout. Accept a 'tools' array prop and render up to 6-8 tool cards with name, short description, category badge, Free/Paid indicator, cost, and CTA button. Add a 'NEW' badge (using shadcn Badge component with variant='secondary') positioned at the top-right of each card. Include a section heading 'New Arrivals' or 'Recently Added Tools' with appropriate styling. Use the same card styling and hover effects as FeaturedToolsSection for consistency. Structure the grid as a responsive layout (2 columns on mobile, 3 on tablet, 4 on desktop)."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Import and render the NewToolsSection component after HeroSection and before CategoryCards. Pass the first 6-8 tools from ALL_TOOLS as the tools prop to simulate recently added tools. Position this section prominently in the visual hierarchy to emphasize new arrivals."
-        }
-      ]
-    },
-    {
-      "id": "REQ-45",
-      "summary": "Generate unique gradient backgrounds for each of 13 categories and 8 tool pages following consistent diagonal pattern.",
-      "acceptanceCriteria": [
-        "Unique gradient generated for each of 13 categories",
-        "Unique gradient generated for each tool page",
-        "All gradients follow consistent visual pattern",
-        "Gradients saved as static files in frontend/public/assets/generated/",
-        "Filenames include dimensions in format: name.dim_WIDTHxHEIGHT.png"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/category-calculators-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with warm orange-red tones (#FF6B35 to #F7931E) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Calculators category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-converters-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with blue-purple tones (#4A90E2 to #9B59B6) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Converters category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-generators-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with green-teal tones (#00D084 to #00B4D8) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Generators category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-analyzers-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with pink-magenta tones (#FF6B9D to #C44569) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Analyzers category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-productivity-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with yellow-amber tones (#FFD93D to #F97F51) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Productivity category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-text-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with cyan-blue tones (#17EAD9 to #6078EA) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Text Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-image-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with purple-violet tones (#8E44AD to #5B2C6F) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Image Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-data-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with emerald-green tones (#2ECC71 to #27AE60) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Data Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-seo-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with indigo-blue tones (#3742FA to #5352ED) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the SEO Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-developer-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with slate-gray tones (#546E7A to #34495E) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Developer Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-finance-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with gold-yellow tones (#F9CA24 to #F0932B) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Finance Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-health-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with red-pink tones (#EB3B5A to #FA8231) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Health Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/category-education-tools-hero-gradient.dim_1200x400.png",
-          "operation": "create",
-          "description": "Generate gradient background with orange-yellow tones (#FFA502 to #FF7979) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x400px. This image will be used as the hero background for the Education Tools category."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-percentage-calculator-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with warm orange tones (#FF8C42 to #FFA07A) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Percentage Calculator tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-bmi-calculator-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with health-themed red-pink tones (#E74C3C to #EC7063) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the BMI Calculator tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-unit-converter-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with blue-purple tones (#5DADE2 to #A569BD) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Unit Converter tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-currency-converter-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with gold-green tones (#F4D03F to #52BE80) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Currency Converter tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-password-generator-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with security-themed dark blue-green tones (#1ABC9C to #2C3E50) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Password Generator tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-qr-generator-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with tech-themed cyan-purple tones (#00CEC9 to #6C5CE7) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the QR Code Generator tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-text-analyzer-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with text-themed cyan-blue tones (#3498DB to #5DADE2) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Text Analyzer tool page."
-        },
-        {
-          "path": "frontend/public/assets/generated/tool-pomodoro-timer-gradient.dim_1200x300.png",
-          "operation": "create",
-          "description": "Generate gradient background with productivity-themed yellow-orange tones (#F39C12 to #E67E22) using diagonal pattern from top-left to bottom-right. Dimensions: 1200x300px. This image will be used as the hero background for the Pomodoro Timer tool page."
-        }
-      ]
-    },
-    {
-      "id": "REQ-46",
-      "summary": "Update CategoryHero component to use generated gradient background images for each category's unique visual identity.",
-      "acceptanceCriteria": [
-        "CategoryHero component renders unique gradient background per category",
-        "Gradients load from static asset path",
-        "Background images scale and position correctly",
-        "All 13 categories display their unique gradients"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/CategoryHero.tsx",
-          "operation": "modify",
-          "description": "Add gradient background image support to CategoryHero component. Create a mapping object that associates each category id with its corresponding gradient image path (frontend/public/assets/generated/category-{categoryId}-hero-gradient.dim_1200x400.png). Update the component to use this gradient as a background-image CSS property on the main container, with appropriate background-size: cover and background-position: center. Ensure the gradient images are referenced using the exact workspace paths including .dim_1200x400 dimension suffix. Maintain existing text content, icon display, and decorative elements while layering them over the gradient background. Add a semi-transparent overlay if needed to ensure text remains readable over all gradient colors."
-        }
-      ]
-    },
-    {
-      "id": "REQ-47",
-      "summary": "Add hero sections with unique gradient backgrounds to all tool pages, position breadcrumbs under hero, include tool name and category badge in hero.",
-      "acceptanceCriteria": [
-        "All tool pages display hero section with unique gradient background",
-        "Hero section includes tool name and category badge",
-        "Breadcrumb navigation positioned directly under hero section",
-        "Hero sections maintain consistent height and styling across tools"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ToolHero.tsx",
-          "operation": "create",
-          "description": "Create a new ToolHero component that displays a small hero section for individual tool pages. Accept props for toolName, categoryId, and gradientFilename. Render a compact hero section (approximately 200-300px height) with the gradient background image loaded from frontend/public/assets/generated/{gradientFilename}. Include the tool name as a large heading and render a CategoryBadge component for the tool's category. Use background-size: cover and background-position: center for the gradient. Add a subtle overlay to ensure text readability. Style the component to match the visual design of CategoryHero but with smaller dimensions appropriate for tool pages."
-        },
-        {
-          "path": "frontend/src/pages/tools/ToolPageTemplate.tsx",
-          "operation": "modify",
-          "description": "Update ToolPageTemplate to integrate the new ToolHero component. Accept an additional 'gradientFilename' prop that specifies which gradient image to use. Restructure the layout to render ToolHero at the top of the page, followed immediately by the Breadcrumbs component (move breadcrumbs from current position to directly under the hero). Pass the tool's metadata (name, categoryId) and gradientFilename to ToolHero. Ensure the breadcrumb styling transitions smoothly from the hero section. Maintain all existing ToolPageTemplate functionality including tool interface area, UsabilityGuide, FAQ accordion, sidebar, and usage tracking."
+          "description": "Add utility classes for tool action button borders using OKLCH color system variables that provide proper contrast in both light and dark themes. Include classes like .tool-btn-border with border-width and border-color defined using existing CSS custom properties."
         },
         {
           "path": "frontend/src/pages/tools/Calculator1.tsx",
           "operation": "modify",
-          "description": "Update the Percentage Calculator tool page to pass gradientFilename='tool-percentage-calculator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing calculator functionality remains intact."
+          "description": "Add border styling to Calculate and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
           "path": "frontend/src/pages/tools/Calculator3.tsx",
           "operation": "modify",
-          "description": "Update the BMI Calculator tool page to pass gradientFilename='tool-bmi-calculator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing calculator functionality remains intact."
+          "description": "Add border styling to Calculate and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator4.tsx",
+          "operation": "modify",
+          "description": "Add border styling to Calculate and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator5.tsx",
+          "operation": "modify",
+          "description": "Add border styling to Calculate and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator6.tsx",
+          "operation": "modify",
+          "description": "Add border styling to Calculate and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
           "path": "frontend/src/pages/tools/Converter1.tsx",
           "operation": "modify",
-          "description": "Update the Unit Converter tool page to pass gradientFilename='tool-unit-converter-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing converter functionality remains intact."
+          "description": "Add border styling to Convert and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
           "path": "frontend/src/pages/tools/Converter2.tsx",
           "operation": "modify",
-          "description": "Update the Currency Converter tool page to pass gradientFilename='tool-currency-converter-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing converter functionality remains intact."
+          "description": "Add border styling to Convert and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
-          "path": "frontend/src/pages/tools/Generator1.tsx",
+          "path": "frontend/src/pages/tools/Converter3.tsx",
           "operation": "modify",
-          "description": "Update the Password Generator tool page to pass gradientFilename='tool-password-generator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing generator functionality remains intact."
+          "description": "Add border styling to Convert and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
-          "path": "frontend/src/pages/tools/Generator2.tsx",
+          "path": "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
           "operation": "modify",
-          "description": "Update the QR Code Generator tool page to pass gradientFilename='tool-qr-generator-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing generator functionality remains intact."
+          "description": "Add border styling to Analyze and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
-          "path": "frontend/src/pages/tools/Analyzer1.tsx",
+          "path": "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
           "operation": "modify",
-          "description": "Update the Text Analyzer tool page to pass gradientFilename='tool-text-analyzer-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing analyzer functionality remains intact."
+          "description": "Add border styling to Convert and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         },
         {
-          "path": "frontend/src/pages/tools/Productivity1.tsx",
+          "path": "frontend/src/pages/tools/text-tools/TextReverser.tsx",
           "operation": "modify",
-          "description": "Update the Pomodoro Timer tool page to pass gradientFilename='tool-pomodoro-timer-gradient.dim_1200x300.png' to the ToolPageTemplate component. Ensure the gradient is wired into the hero section via the template. Verify all existing timer functionality remains intact."
+          "description": "Add border styling to Reverse and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
+        },
+        {
+          "path": "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
+          "operation": "modify",
+          "description": "Add border styling to Remove Duplicates and Reset buttons using the new OKLCH-based border utility classes. Ensure borders are clearly visible in both themes."
         }
       ]
     },
     {
-      "id": "REQ-48",
-      "summary": "Apply primary button styling with borders, solid backgrounds, shadows, and hover effects to all tool action buttons across 8+ tool pages.",
+      "id": "REQ-161",
+      "summary": "Fix tool routing issues for all tools in calculators, converters, and text-tools categories with correct /tools/{category}/{tool-slug} URL pattern and lazy-loaded component imports",
       "acceptanceCriteria": [
-        "All tool action buttons use Button component with variant='primary'",
-        "Buttons display solid backgrounds with borders and shadows",
-        "Hover effects swap background and font colors",
-        "Button styling matches redesigned buttons throughout the site",
-        "All 8+ tool pages updated (calculators, converters, generators, analyzers, productivity)"
+        "All calculator tool routes work without 404 errors",
+        "All converter tool routes work without 404 errors",
+        "All text-tools routes work without 404 errors",
+        "Route paths match /tools/{category}/{tool-slug} pattern",
+        "Component imports are lazy-loaded and match file locations",
+        "Navigation to tools via cards and links works correctly"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify and fix route definitions for all calculator tools (percentage-calculator, bmi-calculator, tip-calculator, loan-calculator, compound-interest-calculator) to use correct /tools/calculators/{tool-slug} paths with lazy-loaded imports matching actual component file paths. Ensure all routes point to existing Calculator1-6 components."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify and fix route definitions for all converter tools (unit-converter, currency-converter, temperature-converter) to use correct /tools/converters/{tool-slug} paths with lazy-loaded imports matching actual component file paths. Ensure all routes point to existing Converter1-3 components."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify and fix route definitions for all text-tools (character-counter, case-converter, text-reverser, remove-duplicate-lines) to use correct /tools/text-tools/{tool-slug} paths with lazy-loaded imports matching actual component file paths in the text-tools subdirectory."
+        }
+      ]
+    },
+    {
+      "id": "REQ-162",
+      "summary": "Complete implementation of Percentage Calculator with all required sections including hero with unique gradient, tool interface with bordered buttons, How to Use, About, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Percentage Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface has functional Calculate and Reset buttons with borders",
+        "All ToolPageTemplate sections are populated with content",
+        "Tool metadata entry exists with complete information",
+        "Route definition exists and works correctly"
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/tools/Calculator1.tsx",
           "operation": "modify",
-          "description": "Update the Percentage Calculator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleCalculate}>Calculate</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors. Verify the button styling matches the redesigned Button component used throughout the application."
+          "description": "Complete the Percentage Calculator component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-percentage-calculator-hero-gradient.dim_1200x400.png, tool interface with bordered Calculate and Reset buttons, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools. Verify the component uses the correct metadata from tools.ts."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for percentage-calculator including: name, slug matching 'percentage-calculator', description, category 'calculators', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-163",
+      "summary": "Complete implementation of BMI Calculator with all required sections including hero with unique gradient, tool interface with bordered buttons, health-related content, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "BMI Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface has functional Calculate and Reset buttons with borders",
+        "All ToolPageTemplate sections are populated with health-related content",
+        "Tool metadata entry exists with complete information",
+        "Route definition exists and works correctly"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Calculator3.tsx",
+          "operation": "modify",
+          "description": "Complete the BMI Calculator component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-bmi-calculator-hero-gradient.dim_1200x400.png (create if missing), tool interface with bordered Calculate and Reset buttons, usabilitySteps from metadata, comprehensive health-related aboutContent explaining BMI categories, faq array with health information, and related tools. Verify the component uses the correct metadata."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for bmi-calculator including: name, slug matching 'bmi-calculator', description, category 'calculators', health-related tags, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with health-focused introduction/keyFeatures/whoBenefits/whyChoose including BMI category explanations, and faqs array with 5-7 health-related questions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-164",
+      "summary": "Complete implementation of Tip Calculator with all required sections including hero with unique gradient, tool interface with bordered buttons, preset tip percentages, split bill functionality, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Tip Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface has functional Calculate and Reset buttons with borders",
+        "Preset tip percentages work correctly",
+        "Bill splitting functionality works",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Calculator4.tsx",
+          "operation": "modify",
+          "description": "Complete the Tip Calculator component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-tip-calculator-hero-gradient.dim_1200x400.png (create if missing), tool interface with bordered Calculate and Reset buttons with preset tip percentages and bill splitting, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools. Verify preset buttons and split functionality work correctly."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for tip-calculator including: name, slug matching 'tip-calculator', description, category 'calculators', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions covering preset tips and bill splitting, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about tipping and splitting bills."
+        }
+      ]
+    },
+    {
+      "id": "REQ-165",
+      "summary": "Complete implementation of Loan Calculator with all required sections including hero with unique gradient, tool interface with bordered buttons showing monthly payment/total payment/interest, amortization explanation, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Loan Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface calculates monthly payment, total payment, and interest",
+        "Calculate and Reset buttons have visible borders",
+        "All ToolPageTemplate sections are populated with loan calculation content",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Calculator5.tsx",
+          "operation": "modify",
+          "description": "Complete the Loan Calculator component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-loan-calculator-hero-gradient.dim_1200x400.png (create if missing), tool interface with bordered Calculate and Reset buttons displaying monthly payment/total payment/total interest, usabilitySteps from metadata, comprehensive aboutContent explaining amortization, faq array with loan calculation questions, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for loan-calculator including: name, slug matching 'loan-calculator', description, category 'calculators', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose explaining amortization and loan calculations, and faqs array with 5-7 questions about loans and interest."
+        }
+      ]
+    },
+    {
+      "id": "REQ-166",
+      "summary": "Complete implementation of Compound Interest Calculator with all required sections including hero with unique gradient, tool interface with bordered buttons supporting multiple compounding frequencies, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Compound Interest Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface supports all compounding frequencies",
+        "Calculate and Reset buttons have visible borders",
+        "Final amount and interest earned are displayed correctly",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Calculator6.tsx",
+          "operation": "modify",
+          "description": "Complete the Compound Interest Calculator component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-compound-interest-calculator-hero-gradient.dim_1200x400.png (create if missing), tool interface with bordered Calculate and Reset buttons supporting all compounding frequencies (annually to daily), usabilitySteps from metadata, comprehensive aboutContent explaining compound interest, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for compound-interest-calculator including: name, slug matching 'compound-interest-calculator', description, category 'calculators', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions covering compounding frequencies, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose explaining compound interest concepts, and faqs array with 5-7 questions about compounding."
+        }
+      ]
+    },
+    {
+      "id": "REQ-167",
+      "summary": "Complete implementation of Unit Converter with all required sections including hero with vibrant gradient (regenerate if gray), tool interface with bordered buttons, solid dropdown backgrounds, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Unit Converter component exists and renders correctly",
+        "Hero section displays vibrant gradient background (not gray)",
+        "Dropdown menus have solid opaque backgrounds",
+        "Convert and Reset buttons have visible borders",
+        "Unit conversion works for all supported units",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Converter1.tsx",
+          "operation": "modify",
+          "description": "Complete the Unit Converter component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-unit-converter-hero-gradient.dim_1200x400.png (verify vibrant colors, not gray), tool interface with bordered Convert and Reset buttons and dropdown menus with solid opaque backgrounds using bg-white dark:bg-gray-800 or similar, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for unit-converter including: name, slug matching 'unit-converter', description, category 'converters', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about unit conversions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-168",
+      "summary": "Complete implementation of Currency Converter with all required sections including hero with vibrant gradient (regenerate if gray), tool interface with bordered buttons, solid dropdown backgrounds, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Currency Converter component exists and renders correctly",
+        "Hero section displays vibrant gradient background (not gray)",
+        "Dropdown menus have solid opaque backgrounds",
+        "Convert and Reset buttons have visible borders",
+        "Currency conversion works for all supported currencies",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Converter2.tsx",
+          "operation": "modify",
+          "description": "Complete the Currency Converter component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-currency-converter-hero-gradient.dim_1200x400.png (verify vibrant colors, not gray), tool interface with bordered Convert and Reset buttons and dropdown menus with solid opaque backgrounds using bg-white dark:bg-gray-800 or similar, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for currency-converter including: name, slug matching 'currency-converter', description, category 'converters', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about currency conversions and exchange rates."
+        }
+      ]
+    },
+    {
+      "id": "REQ-169",
+      "summary": "Complete implementation of Temperature Converter with all required sections including hero with unique gradient, tool interface with bordered buttons for C/F/K conversions, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Temperature Converter component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface converts between all three temperature scales",
+        "Convert and Reset buttons have visible borders",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Converter3.tsx",
+          "operation": "modify",
+          "description": "Complete the Temperature Converter component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-temperature-converter-hero-gradient.dim_1200x400.png (create if missing), tool interface with bordered Convert and Reset buttons for Celsius/Fahrenheit/Kelvin conversions, usabilitySteps from metadata, comprehensive aboutContent explaining temperature scales, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for temperature-converter including: name, slug matching 'temperature-converter', description, category 'converters', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose explaining temperature scales, and faqs array with 5-7 questions about temperature conversions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-170",
+      "summary": "Complete implementation of Character Counter with all required sections including hero with unique gradient, tool interface with bordered buttons displaying all text statistics, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Character Counter component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface displays all text statistics correctly",
+        "Analyze and Reset buttons have visible borders",
+        "Copy functionality works for results",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
+          "operation": "modify",
+          "description": "Complete the Character Counter component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-character-counter-hero-gradient.dim_1200x400.png, tool interface with bordered Analyze and Reset buttons displaying character count with/without spaces, word count, sentence count, paragraph count, and line count with copy functionality, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for character-counter including: name, slug matching 'character-counter', description, category 'text-tools', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about text analysis."
+        }
+      ]
+    },
+    {
+      "id": "REQ-171",
+      "summary": "Complete implementation of Case Converter with all required sections including hero with unique gradient, tool interface with bordered buttons supporting multiple case formats, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Case Converter component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface supports all case conversion formats",
+        "Convert and Reset buttons have visible borders",
+        "Copy functionality works for each conversion result",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
+          "operation": "modify",
+          "description": "Complete the Case Converter component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-case-converter-hero-gradient.dim_1200x400.png, tool interface with bordered Convert and Reset buttons supporting uppercase/lowercase/title case/sentence case/alternating case with copy functionality for each result, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for case-converter including: name, slug matching 'case-converter', description, category 'text-tools', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions covering all case formats, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about text case conversions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-172",
+      "summary": "Complete implementation of Text Reverser with all required sections including hero with unique gradient, tool interface with bordered buttons supporting character and word reversal modes, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Text Reverser component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface supports both reversal modes",
+        "Reverse and Reset buttons have visible borders",
+        "Copy functionality works for reversed text",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/text-tools/TextReverser.tsx",
+          "operation": "modify",
+          "description": "Complete the Text Reverser component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-text-reverser-hero-gradient.dim_1200x400.png, tool interface with bordered Reverse and Reset buttons supporting both character-by-character and word-by-word reversal modes with copy functionality, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for text-reverser including: name, slug matching 'text-reverser', description, category 'text-tools', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions covering both reversal modes, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about text reversal."
+        }
+      ]
+    },
+    {
+      "id": "REQ-173",
+      "summary": "Complete implementation of Remove Duplicate Lines tool with all required sections including hero with unique gradient, tool interface with bordered buttons, case-sensitive option, statistics display, FAQ, and related tools sidebar",
+      "acceptanceCriteria": [
+        "Remove Duplicate Lines component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface removes duplicates with case-sensitive option",
+        "Statistics display shows line counts correctly",
+        "Remove Duplicates and Reset buttons have visible borders",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
+          "operation": "modify",
+          "description": "Complete the Remove Duplicate Lines component by ensuring all ToolPageTemplate sections are populated: hero section references frontend/public/assets/generated/tool-remove-duplicate-lines-hero-gradient.dim_1200x400.png, tool interface with bordered Remove Duplicates and Reset buttons with case-sensitive/insensitive option and statistics showing original lines/duplicates removed/final line count, usabilitySteps from metadata, comprehensive aboutContent, faq array, and related tools."
+        },
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Verify and complete the metadata entry for remove-duplicate-lines including: name, slug matching 'remove-duplicate-lines', description, category 'text-tools', tags array, valid Lucide React icon name, pricing (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions covering case sensitivity, comprehensive about object with introduction/keyFeatures/whoBenefits/whyChoose, and faqs array with 5-7 questions about removing duplicates."
+        }
+      ]
+    },
+    {
+      "id": "REQ-174",
+      "summary": "Verify all 13 tools have complete metadata entries in tools.ts with all required fields including name, slug, description, category, tags, icon, pricing, usabilitySteps, about object, and faqs array",
+      "acceptanceCriteria": [
+        "All 13 tools have complete metadata entries in tools.ts",
+        "Each tool has correct slug matching route path",
+        "All tools have valid Lucide React icon names",
+        "About content is comprehensive for each tool",
+        "Usability steps are detailed and numbered",
+        "FAQ sections have 5-7 relevant questions each"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/constants/tools.ts",
+          "operation": "modify",
+          "description": "Conduct comprehensive verification of all 13 tool metadata entries (percentage-calculator, bmi-calculator, tip-calculator, loan-calculator, compound-interest-calculator, unit-converter, currency-converter, temperature-converter, character-counter, case-converter, text-reverser, remove-duplicate-lines). Ensure each has: name, slug matching route paths, description, category matching 'calculators'/'converters'/'text-tools', tags array, valid Lucide React icon name (e.g., Calculator, ArrowLeftRight, Type), pricing object (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object with introduction/keyFeatures array/whoBenefits array/whyChoose array, and faqs array with 5-7 relevant Q&A pairs."
+        }
+      ]
+    },
+    {
+      "id": "REQ-175",
+      "summary": "Generate or verify unique vibrant gradient background images exist for all 13 tools with high-contrast colors aligned with category color schemes, regenerating any gray or low-contrast gradients",
+      "acceptanceCriteria": [
+        "All 13 tools have unique gradient background images",
+        "Gradients use vibrant high-contrast color combinations",
+        "No gray or low-contrast gradients remain",
+        "Gradient filenames follow the correct pattern",
+        "Images are saved to frontend/public/assets/generated/",
+        "Each gradient aligns with category color scheme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tools/Calculator1.tsx",
+          "operation": "modify",
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-percentage-calculator-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the calculators category color scheme. If the image is gray or low-contrast, note it for regeneration."
         },
         {
           "path": "frontend/src/pages/tools/Calculator3.tsx",
           "operation": "modify",
-          "description": "Update the BMI Calculator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleCalculate}>Calculate BMI</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-bmi-calculator-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the calculators category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator4.tsx",
+          "operation": "modify",
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-tip-calculator-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the calculators category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator5.tsx",
+          "operation": "modify",
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-loan-calculator-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the calculators category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/Calculator6.tsx",
+          "operation": "modify",
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-compound-interest-calculator-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the calculators category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
         },
         {
           "path": "frontend/src/pages/tools/Converter1.tsx",
           "operation": "modify",
-          "description": "Update the Unit Converter's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleConvert}>Convert</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-unit-converter-hero-gradient.dim_1200x400.png. The gradient must use vibrant high-contrast colors aligned with the converters category color scheme. If currently gray or low-contrast, regenerate with vibrant alternatives."
         },
         {
           "path": "frontend/src/pages/tools/Converter2.tsx",
           "operation": "modify",
-          "description": "Update the Currency Converter's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleConvert}>Convert Currency</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-currency-converter-hero-gradient.dim_1200x400.png. The gradient must use vibrant high-contrast colors aligned with the converters category color scheme. If currently gray or low-contrast, regenerate with vibrant alternatives."
         },
         {
-          "path": "frontend/src/pages/tools/Generator1.tsx",
+          "path": "frontend/src/pages/tools/Converter3.tsx",
           "operation": "modify",
-          "description": "Update the Password Generator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleGenerate}>Generate Password</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors. If there are additional buttons (like copy-to-clipboard), apply the same primary styling to maintain consistency."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-temperature-converter-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the converters category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
         },
         {
-          "path": "frontend/src/pages/tools/Generator2.tsx",
+          "path": "frontend/src/pages/tools/text-tools/CharacterCounter.tsx",
           "operation": "modify",
-          "description": "Update the QR Code Generator's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleGenerate}>Generate QR Code</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors. If there's a download button, also apply primary styling for consistency."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-character-counter-hero-gradient.dim_1200x400.png. The gradient must use vibrant high-contrast colors aligned with the text-tools category color scheme. If currently gray or low-contrast, regenerate with vibrant alternatives."
         },
         {
-          "path": "frontend/src/pages/tools/Analyzer1.tsx",
+          "path": "frontend/src/pages/tools/text-tools/CaseConverter.tsx",
           "operation": "modify",
-          "description": "Update the Text Analyzer's action button to use the Button component with variant='primary'. Replace any existing button element with <Button variant='primary' onClick={handleAnalyze}>Analyze Text</Button>. Ensure the button displays with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-case-converter-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the text-tools category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
         },
         {
-          "path": "frontend/src/pages/tools/Productivity1.tsx",
+          "path": "frontend/src/pages/tools/text-tools/TextReverser.tsx",
           "operation": "modify",
-          "description": "Update the Pomodoro Timer's action buttons (Start, Pause, Reset) to use the Button component with variant='primary'. Replace any existing button elements with <Button variant='primary' onClick={handleStart}>Start</Button>, <Button variant='primary' onClick={handlePause}>Pause</Button>, and <Button variant='primary' onClick={handleReset}>Reset</Button>. Ensure all buttons display with solid background color from OKLCH system, border, box shadow, and hover effect that swaps background and font colors."
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-text-reverser-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the text-tools category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
+        },
+        {
+          "path": "frontend/src/pages/tools/text-tools/RemoveDuplicateLines.tsx",
+          "operation": "modify",
+          "description": "Verify hero section references the generated gradient image at frontend/public/assets/generated/tool-remove-duplicate-lines-hero-gradient.dim_1200x400.png. The gradient should use vibrant colors aligned with the text-tools category color scheme. If missing or gray, create/regenerate with high-contrast vibrant colors."
         }
       ]
     }

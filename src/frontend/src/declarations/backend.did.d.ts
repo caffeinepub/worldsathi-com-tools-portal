@@ -10,6 +10,28 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export type ExternalBlob = Uint8Array;
+export interface Tool {
+  'id' : bigint,
+  'name' : string,
+  'usageCount' : bigint,
+  'description' : string,
+  'category' : string,
+  'iconUrl' : string,
+  'favoriteCount' : bigint,
+}
+export interface ToolCategory {
+  'id' : bigint,
+  'name' : string,
+  'description' : string,
+}
+export interface ToolPage {
+  'id' : bigint,
+  'files' : Array<ExternalBlob>,
+  'title' : string,
+  'content' : string,
+  'category' : ToolCategory,
+}
 export interface UserProfile {
   'bio' : string,
   'displayName' : string,
@@ -48,10 +70,23 @@ export interface _SERVICE {
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addBadgeToProfile' : ActorMethod<[string], undefined>,
+  'addToolCategory' : ActorMethod<[string, string], bigint>,
+  'addToolPage' : ActorMethod<
+    [string, string, bigint, Array<ExternalBlob>],
+    bigint
+  >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'findToolByName' : ActorMethod<[string], Array<Tool>>,
+  'getAllToolCategories' : ActorMethod<[], Array<ToolCategory>>,
+  'getAllToolPages' : ActorMethod<[], Array<ToolPage>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getToolCategory' : ActorMethod<[bigint], [] | [ToolCategory]>,
+  'getToolPage' : ActorMethod<[bigint], [] | [ToolPage]>,
+  'getToolPagesByCategory' : ActorMethod<[bigint], Array<ToolPage>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'initializeTools' : ActorMethod<[], undefined>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'saveToolToFavorites' : ActorMethod<[bigint], undefined>,

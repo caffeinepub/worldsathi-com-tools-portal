@@ -3,6 +3,7 @@ import ToolPageTemplate from './ToolPageTemplate';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ALL_TOOLS } from '@/constants/tools';
 import { getRelatedTools } from '@/utils/toolHelpers';
 
@@ -12,22 +13,34 @@ export default function Calculator3() {
 
   const [weight, setWeight] = useState<string>('');
   const [height, setHeight] = useState<string>('');
+  const [unit, setUnit] = useState<string>('metric');
   const [bmi, setBmi] = useState<number | null>(null);
   const [category, setCategory] = useState<string>('');
 
-  const handleCalculate = () => {
+  const calculateBMI = () => {
     const w = parseFloat(weight);
-    const h = parseFloat(height) / 100; // Convert cm to meters
+    const h = parseFloat(height);
 
     if (!isNaN(w) && !isNaN(h) && h > 0) {
-      const calculatedBmi = w / (h * h);
-      setBmi(calculatedBmi);
+      let bmiValue: number;
+      
+      if (unit === 'metric') {
+        // BMI = weight (kg) / (height (m))^2
+        const heightInMeters = h / 100;
+        bmiValue = w / (heightInMeters * heightInMeters);
+      } else {
+        // BMI = (weight (lbs) / (height (inches))^2) * 703
+        bmiValue = (w / (h * h)) * 703;
+      }
 
-      if (calculatedBmi < 18.5) {
+      setBmi(bmiValue);
+
+      // Determine category
+      if (bmiValue < 18.5) {
         setCategory('Underweight');
-      } else if (calculatedBmi < 25) {
+      } else if (bmiValue < 25) {
         setCategory('Normal weight');
-      } else if (calculatedBmi < 30) {
+      } else if (bmiValue < 30) {
         setCategory('Overweight');
       } else {
         setCategory('Obese');
@@ -42,62 +55,60 @@ export default function Calculator3() {
     setCategory('');
   };
 
-  const faqs = [
-    {
-      question: 'What is BMI?',
-      answer: 'Body Mass Index (BMI) is a measure of body fat based on height and weight. It provides a general indication of whether you are underweight, normal weight, overweight, or obese.',
-    },
-    {
-      question: 'How is BMI calculated?',
-      answer: 'BMI is calculated by dividing your weight in kilograms by your height in meters squared (kg/m²). For example, if you weigh 70 kg and are 1.75 m tall, your BMI is 70 / (1.75 × 1.75) = 22.86.',
-    },
-    {
-      question: 'What is a healthy BMI range?',
-      answer: 'A healthy BMI for adults is typically between 18.5 and 24.9. Below 18.5 is considered underweight, 25-29.9 is overweight, and 30 or above is obese.',
-    },
-    {
-      question: 'Is BMI accurate for everyone?',
-      answer: 'BMI is a useful screening tool but has limitations. It does not account for muscle mass, bone density, or body composition. Athletes and very muscular individuals may have high BMIs despite being healthy.',
-    },
-    {
-      question: 'Should I use BMI to track my health?',
-      answer: 'BMI is one of many health indicators. Combine it with other measurements like waist circumference, body fat percentage, and overall fitness level for a complete picture of your health.',
-    },
-  ];
+  const getCategoryColor = () => {
+    if (category === 'Underweight') return 'text-blue-600 dark:text-blue-400';
+    if (category === 'Normal weight') return 'text-green-600 dark:text-green-400';
+    if (category === 'Overweight') return 'text-orange-600 dark:text-orange-400';
+    if (category === 'Obese') return 'text-red-600 dark:text-red-400';
+    return '';
+  };
 
   return (
     <ToolPageTemplate
       tool={tool}
       gradientFilename="tool-bmi-calculator-gradient.dim_1200x300.png"
-      faqs={faqs}
+      faqs={tool.faqs || []}
       relatedTools={relatedTools}
+      aboutContent={tool.aboutContent}
     >
       <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="weight">Weight (kg)</Label>
-            <Input
-              id="weight"
-              type="number"
-              placeholder="Enter weight in kg"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="height">Height (cm)</Label>
-            <Input
-              id="height"
-              type="number"
-              placeholder="Enter height in cm"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-            />
-          </div>
+        <div className="space-y-2">
+          <Label>Unit System</Label>
+          <Select value={unit} onValueChange={setUnit}>
+            <SelectTrigger className="bg-background">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-background z-50">
+              <SelectItem value="metric">Metric (kg, cm)</SelectItem>
+              <SelectItem value="imperial">Imperial (lbs, inches)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="weight">Weight ({unit === 'metric' ? 'kg' : 'lbs'})</Label>
+          <Input
+            id="weight"
+            type="number"
+            placeholder={`Enter weight in ${unit === 'metric' ? 'kilograms' : 'pounds'}`}
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="height">Height ({unit === 'metric' ? 'cm' : 'inches'})</Label>
+          <Input
+            id="height"
+            type="number"
+            placeholder={`Enter height in ${unit === 'metric' ? 'centimeters' : 'inches'}`}
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
+          />
         </div>
 
         <div className="flex gap-4">
-          <Button variant="primary" onClick={handleCalculate} className="flex-1">
+          <Button variant="primary" onClick={calculateBMI} className="flex-1">
             Calculate BMI
           </Button>
           <Button variant="secondary" onClick={handleReset}>
@@ -106,14 +117,24 @@ export default function Calculator3() {
         </div>
 
         {bmi !== null && (
-          <div className="p-6 bg-primary/10 border-2 border-primary rounded-lg">
-            <p className="text-sm text-muted-foreground mb-2">Your BMI:</p>
-            <p className="text-3xl font-bold text-primary mb-2">
-              {bmi.toFixed(1)}
-            </p>
-            <p className="text-lg font-semibold text-foreground">
-              Category: {category}
-            </p>
+          <div className="p-6 bg-primary/10 border-2 border-primary rounded-lg space-y-4">
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">Your BMI:</p>
+              <p className="text-3xl font-bold text-primary">{bmi.toFixed(1)}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">Category:</p>
+              <p className={`text-2xl font-semibold ${getCategoryColor()}`}>{category}</p>
+            </div>
+            <div className="text-sm text-muted-foreground pt-4 border-t">
+              <p className="font-medium mb-2">BMI Categories:</p>
+              <ul className="space-y-1">
+                <li>• Underweight: BMI &lt; 18.5</li>
+                <li>• Normal weight: BMI 18.5 - 24.9</li>
+                <li>• Overweight: BMI 25 - 29.9</li>
+                <li>• Obese: BMI ≥ 30</li>
+              </ul>
+            </div>
           </div>
         )}
       </div>

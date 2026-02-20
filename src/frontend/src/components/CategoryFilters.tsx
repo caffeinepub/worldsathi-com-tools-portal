@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
@@ -24,10 +23,10 @@ export default function CategoryFilters({
       <div className="flex items-center gap-2 flex-wrap">
         <span className="text-sm font-medium text-muted-foreground">Sort by:</span>
         <Select value={sortBy} onValueChange={(value) => onSortChange(value as SortOption)}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] bg-background">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-background z-50">
             <SelectItem value="name-asc">Name (A-Z)</SelectItem>
             <SelectItem value="name-desc">Name (Z-A)</SelectItem>
             <SelectItem value="popular">Most Popular</SelectItem>

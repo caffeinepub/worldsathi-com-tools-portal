@@ -74,9 +74,13 @@ export default function Generator1() {
   return (
     <ToolPageTemplate
       tool={tool}
-      gradientFilename="tool-password-generator-gradient.dim_1200x300.png"
+      gradientFilename="tool-password-generator-hero-gradient.dim_1200x400.png"
       faqs={faqs}
       relatedTools={relatedTools}
+      aboutContent={tool.aboutContent}
+      testimonials={tool.testimonials}
+      performanceMetrics={tool.performanceMetrics}
+      apiInfo={tool.apiInfo}
     >
       <div className="space-y-6">
         <div className="space-y-2">

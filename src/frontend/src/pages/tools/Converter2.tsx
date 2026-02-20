@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import ToolPageTemplate from './ToolPageTemplate';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Button } from '@/components/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ALL_TOOLS } from '@/constants/tools';
 import { getRelatedTools } from '@/utils/toolHelpers';
 
@@ -22,13 +16,13 @@ export default function Converter2() {
   const [toCurrency, setToCurrency] = useState<string>('EUR');
   const [result, setResult] = useState<number | null>(null);
 
-  // Mock exchange rates (in a real app, fetch from an API)
   const exchangeRates: Record<string, number> = {
     USD: 1,
     EUR: 0.85,
     GBP: 0.73,
     JPY: 110.0,
-    INR: 74.5,
+    CAD: 1.25,
+    AUD: 1.35,
   };
 
   const handleConvert = () => {
@@ -45,35 +39,13 @@ export default function Converter2() {
     setResult(null);
   };
 
-  const faqs = [
-    {
-      question: 'Are the exchange rates live?',
-      answer: 'The rates shown are indicative. For real-time rates, please check with your financial institution.',
-    },
-    {
-      question: 'What currencies are supported?',
-      answer: 'We support major currencies including USD, EUR, GBP, JPY, and INR.',
-    },
-    {
-      question: 'How often are rates updated?',
-      answer: 'Rates are updated periodically. For the most accurate rates, consult your bank or financial service.',
-    },
-    {
-      question: 'Can I convert cryptocurrency?',
-      answer: 'Cryptocurrency conversion will be added in a future update.',
-    },
-    {
-      question: 'Is this tool accurate for large amounts?',
-      answer: 'This tool provides estimates. For large transactions, always verify with your financial institution.',
-    },
-  ];
-
   return (
     <ToolPageTemplate
       tool={tool}
-      gradientFilename="tool-currency-converter-gradient.dim_1200x300.png"
-      faqs={faqs}
+      gradientFilename="tool-currency-converter-hero-gradient.dim_1200x400.png"
+      faqs={tool.faqs || []}
       relatedTools={relatedTools}
+      aboutContent={tool.aboutContent}
     >
       <div className="space-y-6">
         <div className="space-y-2">
@@ -89,33 +61,35 @@ export default function Converter2() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="fromCurrency">From</Label>
+            <Label>From</Label>
             <Select value={fromCurrency} onValueChange={setFromCurrency}>
-              <SelectTrigger id="fromCurrency">
+              <SelectTrigger className="bg-white dark:bg-gray-800">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="USD">USD</SelectItem>
-                <SelectItem value="EUR">EUR</SelectItem>
-                <SelectItem value="GBP">GBP</SelectItem>
-                <SelectItem value="JPY">JPY</SelectItem>
-                <SelectItem value="INR">INR</SelectItem>
+              <SelectContent className="bg-white dark:bg-gray-800 z-50">
+                <SelectItem value="USD">USD - US Dollar</SelectItem>
+                <SelectItem value="EUR">EUR - Euro</SelectItem>
+                <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                <SelectItem value="JPY">JPY - Japanese Yen</SelectItem>
+                <SelectItem value="CAD">CAD - Canadian Dollar</SelectItem>
+                <SelectItem value="AUD">AUD - Australian Dollar</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="toCurrency">To</Label>
+            <Label>To</Label>
             <Select value={toCurrency} onValueChange={setToCurrency}>
-              <SelectTrigger id="toCurrency">
+              <SelectTrigger className="bg-white dark:bg-gray-800">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="USD">USD</SelectItem>
-                <SelectItem value="EUR">EUR</SelectItem>
-                <SelectItem value="GBP">GBP</SelectItem>
-                <SelectItem value="JPY">JPY</SelectItem>
-                <SelectItem value="INR">INR</SelectItem>
+              <SelectContent className="bg-white dark:bg-gray-800 z-50">
+                <SelectItem value="USD">USD - US Dollar</SelectItem>
+                <SelectItem value="EUR">EUR - Euro</SelectItem>
+                <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                <SelectItem value="JPY">JPY - Japanese Yen</SelectItem>
+                <SelectItem value="CAD">CAD - Canadian Dollar</SelectItem>
+                <SelectItem value="AUD">AUD - Australian Dollar</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -123,7 +97,7 @@ export default function Converter2() {
 
         <div className="flex gap-4">
           <Button variant="primary" onClick={handleConvert} className="flex-1">
-            Convert Currency
+            Convert
           </Button>
           <Button variant="secondary" onClick={handleReset}>
             Reset
@@ -132,7 +106,7 @@ export default function Converter2() {
 
         {result !== null && (
           <div className="p-6 bg-primary/10 border-2 border-primary rounded-lg">
-            <p className="text-sm text-muted-foreground mb-2">Result:</p>
+            <p className="text-sm text-muted-foreground mb-2">Converted Amount:</p>
             <p className="text-3xl font-bold text-primary">
               {result.toFixed(2)} {toCurrency}
             </p>

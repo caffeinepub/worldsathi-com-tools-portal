@@ -5,6 +5,9 @@ import { Button } from '@/components/Button';
 import CategoryBadge from '@/components/CategoryBadge';
 import type { ToolMetadata } from '@/types/tools';
 import { TOOL_CATEGORIES } from '@/constants/categories';
+import { getToolPath } from '@/utils/toolHelpers';
+import { ALL_TOOLS } from '@/constants/tools';
+import DynamicIcon from './DynamicIcon';
 
 interface NewToolsSectionProps {
   tools: ToolMetadata[];
@@ -17,10 +20,10 @@ export default function NewToolsSection({ tools }: NewToolsSectionProps) {
     <section className="py-16 px-4 bg-gradient-to-br from-background via-muted/30 to-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-            New Arrivals
+          <h2 className="text-4xl font-bold mb-4 text-foreground">
+            <span className="text-accent">New Arrival</span> Tools
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-foreground max-w-2xl mx-auto">
             Discover our latest tools designed to boost your productivity and simplify your workflow
           </p>
         </div>
@@ -28,6 +31,7 @@ export default function NewToolsSection({ tools }: NewToolsSectionProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {displayTools.map((tool) => {
             const category = TOOL_CATEGORIES.find((cat) => cat.id === tool.category);
+            const toolPath = getToolPath(tool.id, ALL_TOOLS);
 
             return (
               <div
@@ -44,9 +48,7 @@ export default function NewToolsSection({ tools }: NewToolsSectionProps) {
 
                 {/* Tool Icon */}
                 <div className="mb-4 flex items-center justify-center w-16 h-16 rounded-lg bg-primary/10">
-                  {category?.icon && (
-                    <img src={category.icon} alt={category.displayName} className="w-8 h-8" />
-                  )}
+                  <DynamicIcon name={tool.icon} size={32} className="text-primary" />
                 </div>
 
                 {/* Tool Name */}
@@ -73,7 +75,7 @@ export default function NewToolsSection({ tools }: NewToolsSectionProps) {
                 </div>
 
                 {/* CTA Button */}
-                <Link to={tool.path} className="block">
+                <Link to={toolPath} className="block">
                   <Button variant="primary" className="w-full">
                     Open Tool
                   </Button>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TOOL_CATEGORIES } from '@/constants/categories';
+import DynamicIcon from './DynamicIcon';
 
 interface CategoryHeroProps {
   categoryId: string;
@@ -21,8 +22,8 @@ export default function CategoryHero({ categoryId }: CategoryHeroProps) {
         backgroundImage: `url(${gradientPath})`,
       }}
     >
-      {/* Overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+      {/* Lighter overlay for better gradient visibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
 
       {/* Decorative Elements */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-3xl" />
@@ -32,9 +33,7 @@ export default function CategoryHero({ categoryId }: CategoryHeroProps) {
       <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-            {category.icon && (
-              <img src={category.icon} alt={category.displayName} className="w-8 h-8" />
-            )}
+            <DynamicIcon name={category.icon} size={32} className="text-white" />
           </div>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">

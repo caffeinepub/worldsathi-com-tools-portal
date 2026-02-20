@@ -67,7 +67,7 @@ export default function CategoryPage() {
             />
           )}
 
-          {/* Filters */}
+          {/* Filters - Positioned at top */}
           <CategoryFilters
             sortBy={sortBy}
             onSortChange={setSortBy}
@@ -96,6 +96,16 @@ export default function CategoryPage() {
                   </Card>
                 </Link>
               ))}
+            </div>
+          )}
+
+          {/* Optional: Duplicate filters at bottom for convenience */}
+          {regularTools.length > 8 && (
+            <div className="pt-4">
+              <CategoryFilters
+                sortBy={sortBy}
+                onSortChange={setSortBy}
+              />
             </div>
           )}
 

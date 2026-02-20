@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
 import type { ToolMetadata } from '../types/tools';
+import DynamicIcon from './DynamicIcon';
 
 interface FeaturedToolsSectionProps {
   tools: ToolMetadata[];
@@ -30,7 +31,7 @@ export default function FeaturedToolsSection({ tools, title = 'Featured Tools' }
               </div>
               <CardHeader>
                 <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/30 shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3">
-                  <img src={tool.icon} alt={tool.name} className="h-12 w-12" />
+                  <DynamicIcon name={tool.icon} size={48} className="text-primary" />
                 </div>
                 <CardTitle className="text-xl">{tool.name}</CardTitle>
                 <CardDescription className="line-clamp-2 text-base">{tool.description}</CardDescription>

@@ -19,10 +19,32 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'success' : IDL.Opt(IDL.Bool),
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
+export const ExternalBlob = IDL.Vec(IDL.Nat8);
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
   'guest' : IDL.Null,
+});
+export const Tool = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'usageCount' : IDL.Nat,
+  'description' : IDL.Text,
+  'category' : IDL.Text,
+  'iconUrl' : IDL.Text,
+  'favoriteCount' : IDL.Nat,
+});
+export const ToolCategory = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+});
+export const ToolPage = IDL.Record({
+  'id' : IDL.Nat,
+  'files' : IDL.Vec(ExternalBlob),
+  'title' : IDL.Text,
+  'content' : IDL.Text,
+  'category' : ToolCategory,
 });
 export const UserProfile = IDL.Record({
   'bio' : IDL.Text,
@@ -60,14 +82,32 @@ export const idlService = IDL.Service({
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addBadgeToProfile' : IDL.Func([IDL.Text], [], []),
+  'addToolCategory' : IDL.Func([IDL.Text, IDL.Text], [IDL.Nat], []),
+  'addToolPage' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Nat, IDL.Vec(ExternalBlob)],
+      [IDL.Nat],
+      [],
+    ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'findToolByName' : IDL.Func([IDL.Text], [IDL.Vec(Tool)], ['query']),
+  'getAllToolCategories' : IDL.Func([], [IDL.Vec(ToolCategory)], ['query']),
+  'getAllToolPages' : IDL.Func([], [IDL.Vec(ToolPage)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getToolCategory' : IDL.Func([IDL.Nat], [IDL.Opt(ToolCategory)], ['query']),
+  'getToolPage' : IDL.Func([IDL.Nat], [IDL.Opt(ToolPage)], ['query']),
+  'getToolPagesByCategory' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Vec(ToolPage)],
+      ['query'],
+    ),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
+  'initializeTools' : IDL.Func([], [], []),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'saveToolToFavorites' : IDL.Func([IDL.Nat], [], []),
@@ -88,10 +128,32 @@ export const idlFactory = ({ IDL }) => {
     'success' : IDL.Opt(IDL.Bool),
     'topped_up_amount' : IDL.Opt(IDL.Nat),
   });
+  const ExternalBlob = IDL.Vec(IDL.Nat8);
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
     'guest' : IDL.Null,
+  });
+  const Tool = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'usageCount' : IDL.Nat,
+    'description' : IDL.Text,
+    'category' : IDL.Text,
+    'iconUrl' : IDL.Text,
+    'favoriteCount' : IDL.Nat,
+  });
+  const ToolCategory = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+  });
+  const ToolPage = IDL.Record({
+    'id' : IDL.Nat,
+    'files' : IDL.Vec(ExternalBlob),
+    'title' : IDL.Text,
+    'content' : IDL.Text,
+    'category' : ToolCategory,
   });
   const UserProfile = IDL.Record({
     'bio' : IDL.Text,
@@ -129,14 +191,32 @@ export const idlFactory = ({ IDL }) => {
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addBadgeToProfile' : IDL.Func([IDL.Text], [], []),
+    'addToolCategory' : IDL.Func([IDL.Text, IDL.Text], [IDL.Nat], []),
+    'addToolPage' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Nat, IDL.Vec(ExternalBlob)],
+        [IDL.Nat],
+        [],
+      ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'findToolByName' : IDL.Func([IDL.Text], [IDL.Vec(Tool)], ['query']),
+    'getAllToolCategories' : IDL.Func([], [IDL.Vec(ToolCategory)], ['query']),
+    'getAllToolPages' : IDL.Func([], [IDL.Vec(ToolPage)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getToolCategory' : IDL.Func([IDL.Nat], [IDL.Opt(ToolCategory)], ['query']),
+    'getToolPage' : IDL.Func([IDL.Nat], [IDL.Opt(ToolPage)], ['query']),
+    'getToolPagesByCategory' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Vec(ToolPage)],
+        ['query'],
+      ),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
+    'initializeTools' : IDL.Func([], [], []),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'saveToolToFavorites' : IDL.Func([IDL.Nat], [], []),

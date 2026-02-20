@@ -1,55 +1,74 @@
 import { Link } from '@tanstack/react-router';
-import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from './Button';
+import { Search, Zap } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20 md:py-32"
+    <section 
+      className="relative overflow-hidden py-20 md:py-32"
       style={{
         backgroundImage: 'url(/assets/generated/hero-bg.dim_1920x800.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundBlendMode: 'overlay',
+        backgroundRepeat: 'no-repeat',
       }}
     >
+      {/* Lighter overlay for better gradient visibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/35 via-black/20 to-black/30"></div>
+      
       <div className="container relative z-10">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-6 flex justify-center">
-            <img
-              src="/assets/generated/logo-primary.dim_200x60.png"
-              alt="Worldsathi Tools"
-              className="h-12 w-auto md:h-16"
-            />
+        <div className="mx-auto max-w-4xl text-center">
+          {/* Badge */}
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white">
+            <Zap className="h-4 w-4" />
+            <span>125+ Professional Tools</span>
           </div>
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-            <Sparkles className="h-4 w-4" />
-            Essential Tools & Growing
-          </div>
-          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Your Central Hub for Online Tools
+
+          {/* Main Heading */}
+          <h1 className="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl drop-shadow-lg">
+            Your Complete{' '}
+            <span className="text-accent font-extrabold">Toolkit</span>
+            {' '}for Productivity
           </h1>
-          <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-            Privacy-first, user-friendly tools for calculations, conversions, generation, analysis, and productivity.
-            All free, no signup required.
+
+          {/* Subheading */}
+          <p className="mb-10 text-lg text-white/90 md:text-xl lg:text-2xl drop-shadow-md">
+            Free online tools for calculations, conversions, generation, and analysis. 
+            Everything you need, all in one place.
           </p>
+
+          {/* CTA Buttons */}
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button variant="primary" size="lg" asChild>
-              <Link to="/tools/percentage-calculator">
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="secondary" size="lg" asChild>
-              <Link to="/dashboard">View Dashboard</Link>
-            </Button>
+            <Link to="/tools/calculators/percentage-calculator">
+              <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                <Search className="mr-2 h-5 w-5" />
+                Explore Tools
+              </Button>
+            </Link>
+            <Link to="/category/$categoryId" params={{ categoryId: 'calculators' }}>
+              <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-white/30">
+                Browse Categories
+              </Button>
+            </Link>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-white/80">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-success"></div>
+              <span>100% Free</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-success"></div>
+              <span>No Registration</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-success"></div>
+              <span>Privacy Focused</span>
+            </div>
           </div>
         </div>
       </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
-      <div className="absolute bottom-20 right-10 h-64 w-64 rounded-full bg-secondary/5 blur-3xl" />
     </section>
   );
 }

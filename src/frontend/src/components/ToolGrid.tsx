@@ -7,8 +7,9 @@ import { Button } from './Button';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { TOOL_CATEGORIES } from '../constants/categories';
 import { ALL_TOOLS } from '../constants/tools';
-import { filterTools } from '../utils/toolHelpers';
+import { filterTools, getToolPath } from '../utils/toolHelpers';
 import type { ToolMetadata, ToolSortOption } from '../types/tools';
+import DynamicIcon from './DynamicIcon';
 
 interface ToolGridProps {
   categoryFilter?: string;
@@ -64,10 +65,10 @@ export default function ToolGrid({ categoryFilter }: ToolGridProps) {
 
         <div className="flex gap-2">
           <Select value={sortBy} onValueChange={(value) => setSortBy(value as ToolSortOption)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] bg-background">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-background z-50">
               <SelectItem value="name-asc">Name (A-Z)</SelectItem>
               <SelectItem value="name-desc">Name (Z-A)</SelectItem>
               <SelectItem value="popular">Most Popular</SelectItem>
@@ -99,7 +100,7 @@ export default function ToolGrid({ categoryFilter }: ToolGridProps) {
                 onClick={() => toggleCategory(category.id)}
                 className="gap-2"
               >
-                <img src={category.icon} alt="" className="h-4 w-4" />
+                <DynamicIcon name={category.icon} size={16} />
                 {category.displayName}
               </Button>
             ))}
@@ -124,19 +125,23 @@ export default function ToolGrid({ categoryFilter }: ToolGridProps) {
 
       {/* Tool Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filteredTools.map((tool) => (
-          <Link key={tool.id} to={tool.path}>
-            <Card className="group h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.03] hover:-translate-y-1">
-              <CardHeader>
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 transition-transform group-hover:scale-110">
-                  <img src={tool.icon} alt={tool.name} className="h-10 w-10" />
-                </div>
-                <CardTitle className="text-lg">{tool.name}</CardTitle>
-                <CardDescription className="line-clamp-2">{tool.description}</CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        ))}
+        {filteredTools.map((tool) => {
+          const toolPath = getToolPath(tool.id, ALL_TOOLS);
+          
+          return (
+            <Link key={tool.id} to={toolPath}>
+              <Card className="group h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.03] hover:-translate-y-1">
+                <CardHeader>
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 transition-transform group-hover:scale-110">
+                    <DynamicIcon name={tool.icon} size={40} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-lg">{tool.name}</CardTitle>
+                  <CardDescription className="line-clamp-2">{tool.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          );
+        })}
       </div>
 
       {filteredTools.length === 0 && (

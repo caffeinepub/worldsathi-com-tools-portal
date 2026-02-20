@@ -17,8 +17,8 @@ export default function ToolHero({ toolName, categoryId, gradientFilename }: Too
         backgroundImage: `url(${gradientPath})`,
       }}
     >
-      {/* Overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+      {/* Lighter overlay for better gradient visibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/25 to-transparent" />
 
       {/* Content */}
       <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center">

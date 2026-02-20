@@ -26,21 +26,27 @@ export function generateBreadcrumbs(pathname: string): BreadcrumbItem[] {
     return breadcrumbs;
   }
 
-  // Handle tool pages: /tools/:toolId
-  if (segments[0] === 'tools' && segments[1]) {
-    const tool = ALL_TOOLS.find((t) => t.id === segments[1]);
+  // Handle tool pages: /tools/:category/:toolSlug
+  if (segments[0] === 'tools' && segments[1] && segments[2]) {
+    const categorySlug = segments[1];
+    const toolSlug = segments[2];
+    
+    const category = getCategoryById(categorySlug);
+    const tool = ALL_TOOLS.find((t) => t.id === toolSlug);
+    
+    if (category) {
+      breadcrumbs.push({
+        label: category.displayName,
+        path: `/category/${category.id}`,
+      });
+    }
+    
     if (tool) {
-      const category = getCategoryById(tool.category);
-      if (category) {
-        breadcrumbs.push({
-          label: category.displayName,
-          path: `/category/${category.id}`,
-        });
-      }
       breadcrumbs.push({
         label: tool.name,
       });
     }
+    
     return breadcrumbs;
   }
 
@@ -49,6 +55,24 @@ export function generateBreadcrumbs(pathname: string): BreadcrumbItem[] {
     breadcrumbs.push({
       label: 'Dashboard',
     });
+    return breadcrumbs;
+  }
+
+  // Handle admin pages
+  if (segments[0] === 'admin') {
+    breadcrumbs.push({
+      label: 'Admin',
+      path: '/admin',
+    });
+    
+    if (segments[1]) {
+      breadcrumbs.push({
+        label: segments[1].split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' '),
+      });
+    }
+    
     return breadcrumbs;
   }
 

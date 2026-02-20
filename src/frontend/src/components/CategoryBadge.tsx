@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { getCategoryById } from '../constants/categories';
+import DynamicIcon from './DynamicIcon';
 
 interface CategoryBadgeProps {
   categoryId: string;
@@ -14,7 +15,7 @@ export default function CategoryBadge({ categoryId, subcategory }: CategoryBadge
   return (
     <div className="flex items-center gap-2 flex-wrap">
       <Badge variant="secondary" className="flex items-center gap-2 px-3 py-1">
-        <img src={category.icon} alt={category.displayName} className="h-4 w-4" />
+        <DynamicIcon name={category.icon} size={16} />
         {category.displayName}
       </Badge>
       {subcategory && (

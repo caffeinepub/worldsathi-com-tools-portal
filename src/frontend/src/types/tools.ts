@@ -14,6 +14,40 @@ export interface ToolMetadata {
   subcategory?: string;
   introduction?: string;
   usabilitySteps?: string[];
+  aboutContent?: AboutToolContent;
+  testimonials?: Testimonial[];
+  performanceMetrics?: PerformanceMetric[];
+  apiInfo?: ApiInfo;
+  isNew?: boolean;
+  faqs?: ToolFAQ[];
+}
+
+export interface AboutToolContent {
+  introduction: string;
+  keyFeatures: string[];
+  whoBenefits: string[];
+  whyChoose: string[];
+}
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  rating?: number;
+}
+
+export interface PerformanceMetric {
+  label: string;
+  value: string | number;
+  icon: string;
+  description?: string;
+}
+
+export interface ApiInfo {
+  available: boolean;
+  description: string;
+  codeExample?: string;
+  documentationUrl?: string;
 }
 
 export type ToolCategory =
@@ -29,7 +63,10 @@ export type ToolCategory =
   | 'dev-tools'
   | 'finance-tools'
   | 'health-tools'
-  | 'misc-tools';
+  | 'education-tools'
+  | 'business-tools'
+  | 'security-tools'
+  | 'social-tools';
 
 export interface ToolFilter {
   search?: string;

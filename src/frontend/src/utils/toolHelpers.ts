@@ -1,37 +1,48 @@
-/**
- * Utility functions for tool-related operations
- */
+import type { ToolMetadata, ToolSortOption, ToolCategory } from '../types/tools';
+import { getCategoryById } from '../constants/categories';
 
-import type { ToolMetadata, ToolFilter, ToolSortOption } from '../types/tools';
+export interface ToolFilterOptions {
+  search?: string;
+  categories?: ToolCategory[];
+  tags?: string[];
+  sortBy?: ToolSortOption;
+}
 
 /**
- * Filters tools based on search query and category
- * @param tools - Array of tool metadata
- * @param filter - Filter criteria
- * @returns Filtered array of tools
+ * Filters tools based on search query, categories, and tags
  */
-export function filterTools(tools: ToolMetadata[], filter: ToolFilter): ToolMetadata[] {
+export function filterTools(
+  tools: ToolMetadata[],
+  options: ToolFilterOptions
+): ToolMetadata[] {
   let filtered = [...tools];
 
-  // Apply search filter
-  if (filter.search) {
-    const searchLower = filter.search.toLowerCase();
+  // Filter by search query
+  if (options.search) {
+    const query = options.search.toLowerCase();
     filtered = filtered.filter(
       (tool) =>
-        tool.name.toLowerCase().includes(searchLower) ||
-        tool.description.toLowerCase().includes(searchLower) ||
-        tool.tags?.some((tag) => tag.toLowerCase().includes(searchLower))
+        tool.name.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query) ||
+        tool.tags?.some((tag) => tag.toLowerCase().includes(query))
     );
   }
 
-  // Apply category filter
-  if (filter.categories && filter.categories.length > 0) {
-    filtered = filtered.filter((tool) => filter.categories!.includes(tool.category as any));
+  // Filter by categories
+  if (options.categories && options.categories.length > 0) {
+    filtered = filtered.filter((tool) => options.categories!.includes(tool.category as ToolCategory));
   }
 
-  // Apply sorting
-  if (filter.sortBy) {
-    filtered = sortTools(filtered, filter.sortBy);
+  // Filter by tags
+  if (options.tags && options.tags.length > 0) {
+    filtered = filtered.filter((tool) =>
+      options.tags!.some((tag) => tool.tags?.includes(tag))
+    );
+  }
+
+  // Sort tools
+  if (options.sortBy) {
+    filtered = sortTools(filtered, options.sortBy);
   }
 
   return filtered;
@@ -39,11 +50,11 @@ export function filterTools(tools: ToolMetadata[], filter: ToolFilter): ToolMeta
 
 /**
  * Sorts tools based on the specified option
- * @param tools - Array of tool metadata
- * @param sortBy - Sort option
- * @returns Sorted array of tools
  */
-export function sortTools(tools: ToolMetadata[], sortBy: ToolSortOption): ToolMetadata[] {
+export function sortTools(
+  tools: ToolMetadata[],
+  sortBy: ToolSortOption
+): ToolMetadata[] {
   const sorted = [...tools];
 
   switch (sortBy) {
@@ -52,43 +63,104 @@ export function sortTools(tools: ToolMetadata[], sortBy: ToolSortOption): ToolMe
     case 'name-desc':
       return sorted.sort((a, b) => b.name.localeCompare(a.name));
     case 'popular':
-      return sorted.sort((a, b) => (b.favoriteCount || 0) - (a.favoriteCount || 0));
+      // For now, sort by name as we don't have usage data
+      // In the future, this could sort by actual usage metrics
+      return sorted.sort((a, b) => a.name.localeCompare(b.name));
     case 'recent':
-      // For now, maintain original order (could be enhanced with creation date)
-      return sorted;
+      // Sort new tools first, then by name
+      return sorted.sort((a, b) => {
+        if (a.isNew && !b.isNew) return -1;
+        if (!a.isNew && b.isNew) return 1;
+        return a.name.localeCompare(b.name);
+      });
     default:
       return sorted;
   }
 }
 
 /**
- * Generates related tool suggestions based on category
- * @param currentToolId - ID of the current tool
- * @param allTools - Array of all available tools
- * @param maxSuggestions - Maximum number of suggestions to return
- * @returns Array of related tools
+ * Finds related tools based on category and tags
  */
-export function getRelatedTools(
-  currentToolId: string,
+export function findRelatedTools(
+  currentTool: ToolMetadata,
   allTools: ToolMetadata[],
-  maxSuggestions: number = 6
+  limit: number = 4
 ): ToolMetadata[] {
-  const currentTool = allTools.find((t) => t.id === currentToolId);
-  if (!currentTool) return [];
+  // Filter out the current tool
+  const otherTools = allTools.filter((tool) => tool.id !== currentTool.id);
 
-  // Find tools in the same category, excluding the current tool
-  const related = allTools
-    .filter((tool) => tool.category === currentTool.category && tool.id !== currentToolId)
-    .slice(0, maxSuggestions);
+  // Score each tool based on similarity
+  const scoredTools = otherTools.map((tool) => {
+    let score = 0;
 
-  return related;
+    // Same category gets highest score
+    if (tool.category === currentTool.category) {
+      score += 10;
+    }
+
+    // Shared tags increase score
+    if (currentTool.tags && tool.tags) {
+      const sharedTags = currentTool.tags.filter((tag) => tool.tags!.includes(tag));
+      score += sharedTags.length * 2;
+    }
+
+    return { tool, score };
+  });
+
+  // Sort by score and return top results
+  return scoredTools
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.tool);
 }
 
 /**
- * Maps tool ID to its route path
- * @param toolId - Tool identifier
- * @returns Route path for the tool
+ * Gets related tools - accepts either a tool object or tool ID string
+ * This provides backward compatibility with existing tool pages
  */
-export function getToolRoute(toolId: string): string {
-  return `/tools/${toolId}`;
+export function getRelatedTools(
+  currentToolOrId: ToolMetadata | string,
+  allTools: ToolMetadata[],
+  limit: number = 4
+): ToolMetadata[] {
+  // If a string ID is passed, find the tool object
+  let currentTool: ToolMetadata | undefined;
+  
+  if (typeof currentToolOrId === 'string') {
+    currentTool = allTools.find((t) => t.id === currentToolOrId);
+    if (!currentTool) {
+      console.error(`Tool not found: ${currentToolOrId}`);
+      return [];
+    }
+  } else {
+    currentTool = currentToolOrId;
+  }
+
+  return findRelatedTools(currentTool, allTools, limit);
+}
+
+/**
+ * Gets the full path for a tool including category
+ */
+export function getToolPath(toolId: string, allTools: ToolMetadata[]): string {
+  const tool = allTools.find((t) => t.id === toolId);
+  if (!tool) {
+    console.error(`Tool not found: ${toolId}`);
+    return `/tools/${toolId}`;
+  }
+
+  const category = getCategoryById(tool.category);
+  if (!category) {
+    console.error(`Category not found for tool: ${toolId}`);
+    return `/tools/${toolId}`;
+  }
+
+  return `/tools/${category.id}/${tool.id}`;
+}
+
+/**
+ * Gets a tool by its ID
+ */
+export function getToolById(toolId: string, allTools: ToolMetadata[]): ToolMetadata | undefined {
+  return allTools.find((tool) => tool.id === toolId);
 }

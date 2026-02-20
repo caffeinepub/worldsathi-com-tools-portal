@@ -1,14 +1,16 @@
 # Specification
 
 ## Summary
-**Goal:** Reorganize homepage sections with New Tools display, add unique gradient hero backgrounds to all category and tool pages, and apply primary button styling to tool action buttons.
+**Goal:** Complete implementation of 13 tools across calculators, converters, and text-tools categories with visible button borders, fixed routing, complete metadata, and vibrant gradient backgrounds.
 
 **Planned changes:**
-- Reorder homepage sections: Hero, New Tools, Quick Category Access, Top Categories, Best Tools, Trust Signals, Footer
-- Create New/Recently Added Tools section showing 6-8 tools with 'NEW' badges
-- Generate unique gradient backgrounds for all 13 categories and 8 individual tools
-- Update CategoryHero component to display unique gradient backgrounds per category
-- Add hero sections with unique gradients to all tool pages with breadcrumb navigation underneath
-- Apply primary button styling to all tool action buttons across Calculator, Converter, Generator, Analyzer, and Productivity tool pages
+- Add visible borders to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, Reset, Clear) using OKLCH color variables
+- Fix tool routing issues for all tools in calculators, converters, and text-tools categories using correct /tools/{category}/{tool-slug} pattern
+- Complete implementation of 6 calculator tools: Percentage Calculator, BMI Calculator, Tip Calculator, Loan Calculator, Compound Interest Calculator, and existing calculators with all ToolPageTemplate sections
+- Complete implementation of 4 converter tools: Unit Converter, Currency Converter, Temperature Converter, and existing converters with all sections and solid dropdown backgrounds
+- Complete implementation of 3 text-tools: Character Counter, Case Converter, Text Reverser with all sections
+- Add Remove Duplicate Lines tool with case-sensitive/insensitive matching and statistics display
+- Verify complete tool metadata entries in tools.ts for all 13 tools including name, slug, description, category, tags, icon, pricing, usabilitySteps, about object, and FAQs
+- Regenerate vibrant high-contrast gradient backgrounds for any gray or low-contrast gradients
 
-**User-visible outcome:** Users see a reorganized homepage with recently added tools prominently displayed, each category and tool page has a visually distinct gradient hero section, and all tool action buttons have consistent professional styling with hover effects.
+**User-visible outcome:** Users can access and use 13 fully implemented tools with clear button borders, proper navigation, comprehensive documentation sections, and vibrant visual design across calculators, converters, and text-tools categories.

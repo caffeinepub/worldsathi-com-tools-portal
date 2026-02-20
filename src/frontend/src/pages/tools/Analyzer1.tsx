@@ -20,9 +20,9 @@ export default function Analyzer1() {
 
   const handleAnalyze = () => {
     const characters = text.length;
-    const words = text.trim().split(/\s+/).filter(Boolean).length;
-    const sentences = text.split(/[.!?]+/).filter(Boolean).length;
-    const paragraphs = text.split(/\n\n+/).filter(Boolean).length;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
+    const paragraphs = text.split(/\n\n+/).filter(p => p.trim()).length;
 
     setStats({ characters, words, sentences, paragraphs });
   };
@@ -34,24 +34,20 @@ export default function Analyzer1() {
 
   const faqs = [
     {
-      question: 'What metrics are analyzed?',
-      answer: 'We analyze character count, word count, sentence count, and paragraph count.',
+      question: 'How does the word count work?',
+      answer: 'Words are counted by splitting text on whitespace. Hyphenated words count as one word.',
     },
     {
-      question: 'Is my text stored?',
-      answer: 'No, all analysis is done client-side. Your text never leaves your browser.',
+      question: 'What counts as a sentence?',
+      answer: 'Sentences are identified by periods, exclamation marks, and question marks.',
     },
     {
-      question: 'Can I analyze multiple texts?',
-      answer: 'Yes, simply clear the current text and paste new text to analyze again.',
+      question: 'Is there a text length limit?',
+      answer: 'No, you can analyze text of any length.',
     },
     {
-      question: 'What is the character limit?',
-      answer: 'There is no hard limit, but very large texts may take longer to analyze.',
-    },
-    {
-      question: 'How are sentences counted?',
-      answer: 'Sentences are counted by detecting periods, exclamation marks, and question marks.',
+      question: 'Does it count special characters?',
+      answer: 'Yes, all characters including spaces and punctuation are counted.',
     },
   ];
 
@@ -61,13 +57,16 @@ export default function Analyzer1() {
       gradientFilename="tool-text-analyzer-gradient.dim_1200x300.png"
       faqs={faqs}
       relatedTools={relatedTools}
+      aboutContent={tool.aboutContent}
+      performanceMetrics={tool.performanceMetrics}
+      apiInfo={tool.apiInfo}
     >
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="text">Enter Text</Label>
+          <Label htmlFor="text">Text to Analyze</Label>
           <Textarea
             id="text"
-            placeholder="Type or paste your text here..."
+            placeholder="Enter or paste your text here..."
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows={10}
@@ -85,21 +84,21 @@ export default function Analyzer1() {
 
         {stats && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-primary/10 border-2 border-primary rounded-lg text-center">
-              <p className="text-sm text-muted-foreground mb-1">Characters</p>
+            <div className="p-4 bg-primary/10 border border-primary rounded-lg text-center">
               <p className="text-2xl font-bold text-primary">{stats.characters}</p>
+              <p className="text-sm text-muted-foreground">Characters</p>
             </div>
-            <div className="p-4 bg-primary/10 border-2 border-primary rounded-lg text-center">
-              <p className="text-sm text-muted-foreground mb-1">Words</p>
+            <div className="p-4 bg-primary/10 border border-primary rounded-lg text-center">
               <p className="text-2xl font-bold text-primary">{stats.words}</p>
+              <p className="text-sm text-muted-foreground">Words</p>
             </div>
-            <div className="p-4 bg-primary/10 border-2 border-primary rounded-lg text-center">
-              <p className="text-sm text-muted-foreground mb-1">Sentences</p>
+            <div className="p-4 bg-primary/10 border border-primary rounded-lg text-center">
               <p className="text-2xl font-bold text-primary">{stats.sentences}</p>
+              <p className="text-sm text-muted-foreground">Sentences</p>
             </div>
-            <div className="p-4 bg-primary/10 border-2 border-primary rounded-lg text-center">
-              <p className="text-sm text-muted-foreground mb-1">Paragraphs</p>
+            <div className="p-4 bg-primary/10 border border-primary rounded-lg text-center">
               <p className="text-2xl font-bold text-primary">{stats.paragraphs}</p>
+              <p className="text-sm text-muted-foreground">Paragraphs</p>
             </div>
           </div>
         )}

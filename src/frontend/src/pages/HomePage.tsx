@@ -1,68 +1,50 @@
-import React from 'react';
-import HeroSection from '@/components/HeroSection';
-import NewToolsSection from '@/components/NewToolsSection';
-import CategoryCards from '@/components/CategoryCards';
-import FeaturedToolsSection from '@/components/FeaturedToolsSection';
-import PopularToolsByCategory from '@/components/PopularToolsByCategory';
-import TrustSignals from '@/components/TrustSignals';
-import Sidebar from '@/components/Sidebar';
-import QuickCategoryShortcuts from '@/components/sidebar/QuickCategoryShortcuts';
-import { ALL_TOOLS } from '@/constants/tools';
+import HeroSection from '../components/HeroSection';
+import FeaturedToolsGrid from '../components/FeaturedToolsGrid';
+import CategoryCards from '../components/CategoryCards';
+import PopularToolsByCategory from '../components/PopularToolsByCategory';
+import NewToolsSection from '../components/NewToolsSection';
+import TrustSignals from '../components/TrustSignals';
+import Sidebar from '../components/Sidebar';
+import { ALL_TOOLS } from '../constants/tools';
 
 export default function HomePage() {
-  // Get featured tools (first 6 tools for the homepage)
-  const featuredTools = ALL_TOOLS.slice(0, 6);
+  // Get new tools for the New Tools section
+  const newTools = ALL_TOOLS.filter((tool) => tool.isNew);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection />
 
-      {/* New/Recently Added Tools Section */}
-      <NewToolsSection tools={ALL_TOOLS} />
-
       {/* Main Content with Sidebar */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Main Content Column */}
-          <div className="lg:col-span-8 space-y-16">
-            {/* Quick Category Access - Moved before Browse By Category */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-foreground">
-                Quick Category Access
-              </h2>
-              <QuickCategoryShortcuts />
-            </section>
+      <div className="container py-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Main Content */}
+          <div className="flex-1 space-y-16">
+            {/* Featured Tools Grid */}
+            <FeaturedToolsGrid />
 
-            {/* Top Tools Categories */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-foreground">
-                Browse By Category
-              </h2>
-              <CategoryCards />
-            </section>
+            {/* New Tools Section */}
+            {newTools.length > 0 && <NewToolsSection tools={newTools} />}
 
-            {/* Best Tools / Social Proof */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-foreground">
-                Best Tools
-              </h2>
-              <FeaturedToolsSection tools={featuredTools} />
-            </section>
+            {/* Category Cards - Browse by Category */}
+            <CategoryCards />
 
             {/* Popular Tools by Category */}
             <PopularToolsByCategory />
+
+            {/* Trust Signals */}
+            <TrustSignals />
           </div>
 
-          {/* Sidebar Column */}
-          <aside className="lg:col-span-4">
-            <Sidebar />
+          {/* Sidebar */}
+          <aside className="lg:w-80">
+            <div className="sticky top-24">
+              <Sidebar />
+            </div>
           </aside>
         </div>
       </div>
-
-      {/* Trust Signals & Content */}
-      <TrustSignals />
     </div>
   );
 }

@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import ToolPageTemplate from './ToolPageTemplate';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Button } from '@/components/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ALL_TOOLS } from '@/constants/tools';
 import { getRelatedTools } from '@/utils/toolHelpers';
 
@@ -44,35 +38,13 @@ export default function Converter1() {
     setResult(null);
   };
 
-  const faqs = [
-    {
-      question: 'What units can I convert?',
-      answer: 'You can convert length (meters, kilometers, miles, feet) and weight (kilograms, pounds, ounces, grams).',
-    },
-    {
-      question: 'How accurate are the conversions?',
-      answer: 'All conversions use standard conversion factors and are accurate to several decimal places.',
-    },
-    {
-      question: 'Can I convert temperature?',
-      answer: 'Temperature conversion will be added in a future update. Currently, we support length and weight.',
-    },
-    {
-      question: 'Is this tool free?',
-      answer: 'Yes, all our tools are completely free to use with no signup required.',
-    },
-    {
-      question: 'Can I use this on mobile?',
-      answer: 'Yes, this tool is fully responsive and works great on mobile devices.',
-    },
-  ];
-
   return (
     <ToolPageTemplate
       tool={tool}
-      gradientFilename="tool-unit-converter-gradient.dim_1200x300.png"
-      faqs={faqs}
+      gradientFilename="tool-unit-converter-hero-gradient.dim_1200x400.png"
+      faqs={tool.faqs || []}
       relatedTools={relatedTools}
+      aboutContent={tool.aboutContent}
     >
       <div className="space-y-6">
         <div className="space-y-2">
@@ -88,12 +60,12 @@ export default function Converter1() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="fromUnit">From</Label>
+            <Label>From</Label>
             <Select value={fromUnit} onValueChange={setFromUnit}>
-              <SelectTrigger id="fromUnit">
+              <SelectTrigger className="bg-white dark:bg-gray-800">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white dark:bg-gray-800 z-50">
                 <SelectItem value="meters">Meters</SelectItem>
                 <SelectItem value="feet">Feet</SelectItem>
                 <SelectItem value="inches">Inches</SelectItem>
@@ -104,12 +76,12 @@ export default function Converter1() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="toUnit">To</Label>
+            <Label>To</Label>
             <Select value={toUnit} onValueChange={setToUnit}>
-              <SelectTrigger id="toUnit">
+              <SelectTrigger className="bg-white dark:bg-gray-800">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white dark:bg-gray-800 z-50">
                 <SelectItem value="meters">Meters</SelectItem>
                 <SelectItem value="feet">Feet</SelectItem>
                 <SelectItem value="inches">Inches</SelectItem>

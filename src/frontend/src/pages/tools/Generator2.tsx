@@ -3,37 +3,38 @@ import ToolPageTemplate from './ToolPageTemplate';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/Button';
-import { Download } from 'lucide-react';
 import { ALL_TOOLS } from '@/constants/tools';
 import { getRelatedTools } from '@/utils/toolHelpers';
+import { toast } from 'sonner';
 
 export default function Generator2() {
   const tool = ALL_TOOLS.find((t) => t.id === 'qr-code-generator')!;
   const relatedTools = getRelatedTools(tool.id, ALL_TOOLS, 3);
 
   const [text, setText] = useState<string>('');
-  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [qrCode, setQrCode] = useState<string>('');
 
   const handleGenerate = () => {
-    if (text.trim()) {
-      const encodedText = encodeURIComponent(text);
-      const url = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedText}`;
-      setQrCodeUrl(url);
+    if (!text.trim()) {
+      toast.error('Please enter text or URL');
+      return;
     }
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(text)}`;
+    setQrCode(qrUrl);
   };
 
   const handleDownload = () => {
-    if (qrCodeUrl) {
-      const link = document.createElement('a');
-      link.href = qrCodeUrl;
-      link.download = 'qrcode.png';
-      link.click();
-    }
+    if (!qrCode) return;
+    const link = document.createElement('a');
+    link.href = qrCode;
+    link.download = 'qrcode.png';
+    link.click();
+    toast.success('QR code downloaded');
   };
 
   const handleReset = () => {
     setText('');
-    setQrCodeUrl('');
+    setQrCode('');
   };
 
   const faqs = [
@@ -42,29 +43,27 @@ export default function Generator2() {
       answer: 'You can encode URLs, text, contact information, WiFi credentials, and more.',
     },
     {
-      question: 'Can I download the QR code?',
-      answer: 'Yes, click the Download button below the QR code to save it as an image.',
+      question: 'What size QR code should I use?',
+      answer: 'For print, use at least 300x300 pixels. For digital use, 200x200 is usually sufficient.',
     },
     {
-      question: 'What is the maximum text length?',
-      answer: 'QR codes can store up to several thousand characters, but shorter content scans more reliably.',
+      question: 'Can I customize the QR code design?',
+      answer: 'This tool generates standard black and white QR codes optimized for scanning reliability.',
     },
     {
-      question: 'Are QR codes free to use?',
-      answer: 'Yes, QR codes are free to generate and use without any restrictions.',
-    },
-    {
-      question: 'Will the QR code expire?',
-      answer: 'No, QR codes do not expire. They will work as long as the encoded content is valid.',
+      question: 'How do I test my QR code?',
+      answer: 'Use your smartphone camera or a QR code scanner app to test the generated code.',
     },
   ];
 
   return (
     <ToolPageTemplate
       tool={tool}
-      gradientFilename="tool-qr-generator-gradient.dim_1200x300.png"
+      gradientFilename="tool-qr-code-generator-gradient.dim_1200x300.png"
       faqs={faqs}
       relatedTools={relatedTools}
+      aboutContent={tool.aboutContent}
+      apiInfo={tool.apiInfo}
     >
       <div className="space-y-6">
         <div className="space-y-2">
@@ -87,15 +86,10 @@ export default function Generator2() {
           </Button>
         </div>
 
-        {qrCodeUrl && (
-          <div className="p-6 bg-primary/10 border-2 border-primary rounded-lg text-center">
-            <img
-              src={qrCodeUrl}
-              alt="QR Code"
-              className="mx-auto mb-4 border-4 border-white shadow-lg"
-            />
+        {qrCode && (
+          <div className="p-6 bg-primary/10 border-2 border-primary rounded-lg text-center space-y-4">
+            <img src={qrCode} alt="QR Code" className="mx-auto" />
             <Button variant="primary" onClick={handleDownload}>
-              <Download className="w-4 h-4 mr-2" />
               Download QR Code
             </Button>
           </div>

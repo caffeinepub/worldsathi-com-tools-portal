@@ -1,165 +1,380 @@
 {
   "kind": "build_request",
-  "title": "Reorganize homepage with New Tools section, generate category hero gradients, and style tool action buttons",
-  "projectName": "Worldsathi Tools Portal",
-  "priority": "normal",
+  "title": "Complete Calculator, Converter, and Text-Tools Categories with Button Borders and Routing Fixes",
+  "projectName": "Worldsathi Tools",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-43",
-      "text": "Reorganize homepage sections in the following priority order from top to bottom: (1) Hero Section with Value Proposition and clear Call-to-Action, (2) New/Recently Added Tools section displaying the latest tools added to the platform, (3) Top Tools Categories with visual thumbnails/icons to help users segment quickly, (4) Best Tools/Social Proof highlighting popular items, (5) Trust Signals & Content including customer testimonials, reviews, and links to latest blog posts, (6) Footer Navigation. Move the Quick Category Access section to appear before the Browse By Category section.",
+      "id": "REQ-160",
+      "text": "Add visible borders to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, Reset, Clear) across calculators, converters, and text-tools categories. Apply border styling using OKLCH color system variables with proper contrast in both light and dark themes. Ensure borders are clearly visible and establish strong visual boundaries around buttons.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-final"
         ],
         "quotes": [
-          "Hero Section (Above the Fold): A large banner with your primary Value Proposition and a clear Call-to-Action (CTA). New Arrivals / Featured Tools: Top Tools Categories: Use visual thumbnails or icons to help \"browsers\" segment themselves quickly into specific departments. Best Tools/ Social Proof: Highlight popular items to build trust through the principle of social proof. Trust Signals & Content: Customer testimonials, reviews, and links to your latest blog posts or brand story. Footer Navigation"
+          "Button borders on tool action buttons"
         ]
       },
       "acceptanceCriteria": [
-        "Homepage displays sections in the specified order: Hero, New Tools, Categories, Best Tools, Trust Signals, Footer",
-        "Quick Category Access appears before Browse By Category",
-        "All existing components (HeroSection, TrustSignals) remain functional",
-        "Layout maintains responsive behavior on mobile and desktop"
+        "All tool action buttons in calculators category have visible borders",
+        "All tool action buttons in converters category have visible borders",
+        "All tool action buttons in text-tools category have visible borders",
+        "Border styling works correctly in both light and dark themes",
+        "Borders use OKLCH color variables for proper contrast",
+        "Visual boundaries are clear and professional"
       ]
     },
     {
-      "id": "REQ-44",
-      "text": "Create a New/Recently Added Tools section component for the homepage that displays the most recently added tools to the platform. Show 6-8 tools in a grid layout with a section heading 'New Arrivals' or 'Recently Added Tools'. Use the same tool card format as other sections (name, short description, category, Free/Paid indicator, cost, CTA button). Mark these tools visually with a 'NEW' badge or similar indicator.",
+      "id": "REQ-161",
+      "text": "Fix tool routing issues for all tools in calculators, converters, and text-tools categories. Verify route definitions in frontend/src/App.tsx use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Ensure component file names match route imports and paths are consistent throughout the application.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-final"
         ],
         "quotes": [
-          "Yes, I want \"New/Recently Added Tools\""
+          "then go for Tool routing issues"
         ]
       },
       "acceptanceCriteria": [
-        "New Tools section displays 6-8 recently added tools",
-        "Tools show 'NEW' badge or similar visual indicator",
-        "Section uses consistent tool card format with all required fields",
-        "Grid layout matches other homepage sections"
+        "All calculator tool routes work without 404 errors",
+        "All converter tool routes work without 404 errors",
+        "All text-tools routes work without 404 errors",
+        "Route paths match /tools/{category}/{tool-slug} pattern",
+        "Component imports are lazy-loaded and match file locations",
+        "Navigation to tools via cards and links works correctly"
       ]
     },
     {
-      "id": "REQ-45",
-      "text": "Generate unique gradient backgrounds for each of the 13 tool categories and for individual tool pages. Gradients should follow a consistent pattern (same direction, similar style) but use different color combinations that are unique to each category/tool. Save generated gradient images to frontend/public/assets/generated/ with descriptive filenames like category-calculators-hero-gradient.dim_1200x400.png, category-converters-hero-gradient.dim_1200x400.png, tool-percentage-calculator-hero-gradient.dim_1200x400.png, etc.",
+      "id": "REQ-162",
+      "text": "Complete implementation of Percentage Calculator (Calculator1) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section, FAQ accordion, and related tools sidebar. Ensure all metadata exists in frontend/src/constants/tools.ts.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-final"
         ],
         "quotes": [
-          "Please generate unique but consistent(in pattern) gradient backgrounds for each category/tool"
+          "focus on just 10-15 tools at a time with complete implementation (metadata + component + routes + gradients)"
         ]
       },
       "acceptanceCriteria": [
-        "Unique gradient generated for each of 13 categories",
-        "Unique gradient generated for each tool page",
-        "All gradients follow consistent visual pattern",
-        "Gradients saved as static files in frontend/public/assets/generated/",
-        "Filenames include dimensions in format: name.dim_WIDTHxHEIGHT.png"
+        "Percentage Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface has functional Calculate and Reset buttons with borders",
+        "All ToolPageTemplate sections are populated with content",
+        "Tool metadata entry exists with complete information",
+        "Route definition exists and works correctly"
       ]
     },
     {
-      "id": "REQ-46",
-      "text": "Update CategoryHero component to use the generated gradient background images as hero section backgrounds. Each category should display its unique gradient (e.g., category-calculators-hero-gradient.png for Calculators category). Ensure gradients are loaded from frontend/public/assets/generated/ and properly sized.",
+      "id": "REQ-163",
+      "text": "Complete implementation of BMI Calculator (Calculator3) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section including health category information, FAQ accordion, and related tools sidebar. Ensure all metadata exists in frontend/src/constants/tools.ts.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-final"
         ],
         "quotes": [
-          "Every category or tool page must have a small hero section with a different background image or gradient background"
+          "completing just the calculators, converters, and text-tools categories"
         ]
       },
       "acceptanceCriteria": [
-        "CategoryHero component renders unique gradient background per category",
-        "Gradients load from static asset path",
-        "Background images scale and position correctly",
-        "All 13 categories display their unique gradients"
+        "BMI Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface has functional Calculate and Reset buttons with borders",
+        "All ToolPageTemplate sections are populated with health-related content",
+        "Tool metadata entry exists with complete information",
+        "Route definition exists and works correctly"
       ]
     },
     {
-      "id": "REQ-47",
-      "text": "Add hero sections with unique gradient backgrounds to all tool pages following the ToolPageTemplate pattern. Each tool should display its generated gradient background in a small hero section at the top of the page. Position breadcrumb navigation directly under the hero section. The hero should include the tool name and category badge.",
+      "id": "REQ-164",
+      "text": "Complete implementation of Tip Calculator (Calculator4) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons, How to Use section with numbered steps, comprehensive About the Tool section, FAQ accordion, and related tools sidebar. Ensure preset tip percentages and split bill functionality work correctly.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-final"
         ],
         "quotes": [
-          "Every category or tool page must have a small hero section with a different background image or gradient background. A breadcrumb menu under the hero section."
+          "focus on just 10-15 tools at a time with complete implementation"
         ]
       },
       "acceptanceCriteria": [
-        "All tool pages display hero section with unique gradient background",
-        "Hero section includes tool name and category badge",
-        "Breadcrumb navigation positioned directly under hero section",
-        "Hero sections maintain consistent height and styling across tools"
+        "Tip Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface has functional Calculate and Reset buttons with borders",
+        "Preset tip percentages work correctly",
+        "Bill splitting functionality works",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
       ]
     },
     {
-      "id": "REQ-48",
-      "text": "Apply primary button styling to all tool action buttons (Calculate, Convert, Generate, Submit, Analyze, etc.) within tool interface components. Update all tool pages (Calculator1, Calculator2, Calculator3, Converter1, Converter2, Generator1, Generator2, Analyzer1, Productivity1) to use the redesigned Button component with variant='primary'. Ensure buttons have borders, solid background colors from the OKLCH color system, box shadows, and hover effects that swap background and font colors, matching the button redesign implemented throughout the application.",
+      "id": "REQ-165",
+      "text": "Complete implementation of Loan Calculator (Calculator5) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons showing monthly payment, total payment, and total interest calculations. Include How to Use section, comprehensive About the Tool section explaining amortization, FAQ accordion, and related tools sidebar.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-final"
         ],
         "quotes": [
-          "I am referring to the action buttons within each tool's interface (like \"Calculate,\" \"Convert,\" \"Generate\") that execute the tool's function. I want to confirm that these should use the primary button styling (border, background color, border type, hover effect- change background color with font-color background colour and hover effects, matching the other redesigned buttons throughout the site."
+          "completing just the calculators, converters, and text-tools categories"
         ]
       },
       "acceptanceCriteria": [
-        "All tool action buttons use Button component with variant='primary'",
-        "Buttons display solid backgrounds with borders and shadows",
-        "Hover effects swap background and font colors",
-        "Button styling matches redesigned buttons throughout the site",
-        "All 8+ tool pages updated (calculators, converters, generators, analyzers, productivity)"
+        "Loan Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface calculates monthly payment, total payment, and interest",
+        "Calculate and Reset buttons have visible borders",
+        "All ToolPageTemplate sections are populated with loan calculation content",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-166",
+      "text": "Complete implementation of Compound Interest Calculator (Calculator6) with all required sections: hero section with unique gradient background, main tool interface card with Calculate and Reset buttons supporting multiple compounding frequencies (annually to daily). Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "focus on just 10-15 tools at a time with complete implementation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Compound Interest Calculator component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface supports all compounding frequencies",
+        "Calculate and Reset buttons have visible borders",
+        "Final amount and interest earned are displayed correctly",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-167",
+      "text": "Complete implementation of Unit Converter (Converter1) with all required sections: hero section with vibrant gradient background (regenerate if currently gray), main tool interface card with Convert and Reset buttons for length measurements. Include dropdown menus with solid backgrounds (fix transparency issues), How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "completing just the calculators, converters, and text-tools categories"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Unit Converter component exists and renders correctly",
+        "Hero section displays vibrant gradient background (not gray)",
+        "Dropdown menus have solid opaque backgrounds",
+        "Convert and Reset buttons have visible borders",
+        "Unit conversion works for all supported units",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-168",
+      "text": "Complete implementation of Currency Converter (Converter2) with all required sections: hero section with vibrant gradient background (regenerate if currently gray), main tool interface card with Convert and Reset buttons. Include dropdown menus with solid backgrounds (fix transparency issues), How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "completing just the calculators, converters, and text-tools categories"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Currency Converter component exists and renders correctly",
+        "Hero section displays vibrant gradient background (not gray)",
+        "Dropdown menus have solid opaque backgrounds",
+        "Convert and Reset buttons have visible borders",
+        "Currency conversion works for all supported currencies",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-169",
+      "text": "Complete implementation of Temperature Converter (Converter3) with all required sections: hero section with unique gradient background, main tool interface card with Convert and Reset buttons for Celsius, Fahrenheit, and Kelvin conversions. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "focus on just 10-15 tools at a time with complete implementation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Temperature Converter component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface converts between all three temperature scales",
+        "Convert and Reset buttons have visible borders",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-170",
+      "text": "Complete implementation of Character Counter (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Analyze and Reset buttons that count characters with/without spaces, words, sentences, paragraphs, and lines. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "completing just the calculators, converters, and text-tools categories"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Character Counter component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface displays all text statistics correctly",
+        "Analyze and Reset buttons have visible borders",
+        "Copy functionality works for results",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-171",
+      "text": "Complete implementation of Case Converter (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Convert and Reset buttons supporting multiple case formats (uppercase, lowercase, title case, sentence case, alternating case). Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "completing just the calculators, converters, and text-tools categories"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Case Converter component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface supports all case conversion formats",
+        "Convert and Reset buttons have visible borders",
+        "Copy functionality works for each conversion result",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-172",
+      "text": "Complete implementation of Text Reverser (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Reverse and Reset buttons supporting both character-by-character and word-by-word reversal modes. Include How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "focus on just 10-15 tools at a time with complete implementation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Text Reverser component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface supports both reversal modes",
+        "Reverse and Reset buttons have visible borders",
+        "Copy functionality works for reversed text",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-173",
+      "text": "Complete implementation of Remove Duplicate Lines tool (text-tools category) with all required sections: hero section with unique gradient background, main tool interface card with Remove Duplicates and Reset buttons supporting case-sensitive/insensitive matching. Include statistics display showing original lines, duplicates removed, and final line count. Add How to Use section, comprehensive About the Tool section, FAQ accordion, and related tools sidebar.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "completing just the calculators, converters, and text-tools categories"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Remove Duplicate Lines component exists and renders correctly",
+        "Hero section displays unique gradient background",
+        "Tool interface removes duplicates with case-sensitive option",
+        "Statistics display shows line counts correctly",
+        "Remove Duplicates and Reset buttons have visible borders",
+        "All ToolPageTemplate sections are populated",
+        "Tool metadata entry exists with complete information"
+      ]
+    },
+    {
+      "id": "REQ-174",
+      "text": "Verify all 13 tools (6 calculators, 4 converters, 3 text-tools) have complete tool metadata entries in frontend/src/constants/tools.ts including name, slug, description, category, tags array, valid Lucide React icon name, pricing information (isFree: true, cost: '0.00'), usabilitySteps array with 4-6 numbered instructions, comprehensive about object (introduction, keyFeatures, whoBenefits, whyChoose), and faqs array with 5-7 relevant questions and answers.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "focus on just 10-15 tools at a time with complete implementation (metadata + component + routes + gradients)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All 13 tools have complete metadata entries in tools.ts",
+        "Each tool has correct slug matching route path",
+        "All tools have valid Lucide React icon names",
+        "About content is comprehensive for each tool",
+        "Usability steps are detailed and numbered",
+        "FAQ sections have 5-7 relevant questions each"
+      ]
+    },
+    {
+      "id": "REQ-175",
+      "text": "Generate or verify unique vibrant gradient background images exist for all 13 tools (6 calculators, 4 converters, 3 text-tools). Each gradient must use high-contrast color combinations that align with the tool's parent category color scheme. Save gradient images to frontend/public/assets/generated/ with filenames following pattern tool-[slug]-hero-gradient.dim_1200x400.png. Regenerate any gray or low-contrast gradients with vibrant alternatives.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "focus on just 10-15 tools at a time with complete implementation (metadata + component + routes + gradients)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All 13 tools have unique gradient background images",
+        "Gradients use vibrant high-contrast color combinations",
+        "No gray or low-contrast gradients remain",
+        "Gradient filenames follow the correct pattern",
+        "Images are saved to frontend/public/assets/generated/",
+        "Each gradient aligns with category color scheme"
       ]
     }
   ],
   "constraints": [
-    "All gradients must follow a consistent visual pattern (same direction, similar style)",
-    "Gradient images must be saved as static files in frontend/public/assets/generated/",
-    "Do not route generated images through the backend",
-    "Maintain existing ToolPageTemplate structure and component hierarchy",
-    "Button styling must use existing OKLCH color system variables",
-    "Preserve all existing functionality while applying new styles"
+    "Do not modify immutable frontend paths: useInternetIdentity hooks, useActor.ts, main.tsx, components/ui directory",
+    "All Motoko logic must remain in single main actor (backend/main.mo)",
+    "Use only React + TypeScript for frontend, Motoko for backend",
+    "Follow ToolPageTemplate pattern for all tool pages",
+    "Maintain consistent routing pattern /tools/{category}/{tool-slug}",
+    "Use OKLCH color system variables for all styling",
+    "Focus only on calculators, converters, and text-tools categories for this build"
   ],
   "nonGoals": [
-    "Changing the overall layout structure of tool pages beyond hero section addition",
-    "Modifying backend Motoko code",
-    "Altering the existing Button component API or variants",
-    "Creating new tool categories beyond the existing 13",
-    "Implementing new tool functionality or features"
+    "Implementing tools outside calculators, converters, and text-tools categories",
+    "Creating new tool categories",
+    "Backend data model changes",
+    "Admin panel enhancements",
+    "Blog or forum functionality",
+    "Homepage redesign",
+    "Sidebar component modifications",
+    "Authentication system changes"
   ],
   "imageRequirements": {
-    "required": [
-      "Gradient background for Calculators category hero section with warm orange-red tones, diagonal pattern from top-left to bottom-right (category-calculators-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Converters category hero section with blue-purple tones, diagonal pattern from top-left to bottom-right (category-converters-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Generators category hero section with green-teal tones, diagonal pattern from top-left to bottom-right (category-generators-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Analyzers category hero section with pink-magenta tones, diagonal pattern from top-left to bottom-right (category-analyzers-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Productivity category hero section with yellow-amber tones, diagonal pattern from top-left to bottom-right (category-productivity-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Text Tools category hero section with cyan-blue tones, diagonal pattern from top-left to bottom-right (category-text-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Image Tools category hero section with purple-violet tones, diagonal pattern from top-left to bottom-right (category-image-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Data Tools category hero section with emerald-green tones, diagonal pattern from top-left to bottom-right (category-data-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for SEO Tools category hero section with indigo-blue tones, diagonal pattern from top-left to bottom-right (category-seo-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Developer Tools category hero section with slate-gray tones, diagonal pattern from top-left to bottom-right (category-developer-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Finance Tools category hero section with gold-yellow tones, diagonal pattern from top-left to bottom-right (category-finance-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Health Tools category hero section with red-pink tones, diagonal pattern from top-left to bottom-right (category-health-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Education Tools category hero section with orange-yellow tones, diagonal pattern from top-left to bottom-right (category-education-tools-hero-gradient.dim_1200x400.png)",
-      "Gradient background for Percentage Calculator tool with warm orange tones, diagonal pattern (tool-percentage-calculator-gradient.dim_1200x300.png)",
-      "Gradient background for BMI Calculator tool with health-themed red-pink tones, diagonal pattern (tool-bmi-calculator-gradient.dim_1200x300.png)",
-      "Gradient background for Unit Converter tool with blue-purple tones, diagonal pattern (tool-unit-converter-gradient.dim_1200x300.png)",
-      "Gradient background for Currency Converter tool with gold-green tones, diagonal pattern (tool-currency-converter-gradient.dim_1200x300.png)",
-      "Gradient background for Password Generator tool with security-themed dark blue-green tones, diagonal pattern (tool-password-generator-gradient.dim_1200x300.png)",
-      "Gradient background for QR Code Generator tool with tech-themed cyan-purple tones, diagonal pattern (tool-qr-generator-gradient.dim_1200x300.png)",
-      "Gradient background for Text Analyzer tool with text-themed cyan-blue tones, diagonal pattern (tool-text-analyzer-gradient.dim_1200x300.png)",
-      "Gradient background for Pomodoro Timer tool with productivity-themed yellow-orange tones, diagonal pattern (tool-pomodoro-timer-gradient.dim_1200x300.png)"
-    ],
-    "edits": []
+    "required": [],
+    "edits": [
+      "Regenerate with vibrant colors if currently gray or low-contrast (tool-unit-converter-hero-gradient.dim_1200x400.png > tool-unit-converter-hero-gradient.dim_1200x400.png)",
+      "Regenerate with vibrant colors if currently gray or low-contrast (tool-currency-converter-hero-gradient.dim_1200x400.png > tool-currency-converter-hero-gradient.dim_1200x400.png)",
+      "Verify all calculator gradients are vibrant and high-contrast (tool-percentage-calculator-hero-gradient.dim_1200x400.png > tool-percentage-calculator-hero-gradient.dim_1200x400.png)",
+      "Verify all text-tools gradients are vibrant and high-contrast (tool-character-counter-hero-gradient.dim_1200x400.png > tool-character-counter-hero-gradient.dim_1200x400.png)"
+    ]
   }
 }
