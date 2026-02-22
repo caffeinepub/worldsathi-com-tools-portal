@@ -16,7 +16,8 @@ import {
 } from '@/components/ui/accordion';
 import Sidebar from '@/components/Sidebar';
 import { Link } from '@tanstack/react-router';
-import { useTrackToolUsage } from '@/hooks/useQueries';
+import { useRecordToolUsage } from '@/hooks/useQueries';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 import type { ToolMetadata, ToolFAQ, AboutToolContent, Testimonial, PerformanceMetric, ApiInfo } from '@/types/tools';
 import { getCategoryDisplayName } from '@/constants/categories';
 
@@ -43,13 +44,15 @@ export default function ToolPageTemplate({
   performanceMetrics,
   apiInfo,
 }: ToolPageTemplateProps) {
-  const trackUsage = useTrackToolUsage();
+  const recordUsage = useRecordToolUsage();
+  const { identity } = useInternetIdentity();
 
   useEffect(() => {
-    // Convert tool ID to a number for tracking
-    const toolIdNum = BigInt(tool.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0));
-    trackUsage.mutate(toolIdNum);
-  }, [tool.id]);
+    // Track tool usage if user is authenticated
+    if (identity) {
+      recordUsage.mutate(tool.id);
+    }
+  }, [tool.id, identity, recordUsage]);
 
   const breadcrumbItems = [
     {

@@ -1,136 +1,49 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T19:56:09.348Z",
+  "generatedAt": "2026-02-22T22:15:46.708Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 10,
-    "implemented": 5,
+    "total": 3,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-176",
-        "summary": "Audit all route definitions in frontend/src/App.tsx to identify tools showing 404 errors. Verify that route paths match the /tools/{category}/{tool-slug} URL pattern and that lazy-loaded component imports reference existing component files. Fix any mismatches between route paths, component file locations, and component names.",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-177",
-        "summary": "Verify component file existence for all tools defined in frontend/src/constants/tools.ts. Cross-reference tool metadata slugs and categories with actual component files in frontend/src/pages/tools/. Identify any missing component files that would cause 404 errors.",
+        "id": "REQ-1",
+        "summary": "Update the Dashboard page to display placeholder values (0 or sensible fixed numbers) for all usage statistics instead of the current incorrect values (9114). This includes: Usage This Week, Tools Used This Week, Total Usage, Saved Tools, Daily Quota remaining, daily uses, Weekly Quota remaining, weekly uses, Today's Usage, and Average Daily.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/constants/tools.ts"
+          "frontend/src/pages/Dashboard.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/constants/tools.ts"
+          "frontend/src/pages/Dashboard.tsx"
         ]
       },
       {
-        "id": "REQ-178",
-        "summary": "Fix any case sensitivity issues in route definitions and component imports. Ensure that tool slug casing in URLs matches component file naming conventions (e.g., StandardDeviationCalculator.tsx vs standard-deviation-calculator in URL).",
+        "id": "REQ-2",
+        "summary": "Create an admin panel page for resetting user usage statistics. The admin should be able to select a user and reset all their usage counts (daily usage, weekly usage, total usage, saved tools count) back to zero.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/pages/admin/ResetUserStats.tsx",
+          "frontend/src/hooks/useQueries.ts",
           "frontend/src/App.tsx",
-          "frontend/src/constants/tools.ts"
+          "frontend/src/pages/admin/Dashboard.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/constants/tools.ts"
+          "frontend/src/pages/admin/ResetUserStats.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/App.tsx",
+          "frontend/src/pages/admin/Dashboard.tsx"
         ]
       },
       {
-        "id": "REQ-179",
-        "summary": "Update tool metadata in frontend/src/constants/tools.ts for the first batch of 10 missing tools. Add complete metadata entries including name, slug matching route pattern, description (3-5 words), category matching existing category IDs, tags array (5-8 relevant keywords), icon (valid Lucide React icon name), pricing information (isFree: true, cost: '0.00'), isNew: false flag, usabilitySteps array with 4-6 numbered instructions, about object with comprehensive content (introduction paragraph, keyFeatures array with 4-6 bullet points, whoBenefits array with 2-3 user personas, whyChoose array with 2-3 competitive advantages), and faqs array with 5-7 relevant questions and detailed answers.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/constants/tools.ts"
-        ]
-      },
-      {
-        "id": "REQ-180",
-        "summary": "Create React component files for the first batch of 10 restored tools in appropriate category subdirectories under frontend/src/pages/tools/. Each component must follow the ToolPageTemplate pattern with ToolHero section displaying unique gradient background, main tool interface card with functional inputs/outputs and action buttons (Calculate/Convert/Generate with primary styling and Reset button), UsabilityGuide section with numbered step-by-step instructions, AboutTheTool section with comprehensive content (introduction, key features, who benefits, why choose), FAQ accordion with 5-7 questions, and conditionally rendered sections where applicable.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
-          "frontend/src/pages/tools/calculators/DateCalculator.tsx",
-          "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
-          "frontend/src/pages/tools/converters/AreaConverter.tsx",
-          "frontend/src/pages/tools/converters/SpeedConverter.tsx",
-          "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
-          "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
-          "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
-          "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
-          "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
-          "frontend/src/pages/tools/calculators/DateCalculator.tsx",
-          "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
-          "frontend/src/pages/tools/converters/AreaConverter.tsx",
-          "frontend/src/pages/tools/converters/SpeedConverter.tsx",
-          "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
-          "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
-          "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
-          "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
-          "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx"
-        ]
-      },
-      {
-        "id": "REQ-181",
-        "summary": "Add route definitions in frontend/src/App.tsx for all 10 restored tools. Each route must use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Follow the existing routing pattern ensuring proper category slug inclusion in paths and consistent lazy loading implementation.",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-182",
-        "summary": "Update backend/main.mo to include tool metadata entries for the 10 restored tools in the Motoko backend data structures. Ensure tool definitions include id, name, slug, category, description, and other required fields. Verify the backend can track favorites, usage history, and statistics for these tools.",
+        "id": "REQ-3",
+        "summary": "Add backend data structures to support future usage tracking implementation. Create stable types and storage for user usage records (timestamp, tool ID, user ID) without implementing automatic tracking logic yet.",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
-      },
-      {
-        "id": "REQ-183",
-        "summary": "Verify that all 10 restored tools appear correctly throughout the application. Test that tools display in category page grids, homepage sections (Featured Tools, New Arrivals, Popular by Category where applicable), search results, and sidebar components. Ensure ToolCard components properly render tool icons, names, descriptions, and category badges for the restored tools.",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/src/pages/CategoryPage.tsx",
-          "frontend/src/components/ToolCard.tsx",
-          "frontend/src/components/ToolGrid.tsx",
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/pages/admin/ToolsDiagnostic.tsx"
-        ],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-184",
-        "summary": "Test navigation to all 10 restored tool pages from various entry points including tool cards on homepage, category pages, search results, related tools sidebars, and direct URL access. Verify no 404 errors occur and all pages load with complete content including hero sections, tool interfaces, and supplementary sections.",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/src/components/ToolHero.tsx",
-          "frontend/src/utils/breadcrumbHelpers.ts"
-        ],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-185",
-        "summary": "Distribute the 10 restored tools strategically across categories that currently have fewer tools to improve category balance. Prioritize categories with fewer than 8 tools, selecting useful utility tools that fit each category's purpose. Document which categories received new tools and their current tool counts for tracking progress toward the 125-tool goal.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/constants/tools.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/constants/tools.ts"
-        ]
       }
     ]
   },
@@ -141,32 +54,15 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.ts",
-    "frontend/public/assets/generated/tool-age-calculator-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-area-converter-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-barcode-generator-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-date-calculator-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-discount-calculator-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-favicon-generator-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-readability-analyzer-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-speed-converter-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-text-diff-checker-hero-gradient.dim_1200x400.png",
-    "frontend/public/assets/generated/tool-username-generator-hero-gradient.dim_1200x400.png",
+    "frontend/src/App.tsx",
     "frontend/src/backend.d.ts",
     "frontend/src/backend.ts",
-    "frontend/src/constants/tools.ts",
     "frontend/src/declarations/backend.did.d.ts",
     "frontend/src/declarations/backend.did.js",
-    "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
-    "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
-    "frontend/src/pages/tools/calculators/DateCalculator.tsx",
-    "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
-    "frontend/src/pages/tools/converters/AreaConverter.tsx",
-    "frontend/src/pages/tools/converters/SpeedConverter.tsx",
-    "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx",
-    "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
-    "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
-    "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/Dashboard.tsx",
+    "frontend/src/pages/admin/Dashboard.tsx",
+    "frontend/src/pages/admin/ResetUserStats.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

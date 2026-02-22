@@ -11,14 +11,23 @@ import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
 export type ExternalBlob = Uint8Array;
+export interface SearchHistory {
+  'userId' : Principal,
+  'timestamp' : bigint,
+  'resultsCount' : bigint,
+  'searchQuery' : string,
+}
 export interface Tool {
   'id' : bigint,
   'name' : string,
   'usageCount' : bigint,
   'slug' : string,
+  'tags' : Array<string>,
   'description' : string,
+  'iconName' : string,
   'category' : string,
   'iconUrl' : string,
+  'route' : string,
   'favoriteCount' : bigint,
 }
 export interface ToolCategory {
@@ -33,16 +42,36 @@ export interface ToolPage {
   'content' : string,
   'category' : ToolCategory,
 }
+export interface ToolUsageRecord {
+  'userId' : Principal,
+  'usageCount' : bigint,
+  'toolId' : string,
+  'timestamp' : bigint,
+}
+export interface UserFavorites {
+  'userId' : Principal,
+  'favoriteToolIds' : Array<string>,
+}
+export interface UserPreferences {
+  'theme' : string,
+  'userId' : Principal,
+  'notificationSettings' : [] | [string],
+  'defaultMeasurementUnit' : [] | [string],
+}
 export interface UserProfile {
-  'bio' : string,
-  'displayName' : string,
-  'badges' : Array<string>,
-  'favoriteTools' : Array<bigint>,
-  'memberships' : Array<string>,
+  'displayName' : [] | [string],
+  'userId' : Principal,
+  'email' : [] | [string],
+  'registrationDate' : bigint,
 }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
+export interface UserUsageRecord {
+  'userId' : Principal,
+  'toolId' : string,
+  'timestamp' : bigint,
+}
 export interface _CaffeineStorageCreateCertificateResult {
   'method' : string,
   'blob_hash' : string,
@@ -71,27 +100,36 @@ export interface _SERVICE {
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
-  'addBadgeToProfile' : ActorMethod<[string], undefined>,
+  'addSearchHistory' : ActorMethod<[Principal, string, bigint], undefined>,
   'addToolCategory' : ActorMethod<[string, string], bigint>,
   'addToolPage' : ActorMethod<
     [string, string, bigint, Array<ExternalBlob>],
     bigint
   >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
-  'findToolByName' : ActorMethod<[string], Array<Tool>>,
+  'editDisplayName' : ActorMethod<[[] | [string]], undefined>,
   'getAllToolCategories' : ActorMethod<[], Array<ToolCategory>>,
   'getAllToolPages' : ActorMethod<[], Array<ToolPage>>,
+  'getAllTools' : ActorMethod<[], Array<Tool>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getCurrentUserFavorites' : ActorMethod<[], [] | [UserFavorites]>,
+  'getCurrentUserPreferences' : ActorMethod<[], [] | [UserPreferences]>,
+  'getSearchHistory' : ActorMethod<[], Array<SearchHistory>>,
   'getToolCategory' : ActorMethod<[bigint], [] | [ToolCategory]>,
   'getToolPage' : ActorMethod<[bigint], [] | [ToolPage]>,
   'getToolPagesByCategory' : ActorMethod<[bigint], Array<ToolPage>>,
+  'getToolUsageRecords' : ActorMethod<[], Array<ToolUsageRecord>>,
+  'getUserDisplayName' : ActorMethod<[Principal], [] | [string]>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'initializeTools' : ActorMethod<[], undefined>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'queryUserUsage' : ActorMethod<[], Array<UserUsageRecord>>,
+  'recordToolUsage' : ActorMethod<[Principal, string], undefined>,
+  'resetUserUsage' : ActorMethod<[Principal], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
-  'saveToolToFavorites' : ActorMethod<[bigint], undefined>,
-  'trackToolUsage' : ActorMethod<[bigint], undefined>,
+  'saveCurrentUserFavorites' : ActorMethod<[UserFavorites], undefined>,
+  'saveCurrentUserPreferences' : ActorMethod<[UserPreferences], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

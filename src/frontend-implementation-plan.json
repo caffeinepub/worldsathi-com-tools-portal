@@ -1,234 +1,55 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix tool routing 404 errors and restore first batch of 10 missing tools",
+  "title": "Simplify dashboard with placeholder values and add admin reset feature",
   "requirements": [
     {
-      "id": "REQ-176",
-      "summary": "Audit and fix route definitions in App.tsx to eliminate 404 errors",
+      "id": "REQ-1",
+      "summary": "Update Dashboard page to display placeholder values for all usage statistics",
       "acceptanceCriteria": [
-        "All route definitions in frontend/src/App.tsx use correct /tools/{category}/{tool-slug} pattern",
-        "Component imports match actual file locations and names",
-        "No 404 errors when navigating to tool pages from cards or direct URLs"
+        "Dashboard displays 0 or clean placeholder values for all usage metrics",
+        "No incorrect or inflated numbers like 9114 appear",
+        "All quota fields show placeholder values indicating the tracking system is not yet implemented",
+        "UI remains visually consistent and professional with placeholder data"
       ],
       "file_operations": [
+        {
+          "path": "frontend/src/pages/Dashboard.tsx",
+          "operation": "modify",
+          "description": "Replace all usage statistics calculations with placeholder values (0 or sensible defaults). Update the following metrics to show placeholders: Usage This Week (0), Tools Used This Week (0), Total Usage (0), Saved Tools (0), Daily Quota remaining (10 of 10), daily uses (0), Weekly Quota remaining (50 of 50), weekly uses (0), Today's Usage (0), and Average Daily (0). Remove or simplify any logic that fetches or calculates incorrect values. Ensure all UI elements display cleanly with these placeholder values."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create admin panel page for resetting user usage statistics",
+      "acceptanceCriteria": [
+        "Admin panel includes a new 'Reset User Stats' page",
+        "Admin can select a user from a list or search",
+        "A reset button clears all usage counts for the selected user",
+        "Confirmation dialog appears before resetting to prevent accidental data loss",
+        "Success message confirms the reset operation completed"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/ResetUserStats.tsx",
+          "operation": "create",
+          "description": "Create a new admin page wrapped in AdminAuthGuard for resetting user usage statistics. The page should: (1) Display a list or search interface for selecting users by Principal ID, (2) Show a 'Reset Statistics' button that triggers a confirmation dialog, (3) Call the backend resetUserUsage method when confirmed, (4) Display success/error messages using toast or alert components, (5) Include a description explaining that this will reset all usage counts (daily usage, weekly usage, total usage, saved tools count) to zero. Use React Query's useMutation for the reset operation and invalidate relevant queries on success."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add a new mutation hook useResetUserUsage that calls actor.resetUserUsage(userId: Principal). Configure the mutation to invalidate user-related queries (toolUsageRecords, usageStats) on success. Return the mutation function and loading/error states for use in the admin reset page."
+        },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Review all existing route definitions for tools to verify they follow the /tools/{category}/{tool-slug} URL pattern. Check that lazy-loaded component imports reference correct file paths and component names. Fix any route path mismatches, incorrect import paths, or component name discrepancies that could cause 404 errors. Ensure category slugs in routes match the category IDs defined in frontend/src/constants/categories.ts."
-        }
-      ]
-    },
-    {
-      "id": "REQ-177",
-      "summary": "Verify component file existence and identify missing tools",
-      "acceptanceCriteria": [
-        "Complete list of tools with missing component files is identified",
-        "Tool metadata slugs and categories match expected file paths",
-        "Documentation of which tools need component files created"
-      ],
-      "file_operations": [
+          "description": "Add a new lazy-loaded route for the admin reset user stats page at path '/admin/reset-user-stats'. Register the route in the router configuration alongside other admin routes (dashboard, blog-management, forum-moderation, etc.). Ensure the route is properly integrated with the existing admin navigation structure."
+        },
         {
-          "path": "frontend/src/constants/tools.ts",
+          "path": "frontend/src/pages/admin/Dashboard.tsx",
           "operation": "modify",
-          "description": "Cross-reference all tool metadata entries with actual component files in frontend/src/pages/tools/ directory structure. Verify that for each tool, the combination of category and slug maps to an existing component file. Document which tools are missing component files by adding comments or temporary metadata flags. Ensure tool slugs use consistent kebab-case naming and categories match valid category IDs from frontend/src/constants/categories.ts."
-        }
-      ]
-    },
-    {
-      "id": "REQ-178",
-      "summary": "Fix case sensitivity issues in routes and component imports",
-      "acceptanceCriteria": [
-        "All route slugs use consistent kebab-case format",
-        "Component imports use correct PascalCase naming",
-        "No case-related routing failures"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Standardize all tool route slugs to use kebab-case format (e.g., standard-deviation-calculator). Ensure component imports use correct PascalCase naming matching the actual TypeScript file names (e.g., StandardDeviationCalculator.tsx). Fix any case mismatches between route definitions, URL patterns, and component file references."
-        },
-        {
-          "path": "frontend/src/constants/tools.ts",
-          "operation": "modify",
-          "description": "Verify all tool slugs in metadata use consistent kebab-case format matching the URL patterns. Ensure path properties correctly reference component file locations with proper casing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-179",
-      "summary": "Add complete metadata for first batch of 10 restored tools",
-      "acceptanceCriteria": [
-        "10 tool metadata entries added to frontend/src/constants/tools.ts",
-        "All required metadata fields are complete for each tool",
-        "Tool slugs follow kebab-case naming convention",
-        "Categories match existing category definitions",
-        "Icons use valid Lucide React icon names"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/constants/tools.ts",
-          "operation": "modify",
-          "description": "Add 10 new tool metadata entries to the ALL_TOOLS array for: Age Calculator (calculators), Date Calculator (calculators), Discount Calculator (calculators), Area Converter (converters), Speed Converter (converters), Barcode Generator (generators), Username Generator (generators), Readability Analyzer (analyzers), Text Diff Checker (text-tools), and Favicon Generator (developer-tools). Each entry must include: name, slug (kebab-case), description (3-5 words), category (matching existing category IDs), tags array (5-8 keywords), icon (valid Lucide React icon name like Calculator, Calendar, Percent, Maximize2, Gauge, Barcode, User, BookOpen, FileText, Image), pricing (isFree: true, cost: '0.00'), isNew: false, usabilitySteps array (4-6 numbered instructions), about object (introduction paragraph, keyFeatures array with 4-6 items, whoBenefits array with 2-3 personas, whyChoose array with 2-3 advantages), and faqs array (5-7 Q&A pairs)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-180",
-      "summary": "Create React component files for 10 restored tools following ToolPageTemplate pattern",
-      "acceptanceCriteria": [
-        "10 tool component files created following ToolPageTemplate pattern",
-        "Each tool has functional interface with proper input/output handling",
-        "All buttons have visible borders and proper styling",
-        "Components are organized in correct category subdirectories",
-        "Each tool implements client-side processing where applicable"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
-          "operation": "create",
-          "description": "Create Age Calculator component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-age-calculator-hero-gradient.dim_1200x400.png. Implement date input for birthdate, calculate age in years/months/days, display next birthday countdown. Include Calculate and Reset buttons with visible borders (border-2 border-primary). Add UsabilityGuide, AboutTheTool, and FAQ sections using metadata from tools.ts."
-        },
-        {
-          "path": "frontend/src/pages/tools/calculators/DateCalculator.tsx",
-          "operation": "create",
-          "description": "Create Date Calculator component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-date-calculator-hero-gradient.dim_1200x400.png. Implement two date inputs and operation selector (difference/add/subtract days), calculate result dates or time differences. Include Calculate and Reset buttons with visible borders. Add UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
-          "operation": "create",
-          "description": "Create Discount Calculator component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-discount-calculator-hero-gradient.dim_1200x400.png. Implement inputs for original price and discount percentage, calculate final price, discount amount, and savings percentage. Include Calculate and Reset buttons with visible borders. Add UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/converters/AreaConverter.tsx",
-          "operation": "create",
-          "description": "Create Area Converter component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-area-converter-hero-gradient.dim_1200x400.png. Implement conversion between square meters, square feet, acres, hectares, and square kilometers with dropdown selectors and numeric input. Include Convert and Reset buttons with visible borders. Add UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/converters/SpeedConverter.tsx",
-          "operation": "create",
-          "description": "Create Speed Converter component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-speed-converter-hero-gradient.dim_1200x400.png. Implement conversion between km/h, mph, m/s, knots, and ft/s with dropdown selectors and numeric input. Include Convert and Reset buttons with visible borders. Add UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
-          "operation": "create",
-          "description": "Create Barcode Generator component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-barcode-generator-hero-gradient.dim_1200x400.png. Implement text input for barcode data, format selector (CODE128, EAN13, UPC), generate SVG barcode visualization using a client-side library or canvas rendering. Include Generate and Reset buttons with visible borders. Add download functionality. Include UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
-          "operation": "create",
-          "description": "Create Username Generator component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-username-generator-hero-gradient.dim_1200x400.png. Implement options for username length, include numbers/special characters, and style preferences (camelCase, snake_case). Generate random creative usernames using word combinations. Include Generate and Reset buttons with visible borders. Add copy functionality. Include UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
-          "operation": "create",
-          "description": "Create Readability Analyzer component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-readability-analyzer-hero-gradient.dim_1200x400.png. Implement textarea for text input, calculate Flesch Reading Ease score, Flesch-Kincaid Grade Level, average words per sentence, and readability rating. Include Analyze and Reset buttons with visible borders. Display results in card format. Include UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx",
-          "operation": "create",
-          "description": "Create Text Diff Checker component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-text-diff-checker-hero-gradient.dim_1200x400.png. Implement two textarea inputs for original and modified text, perform line-by-line or word-by-word comparison, highlight additions (green) and deletions (red). Include Compare and Reset buttons with visible borders. Include UsabilityGuide, AboutTheTool, and FAQ sections."
-        },
-        {
-          "path": "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx",
-          "operation": "create",
-          "description": "Create Favicon Generator component following ToolPageTemplate pattern. Include ToolHero with gradient background using frontend/public/assets/generated/tool-favicon-generator-hero-gradient.dim_1200x400.png. Implement image upload, text/emoji input for simple favicons, generate multiple sizes (16x16, 32x32, 64x64), preview all sizes, and provide download as ICO or PNG files. Include Generate and Reset buttons with visible borders. Include UsabilityGuide, AboutTheTool, and FAQ sections."
-        }
-      ]
-    },
-    {
-      "id": "REQ-181",
-      "summary": "Add route definitions for 10 restored tools in App.tsx",
-      "acceptanceCriteria": [
-        "10 new route definitions added to frontend/src/App.tsx",
-        "All routes use /tools/{category}/{tool-slug} pattern",
-        "Components are lazy-loaded using React.lazy()",
-        "Routes are grouped logically by category"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add 10 new route definitions using the pattern /tools/{category}/{tool-slug} for: age-calculator, date-calculator, discount-calculator (calculators category), area-converter, speed-converter (converters category), barcode-generator, username-generator (generators category), readability-analyzer (analyzers category), text-diff-checker (text-tools category), and favicon-generator (developer-tools category). Use React.lazy() for component imports: lazy(() => import('./pages/tools/calculators/AgeCalculator')), etc. Group routes by category for maintainability."
-        }
-      ]
-    },
-    {
-      "id": "REQ-183",
-      "summary": "Verify restored tools appear correctly throughout the application",
-      "acceptanceCriteria": [
-        "All 10 restored tools appear in their respective category pages",
-        "Tools are discoverable via search functionality",
-        "Tool cards display correct icons and metadata",
-        "Tools appear in appropriate homepage sections",
-        "Admin diagnostic page shows all 10 tools with correct status"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/CategoryPage.tsx",
-          "operation": "modify",
-          "description": "Verify that the CategoryPage component correctly filters and displays all tools including the 10 newly restored tools based on the category parameter. Ensure tools are rendered in the grid with proper ToolCard components showing icons, names, descriptions, and category badges."
-        },
-        {
-          "path": "frontend/src/components/ToolCard.tsx",
-          "operation": "modify",
-          "description": "Verify ToolCard component properly renders tool metadata including DynamicIcon for the tool icon, tool name, description, and optional NEW badge. Ensure links use the correct /tools/{category}/{slug} URL pattern for navigation."
-        },
-        {
-          "path": "frontend/src/components/ToolGrid.tsx",
-          "operation": "modify",
-          "description": "Verify ToolGrid component includes all 10 restored tools in search results and filtering. Ensure the search functionality indexes tool names, descriptions, and tags for discoverability."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Verify HomePage components (FeaturedToolsGrid, NewToolsSection, PopularToolsByCategory) can discover and display the restored tools based on their metadata. Ensure tools appear in appropriate sections if they meet criteria (featured, new, popular)."
-        },
-        {
-          "path": "frontend/src/pages/admin/ToolsDiagnostic.tsx",
-          "operation": "modify",
-          "description": "Verify the diagnostic page displays all 10 restored tools with their metadata completeness status. Ensure the table shows icon, description, FAQs, and about content flags correctly for the new tools."
-        }
-      ]
-    },
-    {
-      "id": "REQ-184",
-      "summary": "Test navigation to all 10 restored tool pages from various entry points",
-      "acceptanceCriteria": [
-        "All tool pages load successfully without 404 errors",
-        "Navigation works from all entry points (cards, links, URLs)",
-        "Hero sections display with proper gradient backgrounds",
-        "Tool interfaces are functional and interactive",
-        "All page sections render correctly"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ToolHero.tsx",
-          "operation": "modify",
-          "description": "Verify ToolHero component correctly displays gradient background images from frontend/public/assets/generated/ for all 10 restored tools. Ensure the backgroundImage prop properly references the generated hero gradient images with correct workspace paths."
-        },
-        {
-          "path": "frontend/src/utils/breadcrumbHelpers.ts",
-          "operation": "modify",
-          "description": "Verify breadcrumb generation works correctly for all 10 restored tool pages, properly extracting category and tool slug from URLs in the format /tools/{category}/{tool-slug}."
-        }
-      ]
-    },
-    {
-      "id": "REQ-185",
-      "summary": "Distribute 10 restored tools strategically across categories to improve balance",
-      "acceptanceCriteria": [
-        "10 tools distributed across multiple categories",
-        "Priority given to categories with fewer existing tools",
-        "Tool distribution documented for future batch planning",
-        "Each restored tool fits logically within its assigned category"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/constants/tools.ts",
-          "operation": "modify",
-          "description": "Distribute the 10 restored tools across categories with fewer tools: 3 to calculators (Age, Date, Discount), 2 to converters (Area, Speed), 2 to generators (Barcode, Username), 1 to analyzers (Readability), 1 to text-tools (Text Diff), 1 to developer-tools (Favicon). Add a comment documenting the distribution strategy and current tool counts per category for planning subsequent batches toward the 125-tool goal."
+          "description": "Add a new navigation card or link in the admin dashboard management section for 'Reset User Statistics'. Place it alongside existing management links (Users, Blog Posts, Forum Threads, Analytics, Settings). The link should navigate to '/admin/reset-user-stats' and include an appropriate icon (e.g., RefreshCw or RotateCcw from Lucide) and description text."
         }
       ]
     }

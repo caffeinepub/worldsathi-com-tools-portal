@@ -1,228 +1,85 @@
 {
   "kind": "build_request",
-  "title": "Fix tool routing 404 errors and restore first batch of 10 missing tools",
-  "projectName": "Worldsathi Tools Portal",
-  "priority": "high",
+  "title": "Simplify dashboard with placeholder values and add admin reset feature",
+  "projectName": "World Sathi Tools",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-176",
-      "text": "Audit all route definitions in frontend/src/App.tsx to identify tools showing 404 errors. Verify that route paths match the /tools/{category}/{tool-slug} URL pattern and that lazy-loaded component imports reference existing component files. Fix any mismatches between route paths, component file locations, and component names.",
+      "id": "REQ-1",
+      "text": "Update the Dashboard page to display placeholder values (0 or sensible fixed numbers) for all usage statistics instead of the current incorrect values (9114). This includes: Usage This Week, Tools Used This Week, Total Usage, Saved Tools, Daily Quota remaining, daily uses, Weekly Quota remaining, weekly uses, Today's Usage, and Average Daily.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-final"
         ],
         "quotes": [
-          "proceed with fixing the tool routing issues next (addressing the 404 errors for tools if anything)"
+          "Dashboard display: just show placeholder values until we implement full tracking later"
         ]
       },
       "acceptanceCriteria": [
-        "All route definitions in frontend/src/App.tsx use correct /tools/{category}/{tool-slug} pattern",
-        "Component imports match actual file locations and names",
-        "No 404 errors when navigating to tool pages from cards or direct URLs"
+        "Dashboard displays 0 or clean placeholder values for all usage metrics",
+        "No incorrect or inflated numbers like 9114 appear",
+        "All quota fields show placeholder values indicating the tracking system is not yet implemented",
+        "UI remains visually consistent and professional with placeholder data"
       ]
     },
     {
-      "id": "REQ-177",
-      "text": "Verify component file existence for all tools defined in frontend/src/constants/tools.ts. Cross-reference tool metadata slugs and categories with actual component files in frontend/src/pages/tools/. Identify any missing component files that would cause 404 errors.",
-      "target": "frontend",
+      "id": "REQ-2",
+      "text": "Create an admin panel page for resetting user usage statistics. The admin should be able to select a user and reset all their usage counts (daily usage, weekly usage, total usage, saved tools count) back to zero.",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-final"
         ],
         "quotes": [
-          "addressing the 404 errors for tools if anything"
+          "please include a reset quota/ counter features to do by admin any time",
+          "Reset granularity: You may decide with elementory/ easiest approach"
         ]
       },
       "acceptanceCriteria": [
-        "Complete list of tools with missing component files is identified",
-        "Tool metadata slugs and categories match expected file paths",
-        "Documentation of which tools need component files created"
+        "Admin panel includes a new 'Reset User Stats' page",
+        "Admin can select a user from a list or search",
+        "A reset button clears all usage counts for the selected user",
+        "Confirmation dialog appears before resetting to prevent accidental data loss",
+        "Success message confirms the reset operation completed"
       ]
     },
     {
-      "id": "REQ-178",
-      "text": "Fix any case sensitivity issues in route definitions and component imports. Ensure that tool slug casing in URLs matches component file naming conventions (e.g., StandardDeviationCalculator.tsx vs standard-deviation-calculator in URL).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "fixing the tool routing issues next"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All route slugs use consistent kebab-case format",
-        "Component imports use correct PascalCase naming",
-        "No case-related routing failures"
-      ]
-    },
-    {
-      "id": "REQ-179",
-      "text": "Update tool metadata in frontend/src/constants/tools.ts for the first batch of 10 missing tools. Add complete metadata entries including name, slug matching route pattern, description (3-5 words), category matching existing category IDs, tags array (5-8 relevant keywords), icon (valid Lucide React icon name), pricing information (isFree: true, cost: '0.00'), isNew: false flag, usabilitySteps array with 4-6 numbered instructions, about object with comprehensive content (introduction paragraph, keyFeatures array with 4-6 bullet points, whoBenefits array with 2-3 user personas, whyChoose array with 2-3 competitive advantages), and faqs array with 5-7 relevant questions and detailed answers.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "restore ~40 missing tools that disappeared from the system, but tackle them in small batches of 10 tools"
-        ]
-      },
-      "acceptanceCriteria": [
-        "10 tool metadata entries added to frontend/src/constants/tools.ts",
-        "All required metadata fields are complete for each tool",
-        "Tool slugs follow kebab-case naming convention",
-        "Categories match existing category definitions",
-        "Icons use valid Lucide React icon names"
-      ]
-    },
-    {
-      "id": "REQ-180",
-      "text": "Create React component files for the first batch of 10 restored tools in appropriate category subdirectories under frontend/src/pages/tools/. Each component must follow the ToolPageTemplate pattern with ToolHero section displaying unique gradient background, main tool interface card with functional inputs/outputs and action buttons (Calculate/Convert/Generate with primary styling and Reset button), UsabilityGuide section with numbered step-by-step instructions, AboutTheTool section with comprehensive content (introduction, key features, who benefits, why choose), FAQ accordion with 5-7 questions, and conditionally rendered sections where applicable.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "restore ~40 missing tools that disappeared from the system, but tackle them in small batches of 10 tools"
-        ]
-      },
-      "acceptanceCriteria": [
-        "10 tool component files created following ToolPageTemplate pattern",
-        "Each tool has functional interface with proper input/output handling",
-        "All buttons have visible borders and proper styling",
-        "Components are organized in correct category subdirectories",
-        "Each tool implements client-side processing where applicable"
-      ]
-    },
-    {
-      "id": "REQ-181",
-      "text": "Add route definitions in frontend/src/App.tsx for all 10 restored tools. Each route must use the correct /tools/{category}/{tool-slug} URL pattern with lazy-loaded component imports. Follow the existing routing pattern ensuring proper category slug inclusion in paths and consistent lazy loading implementation.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "restore ~40 missing tools that disappeared from the system"
-        ]
-      },
-      "acceptanceCriteria": [
-        "10 new route definitions added to frontend/src/App.tsx",
-        "All routes use /tools/{category}/{tool-slug} pattern",
-        "Components are lazy-loaded using React.lazy()",
-        "Routes are grouped logically by category"
-      ]
-    },
-    {
-      "id": "REQ-182",
-      "text": "Update backend/main.mo to include tool metadata entries for the 10 restored tools in the Motoko backend data structures. Ensure tool definitions include id, name, slug, category, description, and other required fields. Verify the backend can track favorites, usage history, and statistics for these tools.",
+      "id": "REQ-3",
+      "text": "Add backend data structures to support future usage tracking implementation. Create stable types and storage for user usage records (timestamp, tool ID, user ID) without implementing automatic tracking logic yet.",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-final"
         ],
         "quotes": [
-          "restore ~40 missing tools that disappeared from the system"
+          "Basic backend structure to store usage data (prepared for future tracking implementation)"
         ]
       },
       "acceptanceCriteria": [
-        "10 tool entries added to backend tool initialization",
-        "Tool IDs are unique and sequential",
-        "Backend can store and retrieve favorites for restored tools",
-        "Usage tracking works for all restored tools"
-      ]
-    },
-    {
-      "id": "REQ-183",
-      "text": "Verify that all 10 restored tools appear correctly throughout the application. Test that tools display in category page grids, homepage sections (Featured Tools, New Arrivals, Popular by Category where applicable), search results, and sidebar components. Ensure ToolCard components properly render tool icons, names, descriptions, and category badges for the restored tools.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "restore ~40 missing tools"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All 10 restored tools appear in their respective category pages",
-        "Tools are discoverable via search functionality",
-        "Tool cards display correct icons and metadata",
-        "Tools appear in appropriate homepage sections",
-        "Admin diagnostic page shows all 10 tools with correct status"
-      ]
-    },
-    {
-      "id": "REQ-184",
-      "text": "Test navigation to all 10 restored tool pages from various entry points including tool cards on homepage, category pages, search results, related tools sidebars, and direct URL access. Verify no 404 errors occur and all pages load with complete content including hero sections, tool interfaces, and supplementary sections.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "addressing the 404 errors for tools if anything"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All tool pages load successfully without 404 errors",
-        "Navigation works from all entry points (cards, links, URLs)",
-        "Hero sections display with proper gradient backgrounds",
-        "Tool interfaces are functional and interactive",
-        "All page sections render correctly"
-      ]
-    },
-    {
-      "id": "REQ-185",
-      "text": "Distribute the 10 restored tools strategically across categories that currently have fewer tools to improve category balance. Prioritize categories with fewer than 8 tools, selecting useful utility tools that fit each category's purpose. Document which categories received new tools and their current tool counts for tracking progress toward the 125-tool goal.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "restore ~40 missing tools that disappeared from the system, but tackle them in small batches of 10 tools as planned to prevent build failures"
-        ]
-      },
-      "acceptanceCriteria": [
-        "10 tools distributed across multiple categories",
-        "Priority given to categories with fewer existing tools",
-        "Tool distribution documented for future batch planning",
-        "Each restored tool fits logically within its assigned category"
+        "Backend defines stable data types for usage records",
+        "Storage structures exist to hold usage data when tracking is implemented",
+        "Admin reset functionality can clear stored usage data",
+        "Data structures are designed to support future daily/weekly quota tracking"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the single-actor architecture in backend/main.mo",
-    "Do not edit immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
-    "Restore only 10 tools in this batch to prevent build failures",
-    "All new tool components must follow the existing ToolPageTemplate pattern",
-    "Use only technologies specified in the platform: Motoko backend, React with TypeScript frontend, Tailwind CSS, Three.js for 3D if needed"
+    "Do not implement automatic usage tracking or quota enforcement yet",
+    "Keep all Motoko logic in the single main actor file (backend/main.mo)",
+    "Do not modify immutable frontend paths: useInternetIdentity hooks, useActor.ts, main.tsx, or frontend/src/components/ui directory",
+    "Admin authentication must use the existing AdminAuthGuard and useAdminAuth system"
   ],
   "nonGoals": [
-    "Restoring all 40 missing tools in a single build (will be done in subsequent batches)",
-    "Implementing new categories beyond the existing 16",
-    "Adding new tool features not specified in ToolPageTemplate pattern",
-    "Creating premium or paid tool variants",
-    "Implementing backend API endpoints beyond existing structure"
+    "Automatic tracking of tool usage submissions",
+    "Quota enforcement that blocks users when limits are reached",
+    "Weekly/daily reset timers or scheduled tasks",
+    "Different quota limits per tool or user tier",
+    "Real-time usage statistics calculations",
+    "Migration.mo file (not needed for this modification)"
   ],
   "imageRequirements": {
-    "required": [
-      "Vibrant gradient background for Age Calculator tool hero section with warm orange and yellow tones (tool-age-calculator-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Date Calculator tool hero section with blue and cyan tones (tool-date-calculator-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Discount Calculator tool hero section with green and teal tones (tool-discount-calculator-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Area Converter tool hero section with purple and magenta tones (tool-area-converter-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Speed Converter tool hero section with red and orange tones (tool-speed-converter-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Barcode Generator tool hero section with dark blue and electric blue tones (tool-barcode-generator-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Username Generator tool hero section with pink and purple tones (tool-username-generator-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Readability Analyzer tool hero section with green and lime tones (tool-readability-analyzer-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Text Diff Checker tool hero section with orange and amber tones (tool-text-diff-checker-hero-gradient.dim_1200x400.png)",
-      "Vibrant gradient background for Favicon Generator tool hero section with violet and indigo tones (tool-favicon-generator-hero-gradient.dim_1200x400.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

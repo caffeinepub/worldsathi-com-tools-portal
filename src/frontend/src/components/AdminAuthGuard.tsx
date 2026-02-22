@@ -1,16 +1,21 @@
-import React, { ReactNode } from 'react';
-import { Navigate } from '@tanstack/react-router';
-import { useAdminAuthContext } from '../contexts/AdminAuthContext';
+import { useAdminAuth } from '../hooks/useAdminAuth';
+import { useEffect } from 'react';
 
 interface AdminAuthGuardProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-export function AdminAuthGuard({ children }: AdminAuthGuardProps) {
-  const { isAuthenticated } = useAdminAuthContext();
+export default function AdminAuthGuard({ children }: AdminAuthGuardProps) {
+  const { isAuthenticated } = useAdminAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      window.location.href = '/admin/login';
+    }
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" />;
+    return null;
   }
 
   return <>{children}</>;

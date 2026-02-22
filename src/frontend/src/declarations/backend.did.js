@@ -25,16 +25,6 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
-export const Tool = IDL.Record({
-  'id' : IDL.Nat,
-  'name' : IDL.Text,
-  'usageCount' : IDL.Nat,
-  'slug' : IDL.Text,
-  'description' : IDL.Text,
-  'category' : IDL.Text,
-  'iconUrl' : IDL.Text,
-  'favoriteCount' : IDL.Nat,
-});
 export const ToolCategory = IDL.Record({
   'id' : IDL.Nat,
   'name' : IDL.Text,
@@ -47,12 +37,51 @@ export const ToolPage = IDL.Record({
   'content' : IDL.Text,
   'category' : ToolCategory,
 });
+export const Tool = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'usageCount' : IDL.Nat,
+  'slug' : IDL.Text,
+  'tags' : IDL.Vec(IDL.Text),
+  'description' : IDL.Text,
+  'iconName' : IDL.Text,
+  'category' : IDL.Text,
+  'iconUrl' : IDL.Text,
+  'route' : IDL.Text,
+  'favoriteCount' : IDL.Nat,
+});
 export const UserProfile = IDL.Record({
-  'bio' : IDL.Text,
-  'displayName' : IDL.Text,
-  'badges' : IDL.Vec(IDL.Text),
-  'favoriteTools' : IDL.Vec(IDL.Nat),
-  'memberships' : IDL.Vec(IDL.Text),
+  'displayName' : IDL.Opt(IDL.Text),
+  'userId' : IDL.Principal,
+  'email' : IDL.Opt(IDL.Text),
+  'registrationDate' : IDL.Int,
+});
+export const UserFavorites = IDL.Record({
+  'userId' : IDL.Principal,
+  'favoriteToolIds' : IDL.Vec(IDL.Text),
+});
+export const UserPreferences = IDL.Record({
+  'theme' : IDL.Text,
+  'userId' : IDL.Principal,
+  'notificationSettings' : IDL.Opt(IDL.Text),
+  'defaultMeasurementUnit' : IDL.Opt(IDL.Text),
+});
+export const SearchHistory = IDL.Record({
+  'userId' : IDL.Principal,
+  'timestamp' : IDL.Int,
+  'resultsCount' : IDL.Nat,
+  'searchQuery' : IDL.Text,
+});
+export const ToolUsageRecord = IDL.Record({
+  'userId' : IDL.Principal,
+  'usageCount' : IDL.Nat,
+  'toolId' : IDL.Text,
+  'timestamp' : IDL.Int,
+});
+export const UserUsageRecord = IDL.Record({
+  'userId' : IDL.Principal,
+  'toolId' : IDL.Text,
+  'timestamp' : IDL.Int,
 });
 
 export const idlService = IDL.Service({
@@ -83,7 +112,7 @@ export const idlService = IDL.Service({
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
-  'addBadgeToProfile' : IDL.Func([IDL.Text], [], []),
+  'addSearchHistory' : IDL.Func([IDL.Principal, IDL.Text, IDL.Nat], [], []),
   'addToolCategory' : IDL.Func([IDL.Text, IDL.Text], [IDL.Nat], []),
   'addToolPage' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Nat, IDL.Vec(ExternalBlob)],
@@ -91,16 +120,30 @@ export const idlService = IDL.Service({
       [],
     ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-  'findToolByName' : IDL.Func([IDL.Text], [IDL.Vec(Tool)], ['query']),
+  'editDisplayName' : IDL.Func([IDL.Opt(IDL.Text)], [], []),
   'getAllToolCategories' : IDL.Func([], [IDL.Vec(ToolCategory)], ['query']),
   'getAllToolPages' : IDL.Func([], [IDL.Vec(ToolPage)], ['query']),
+  'getAllTools' : IDL.Func([], [IDL.Vec(Tool)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getCurrentUserFavorites' : IDL.Func([], [IDL.Opt(UserFavorites)], ['query']),
+  'getCurrentUserPreferences' : IDL.Func(
+      [],
+      [IDL.Opt(UserPreferences)],
+      ['query'],
+    ),
+  'getSearchHistory' : IDL.Func([], [IDL.Vec(SearchHistory)], ['query']),
   'getToolCategory' : IDL.Func([IDL.Nat], [IDL.Opt(ToolCategory)], ['query']),
   'getToolPage' : IDL.Func([IDL.Nat], [IDL.Opt(ToolPage)], ['query']),
   'getToolPagesByCategory' : IDL.Func(
       [IDL.Nat],
       [IDL.Vec(ToolPage)],
+      ['query'],
+    ),
+  'getToolUsageRecords' : IDL.Func([], [IDL.Vec(ToolUsageRecord)], ['query']),
+  'getUserDisplayName' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(IDL.Text)],
       ['query'],
     ),
   'getUserProfile' : IDL.Func(
@@ -110,9 +153,12 @@ export const idlService = IDL.Service({
     ),
   'initializeTools' : IDL.Func([], [], []),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'queryUserUsage' : IDL.Func([], [IDL.Vec(UserUsageRecord)], ['query']),
+  'recordToolUsage' : IDL.Func([IDL.Principal, IDL.Text], [], []),
+  'resetUserUsage' : IDL.Func([IDL.Principal], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
-  'saveToolToFavorites' : IDL.Func([IDL.Nat], [], []),
-  'trackToolUsage' : IDL.Func([IDL.Nat], [], []),
+  'saveCurrentUserFavorites' : IDL.Func([UserFavorites], [], []),
+  'saveCurrentUserPreferences' : IDL.Func([UserPreferences], [], []),
 });
 
 export const idlInitArgs = [];
@@ -135,16 +181,6 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
-  const Tool = IDL.Record({
-    'id' : IDL.Nat,
-    'name' : IDL.Text,
-    'usageCount' : IDL.Nat,
-    'slug' : IDL.Text,
-    'description' : IDL.Text,
-    'category' : IDL.Text,
-    'iconUrl' : IDL.Text,
-    'favoriteCount' : IDL.Nat,
-  });
   const ToolCategory = IDL.Record({
     'id' : IDL.Nat,
     'name' : IDL.Text,
@@ -157,12 +193,51 @@ export const idlFactory = ({ IDL }) => {
     'content' : IDL.Text,
     'category' : ToolCategory,
   });
+  const Tool = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'usageCount' : IDL.Nat,
+    'slug' : IDL.Text,
+    'tags' : IDL.Vec(IDL.Text),
+    'description' : IDL.Text,
+    'iconName' : IDL.Text,
+    'category' : IDL.Text,
+    'iconUrl' : IDL.Text,
+    'route' : IDL.Text,
+    'favoriteCount' : IDL.Nat,
+  });
   const UserProfile = IDL.Record({
-    'bio' : IDL.Text,
-    'displayName' : IDL.Text,
-    'badges' : IDL.Vec(IDL.Text),
-    'favoriteTools' : IDL.Vec(IDL.Nat),
-    'memberships' : IDL.Vec(IDL.Text),
+    'displayName' : IDL.Opt(IDL.Text),
+    'userId' : IDL.Principal,
+    'email' : IDL.Opt(IDL.Text),
+    'registrationDate' : IDL.Int,
+  });
+  const UserFavorites = IDL.Record({
+    'userId' : IDL.Principal,
+    'favoriteToolIds' : IDL.Vec(IDL.Text),
+  });
+  const UserPreferences = IDL.Record({
+    'theme' : IDL.Text,
+    'userId' : IDL.Principal,
+    'notificationSettings' : IDL.Opt(IDL.Text),
+    'defaultMeasurementUnit' : IDL.Opt(IDL.Text),
+  });
+  const SearchHistory = IDL.Record({
+    'userId' : IDL.Principal,
+    'timestamp' : IDL.Int,
+    'resultsCount' : IDL.Nat,
+    'searchQuery' : IDL.Text,
+  });
+  const ToolUsageRecord = IDL.Record({
+    'userId' : IDL.Principal,
+    'usageCount' : IDL.Nat,
+    'toolId' : IDL.Text,
+    'timestamp' : IDL.Int,
+  });
+  const UserUsageRecord = IDL.Record({
+    'userId' : IDL.Principal,
+    'toolId' : IDL.Text,
+    'timestamp' : IDL.Int,
   });
   
   return IDL.Service({
@@ -193,7 +268,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
-    'addBadgeToProfile' : IDL.Func([IDL.Text], [], []),
+    'addSearchHistory' : IDL.Func([IDL.Principal, IDL.Text, IDL.Nat], [], []),
     'addToolCategory' : IDL.Func([IDL.Text, IDL.Text], [IDL.Nat], []),
     'addToolPage' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Nat, IDL.Vec(ExternalBlob)],
@@ -201,16 +276,34 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-    'findToolByName' : IDL.Func([IDL.Text], [IDL.Vec(Tool)], ['query']),
+    'editDisplayName' : IDL.Func([IDL.Opt(IDL.Text)], [], []),
     'getAllToolCategories' : IDL.Func([], [IDL.Vec(ToolCategory)], ['query']),
     'getAllToolPages' : IDL.Func([], [IDL.Vec(ToolPage)], ['query']),
+    'getAllTools' : IDL.Func([], [IDL.Vec(Tool)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getCurrentUserFavorites' : IDL.Func(
+        [],
+        [IDL.Opt(UserFavorites)],
+        ['query'],
+      ),
+    'getCurrentUserPreferences' : IDL.Func(
+        [],
+        [IDL.Opt(UserPreferences)],
+        ['query'],
+      ),
+    'getSearchHistory' : IDL.Func([], [IDL.Vec(SearchHistory)], ['query']),
     'getToolCategory' : IDL.Func([IDL.Nat], [IDL.Opt(ToolCategory)], ['query']),
     'getToolPage' : IDL.Func([IDL.Nat], [IDL.Opt(ToolPage)], ['query']),
     'getToolPagesByCategory' : IDL.Func(
         [IDL.Nat],
         [IDL.Vec(ToolPage)],
+        ['query'],
+      ),
+    'getToolUsageRecords' : IDL.Func([], [IDL.Vec(ToolUsageRecord)], ['query']),
+    'getUserDisplayName' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(IDL.Text)],
         ['query'],
       ),
     'getUserProfile' : IDL.Func(
@@ -220,9 +313,12 @@ export const idlFactory = ({ IDL }) => {
       ),
     'initializeTools' : IDL.Func([], [], []),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'queryUserUsage' : IDL.Func([], [IDL.Vec(UserUsageRecord)], ['query']),
+    'recordToolUsage' : IDL.Func([IDL.Principal, IDL.Text], [], []),
+    'resetUserUsage' : IDL.Func([IDL.Principal], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
-    'saveToolToFavorites' : IDL.Func([IDL.Nat], [], []),
-    'trackToolUsage' : IDL.Func([IDL.Nat], [], []),
+    'saveCurrentUserFavorites' : IDL.Func([UserFavorites], [], []),
+    'saveCurrentUserPreferences' : IDL.Func([UserPreferences], [], []),
   });
 };
 

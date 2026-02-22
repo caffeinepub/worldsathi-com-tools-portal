@@ -1,40 +1,38 @@
 import { Link } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { TOOL_CATEGORIES } from '../constants/categories';
-import { ALL_TOOLS } from '../constants/tools';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import DynamicIcon from './DynamicIcon';
+import { ALL_TOOLS } from '../constants/tools';
 
 export default function CategoryCards() {
   return (
-    <section className="py-16">
-      <div className="container">
+    <section className="py-16 bg-muted/30">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">
-            Browse by <span className="text-primary">Category</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Browse by Category</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Explore our comprehensive collection of tools organized by category
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {TOOL_CATEGORIES.map((category) => {
             const toolCount = ALL_TOOLS.filter((tool) => tool.category === category.id).length;
-            
+
             return (
-              <Link key={category.id} to="/category/$categoryId" params={{ categoryId: category.id }}>
-                <Card className="group h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.03] hover:-translate-y-1 border border-border">
+              <Link key={category.id} to="/category/$categorySlug" params={{ categorySlug: category.id }}>
+                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer border-2 hover:border-primary">
                   <CardHeader>
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 transition-transform group-hover:scale-110">
-                      <DynamicIcon name={category.icon} size={32} className="text-primary" />
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <DynamicIcon name={category.icon} className="h-6 w-6 text-primary" />
+                      </div>
+                      <CardTitle className="text-xl">{category.name}</CardTitle>
                     </div>
-                    <CardTitle className="text-xl">{category.displayName}</CardTitle>
-                    <CardDescription className="line-clamp-2">
-                      {category.description}
-                    </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground mb-4">{category.description}</p>
+                    <p className="text-sm font-semibold text-primary">
                       {toolCount} {toolCount === 1 ? 'tool' : 'tools'} available
                     </p>
                   </CardContent>

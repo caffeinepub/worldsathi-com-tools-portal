@@ -1,34 +1,82 @@
 import Map "mo:core/Map";
 import Principal "mo:core/Principal";
+import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
-import Iter "mo:core/Iter";
+import Array "mo:core/Array";
+import Int "mo:core/Int";
+import Text "mo:core/Text";
 import Nat "mo:core/Nat";
-import Migration "migration";
+
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
+import Migration "migration";
 
-// Use explicit with clause for migration
 (with migration = Migration.run)
 actor {
   type UserProfile = {
-    displayName : Text;
-    bio : Text;
-    favoriteTools : [Nat]; // Use Arrays for favoriteTools
-    memberships : [Text];
-    badges : [Text];
+    userId : Principal;
+    registrationDate : Int;
+    email : ?Text;
+    displayName : ?Text;
   };
 
-  type ToolLegacy = {
-    id : Nat;
-    name : Text;
-    description : Text;
-    iconUrl : Text;
-    favoriteCount : Nat;
-    category : Text;
+  type UserFavorites = {
+    userId : Principal;
+    favoriteToolIds : [Text];
+  };
+
+  type ToolUsageRecord = {
+    userId : Principal;
+    toolId : Text;
+    timestamp : Int;
     usageCount : Nat;
+  };
+
+  type SearchHistory = {
+    userId : Principal;
+    searchQuery : Text;
+    timestamp : Int;
+    resultsCount : Nat;
+  };
+
+  type UserPreferences = {
+    userId : Principal;
+    theme : Text;
+    defaultMeasurementUnit : ?Text;
+    notificationSettings : ?Text;
+  };
+
+  type UsageStats = {
+    dailyUsage : Nat;
+    weeklyUsage : Nat;
+    totalUsage : Nat;
+    savedToolsCount : Nat;
+  };
+
+  type UserUsageRecord = {
+    timestamp : Int;
+    toolId : Text;
+    userId : Principal;
+  };
+
+  type DailyAggregate = {
+    date : Int;
+    totalUses : Nat;
+  };
+
+  type WeeklyAggregate = {
+    weekStart : Int;
+    totalUses : Nat;
+  };
+
+  type UsageReport = {
+    dailyStats : [DailyAggregate];
+    weeklyStats : [WeeklyAggregate];
+    savedToolsCount : Nat;
+    totalUsage : Nat;
   };
 
   type Tool = {
@@ -40,6 +88,9 @@ actor {
     iconUrl : Text;
     favoriteCount : Nat;
     usageCount : Nat;
+    tags : [Text];
+    route : Text;
+    iconName : Text;
   };
 
   type UsageHistory = {
@@ -57,46 +108,423 @@ actor {
     id : Nat;
     title : Text;
     content : Text;
-    files : [Storage.ExternalBlob]; // Use Array instead of List
+    files : [Storage.ExternalBlob];
     category : ToolCategory;
   };
 
   include MixinStorage();
+
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
+  // Persistent stores
   let userProfiles = Map.empty<Principal, UserProfile>();
-  let tools = Map.empty<Nat, Tool>();
-  let usageHistory = Map.empty<Principal, [UsageHistory]>();
+  let userFavorites = Map.empty<Principal, UserFavorites>();
+  let toolUsageRecords = Map.empty<Text, ToolUsageRecord>();
+  let userPreferences = Map.empty<Principal, UserPreferences>();
   let toolCategories = Map.empty<Nat, ToolCategory>();
   let toolPages = Map.empty<Nat, ToolPage>();
+  let tools = Map.empty<Nat, Tool>();
+  let usageStats = Map.empty<Principal, UsageStats>();
+  let usageReports = Map.empty<Principal, UsageReport>();
+  let userUsageRecords = Map.empty<Text, UserUsageRecord>();
+
+  // Persistent search history (in array, could move to stable Map)
+  var searchHistory : [SearchHistory] = [];
 
   var toolPageIdCounter = 1;
   var toolCategoryIdCounter = 1;
   var isToolInitialized : Bool = false;
 
-  // Initialize with expanded tools (admin only)
+  // ================== User Profile Functions ==================
+
+  public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can access profiles");
+    };
+    userProfiles.get(caller);
+  };
+
+  public query ({ caller }) func getUserProfile(user : Principal) : async ?UserProfile {
+    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only view your own profile");
+    };
+    userProfiles.get(user);
+  };
+
+  public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can save profiles");
+    };
+    if (profile.userId != caller) {
+      Runtime.trap("Unauthorized: Cannot save profile for another user");
+    };
+    userProfiles.add(caller, profile);
+  };
+
+  // ================== User Preferences Functions ==================
+
+  public query ({ caller }) func getCurrentUserPreferences() : async ?UserPreferences {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can access preferences");
+    };
+    userPreferences.get(caller);
+  };
+
+  public shared ({ caller }) func saveCurrentUserPreferences(preferences : UserPreferences) : async () {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can save preferences");
+    };
+    if (preferences.userId != caller) {
+      Runtime.trap("Unauthorized: Cannot save preferences for another user");
+    };
+    userPreferences.add(caller, preferences);
+  };
+
+  // ================== User Favorites Functions ==================
+
+  public shared ({ caller }) func saveCurrentUserFavorites(favorites : UserFavorites) : async () {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can save favorites");
+    };
+    if (favorites.userId != caller) {
+      Runtime.trap("Unauthorized: Cannot save favorites for another user");
+    };
+    userFavorites.add(caller, favorites);
+  };
+
+  public query ({ caller }) func getCurrentUserFavorites() : async ?UserFavorites {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can access favorites");
+    };
+    userFavorites.get(caller);
+  };
+
+  // ================== Tool Usage Functions ==================
+
+  public shared ({ caller }) func recordToolUsage(userId : Principal, toolId : Text) : async () {
+    if (caller != userId and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only record your own tool usage");
+    };
+    let recordId = userId.toText() # "_" # toolId;
+    let existingRecord = toolUsageRecords.get(recordId);
+    let newRecord : ToolUsageRecord = switch (existingRecord) {
+      case (null) {
+        {
+          userId;
+          toolId;
+          timestamp = Time.now();
+          usageCount = 1;
+        };
+      };
+      case (?existing) {
+        {
+          userId;
+          toolId;
+          timestamp = Time.now();
+          usageCount = existing.usageCount + 1;
+        };
+      };
+    };
+    toolUsageRecords.add(recordId, newRecord);
+  };
+
+  public query ({ caller }) func getToolUsageRecords() : async [ToolUsageRecord] {
+    let allRecords = toolUsageRecords.values().toArray();
+    if (AccessControl.isAdmin(accessControlState, caller)) {
+      allRecords;
+    } else {
+      if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+        Runtime.trap("Unauthorized: Only users can access tool usage records");
+      };
+      allRecords.filter(func(record) { record.userId == caller });
+    };
+  };
+
+  // ================== Search History Functions ==================
+
+  public shared ({ caller }) func addSearchHistory(userId : Principal, searchQuery : Text, resultCount : Nat) : async () {
+    if (caller != userId and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only add your own search history");
+    };
+    let newSearch : SearchHistory = {
+      userId;
+      searchQuery;
+      timestamp = Time.now();
+      resultsCount = resultCount;
+    };
+    searchHistory := searchHistory.concat([newSearch]);
+  };
+
+  public query ({ caller }) func getSearchHistory() : async [SearchHistory] {
+    if (AccessControl.isAdmin(accessControlState, caller)) {
+      searchHistory;
+    } else {
+      if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+        Runtime.trap("Unauthorized: Only users can access search history");
+      };
+      searchHistory.filter(func(search) { search.userId == caller });
+    };
+  };
+
+  // ================== Tool Management ==================
+
   public shared ({ caller }) func initializeTools() : async () {
-    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
       Runtime.trap("Unauthorized: Only admins can initialize tools");
     };
-
     if (isToolInitialized) {
       Runtime.trap("Tools already initialized");
     };
 
     let newTools = [
-      // Restored tools (10)
-      { id = 1; name = "Web Browser"; slug = "web-browser"; description = "Browse the internet securely"; iconUrl = "browser.png"; favoriteCount = 0; category = "Browsers"; usageCount = 0 },
-      { id = 2; name = "Password Manager"; slug = "password-manager"; description = "Store and manage passwords"; iconUrl = "password-manager.png"; favoriteCount = 0; category = "Security"; usageCount = 0 },
-      { id = 3; name = "Cloud Storage"; slug = "cloud-storage"; description = "Safely store and access files online"; iconUrl = "cloud-storage.png"; favoriteCount = 0; category = "Productivity"; usageCount = 0 },
-      { id = 4; name = "VPN"; slug = "vpn"; description = "Secure your internet connection with a Virtual Private Network"; iconUrl = "vpn.png"; favoriteCount = 0; category = "Security"; usageCount = 0 },
-      { id = 5; name = "Music Streaming"; slug = "music-streaming"; description = "Listen to your favorite music online"; iconUrl = "music-streaming.png"; favoriteCount = 0; category = "Entertainment"; usageCount = 0 },
-      { id = 6; name = "Video Streaming"; slug = "video-streaming"; description = "Watch movies and TV shows online"; iconUrl = "video-streaming.png"; favoriteCount = 0; category = "Entertainment"; usageCount = 0 },
-      { id = 7; name = "Online Banking"; slug = "online-banking"; description = "Manage your money with online banking"; iconUrl = "banking.png"; favoriteCount = 0; category = "Finance"; usageCount = 0 },
-      { id = 8; name = "Online Shopping"; slug = "online-shopping"; description = "Shop for items and clothes online"; iconUrl = "shopping.png"; favoriteCount = 0; category = "Shopping"; usageCount = 0 },
-      { id = 9; name = "Travel Booking"; slug = "travel-booking"; description = "Book flights, hotels, and trips online"; iconUrl = "travel.png"; favoriteCount = 0; category = "Travel"; usageCount = 0 },
-      { id = 10; name = "Social Media"; slug = "social-media"; description = "Stay connected with friends and family"; iconUrl = "social-media.png"; favoriteCount = 0; category = "Social"; usageCount = 0 }
+      {
+        id = 3001;
+        name = "Duotone Filter";
+        slug = "duotone-filter";
+        description = "Apply vibrant duotone color effects to your images for a modern, artistic look. Choose two colors to create striking visual contrasts and enhance your photos with easy-to-use presets.";
+        iconUrl = "duotone-filter.png";
+        favoriteCount = 0;
+        category = "Image Tools";
+        usageCount = 0;
+        tags = [ "duotone", "image-processing", "color", "filter" ];
+        route = "/tools/duotone-filter";
+        iconName = "filter";
+      },
+      {
+        id = 3002;
+        name = "Gradient Generator";
+        slug = "gradient-generator";
+        description = "Create beautiful color gradients for backgrounds, graphics, and websites. Adjust colors, angles, and patterns with a simple interface to generate stunning visuals effortlessly.";
+        iconUrl = "gradient-generator.png";
+        favoriteCount = 0;
+        category = "Generators";
+        usageCount = 0;
+        tags = [ "gradient", "color", "design", "generator" ];
+        route = "/tools/gradient-generator";
+        iconName = "gradient";
+      },
+      {
+        id = 3003;
+        name = "Pattern Maker";
+        slug = "pattern-maker";
+        description = "Design seamless patterns using shapes, colors, and textures. Perfect for backgrounds, wallpapers, and digital art. Includes easy customization options and ready-to-use templates.";
+        iconUrl = "pattern-maker.png";
+        favoriteCount = 0;
+        category = "Generators";
+        usageCount = 0;
+        tags = [ "pattern", "design", "generator", "background" ];
+        route = "/tools/pattern-maker";
+        iconName = "pattern";
+      },
+      {
+        id = 3004;
+        name = "Color Extractor";
+        slug = "color-extractor";
+        description = "Extract dominant and palette colors from any image. Identify main hues, complementary colors, and gradients for design inspiration and color matching.";
+        iconUrl = "color-extractor.png";
+        favoriteCount = 0;
+        category = "Analyzers";
+        usageCount = 0;
+        tags = [ "color", "analyzer", "gradient", "palette" ];
+        route = "/tools/color-extractor";
+        iconName = "color-extract";
+      },
+      {
+        id = 3005;
+        name = "Mesh Generator";
+        slug = "mesh-generator";
+        description = "Generate mesh backgrounds with poly gradients and color blending. Create abstract, visually appealing designs for use in websites, presentations, and digital projects.";
+        iconUrl = "mesh-generator.png";
+        favoriteCount = 0;
+        category = "Generators";
+        usageCount = 0;
+        tags = [ "mesh", "gradient", "color", "design" ];
+        route = "/tools/mesh-generator";
+        iconName = "mesh";
+      },
+      {
+        id = 3006;
+        name = "Duotone Generator";
+        slug = "duotone-generator";
+        description = "Quickly create duotone color schemes and gradients for digital art, branding, and marketing materials. Experiment with various color pairs and preset combos.";
+        iconUrl = "duotone-generator.png";
+        favoriteCount = 0;
+        category = "Generators";
+        usageCount = 0;
+        tags = [ "duotone", "gradient", "color", "generator" ];
+        route = "/tools/duotone-generator";
+        iconName = "duotone-gen";
+      },
+      {
+        id = 1;
+        name = "Easy Browser";
+        slug = "easy-browser";
+        description = "Browse the internet with simplified navigation";
+        iconUrl = "browser.png";
+        favoriteCount = 0;
+        category = "Browsers";
+        usageCount = 0;
+        tags = [ "browser", "navigation", "internet" ];
+        route = "/tools/easy-browser";
+        iconName = "browser";
+      },
+      {
+        id = 2;
+        name = "Simple Password Manager";
+        slug = "simple-password-manager";
+        description = "Securely store and retrieve your passwords";
+        iconUrl = "password-manager.png";
+        favoriteCount = 0;
+        category = "Security";
+        usageCount = 0;
+        tags = [ "password", "security", "manager" ];
+        route = "/tools/simple-password-manager";
+        iconName = "password";
+      },
+      {
+        id = 3;
+        name = "Accessible Cloud Storage";
+        slug = "accessible-cloud-storage";
+        description = "Store photos and documents with ease";
+        iconUrl = "cloud-storage.png";
+        favoriteCount = 0;
+        category = "Productivity";
+        usageCount = 0;
+        tags = [ "cloud", "storage", "files" ];
+        route = "/tools/accessible-cloud-storage";
+        iconName = "cloud";
+      },
+      {
+        id = 4;
+        name = "User-Friendly VPN";
+        slug = "user-friendly-vpn";
+        description = "Protect your privacy online";
+        iconUrl = "vpn.png";
+        favoriteCount = 0;
+        category = "Security";
+        usageCount = 0;
+        tags = [ "vpn", "security", "privacy" ];
+        route = "/tools/user-friendly-vpn";
+        iconName = "vpn";
+      },
+      {
+        id = 5;
+        name = "Simple Music Player";
+        slug = "simple-music-player";
+        description = "Listen to your favorite tunes";
+        iconUrl = "music-streaming.png";
+        favoriteCount = 0;
+        category = "Entertainment";
+        usageCount = 0;
+        tags = [ "music", "entertainment", "player" ];
+        route = "/tools/simple-music-player";
+        iconName = "music";
+      },
+      {
+        id = 6;
+        name = "Easy Video Streaming";
+        slug = "easy-video-streaming";
+        description = "Watch movies and shows effortlessly";
+        iconUrl = "video-streaming.png";
+        favoriteCount = 0;
+        category = "Entertainment";
+        usageCount = 0;
+        tags = [ "video", "entertainment", "streaming" ];
+        route = "/tools/easy-video-streaming";
+        iconName = "video";
+      },
+      {
+        id = 7;
+        name = "Online Banking Helper";
+        slug = "online-banking-helper";
+        description = "Simplified online banking tasks";
+        iconUrl = "banking.png";
+        favoriteCount = 0;
+        category = "Finance";
+        usageCount = 0;
+        tags = [ "banking", "finance", "helper" ];
+        route = "/tools/online-banking-helper";
+        iconName = "banking";
+      },
+      {
+        id = 8;
+        name = "Shopping Assistant";
+        slug = "shopping-assistant";
+        description = "Easy online shopping for seniors";
+        iconUrl = "shopping.png";
+        favoriteCount = 0;
+        category = "Shopping";
+        usageCount = 0;
+        tags = [ "shopping", "assistant", "ecommerce" ];
+        route = "/tools/shopping-assistant";
+        iconName = "shopping";
+      },
+      {
+        id = 9;
+        name = "Travel Planner";
+        slug = "travel-planner";
+        description = "Book trips and manage travel plans";
+        iconUrl = "travel.png";
+        favoriteCount = 0;
+        category = "Travel";
+        usageCount = 0;
+        tags = [ "travel", "planner", "booking" ];
+        route = "/tools/travel-planner";
+        iconName = "travel";
+      },
+      {
+        id = 10;
+        name = "Social Media Simplified";
+        slug = "social-media-simplified";
+        description = "Connect with friends and family easily";
+        iconUrl = "social-media.png";
+        favoriteCount = 0;
+        category = "Social";
+        usageCount = 0;
+        tags = [ "social", "media", "connections" ];
+        route = "/tools/social-media-simplified";
+        iconName = "social";
+      },
+      {
+        id = 11;
+        name = "Email Simplifier";
+        slug = "email-simplifier";
+        description = "Manage emails with less stress";
+        iconUrl = "email.png";
+        favoriteCount = 0;
+        category = "Communication";
+        usageCount = 0;
+        tags = [ "email", "communication", "simplifier" ];
+        route = "/tools/email-simplifier";
+        iconName = "email";
+      },
+      {
+        id = 12;
+        name = "Health Tracker";
+        slug = "health-tracker";
+        description = "Track health metrics and appointments";
+        iconUrl = "health.png";
+        favoriteCount = 0;
+        category = "Health";
+        usageCount = 0;
+        tags = [ "health", "tracker", "metrics" ];
+        route = "/tools/health-tracker";
+        iconName = "health";
+      },
+      {
+        id = 13;
+        name = "Finance Manager";
+        slug = "finance-manager";
+        description = "Simplified income and expense tracking";
+        iconUrl = "finance.png";
+        favoriteCount = 0;
+        category = "Finance";
+        usageCount = 0;
+        tags = [ "finance", "manager", "expenses" ];
+        route = "/tools/finance-manager";
+        iconName = "finance";
+      }
     ];
 
     for (tool in newTools.values()) {
@@ -105,19 +533,20 @@ actor {
     isToolInitialized := true;
   };
 
-  // Get a tool category by ID
+  public query ({ caller }) func getAllTools() : async [Tool] {
+    tools.values().toArray();
+  };
+
   public query ({ caller }) func getToolCategory(id : Nat) : async ?ToolCategory {
     toolCategories.get(id);
   };
 
-  // Get all tool categories
   public query ({ caller }) func getAllToolCategories() : async [ToolCategory] {
     toolCategories.values().toArray();
   };
 
-  // Add a new tool category (admin only)
   public shared ({ caller }) func addToolCategory(name : Text, description : Text) : async Nat {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
       Runtime.trap("Unauthorized: Only admins can add tool categories");
     };
     let newCategory : ToolCategory = {
@@ -130,17 +559,14 @@ actor {
     newCategory.id;
   };
 
-  // Get a tool page by ID
   public query ({ caller }) func getToolPage(id : Nat) : async ?ToolPage {
     toolPages.get(id);
   };
 
-  // Get all tool pages
   public query ({ caller }) func getAllToolPages() : async [ToolPage] {
     toolPages.values().toArray();
   };
 
-  // Get tool pages by category
   public query ({ caller }) func getToolPagesByCategory(categoryId : Nat) : async [ToolPage] {
     let pages = toolPages.values().toArray();
     pages.filter(
@@ -150,9 +576,8 @@ actor {
     );
   };
 
-  // Add a new tool page (admin only)
   public shared ({ caller }) func addToolPage(title : Text, content : Text, categoryId : Nat, files : [Storage.ExternalBlob]) : async Nat {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
       Runtime.trap("Unauthorized: Only admins can add tool pages");
     };
     let category = toolCategories.get(categoryId);
@@ -173,128 +598,73 @@ actor {
     };
   };
 
-  // Get the caller's own profile
-  public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can access profiles");
+  // Edit display name functionality
+  public shared ({ caller }) func editDisplayName(newDisplayName : ?Text) : async () {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only users can edit their display name");
     };
-    userProfiles.get(caller);
-  };
 
-  // Save the caller's own profile
-  public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can save profiles");
-    };
-    userProfiles.add(caller, profile);
-  };
-
-  // Get any user's profile - restricted to own profile or admin access
-  public query ({ caller }) func getUserProfile(user : Principal) : async ?UserProfile {
-    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
-      Runtime.trap("Unauthorized: Can only view your own profile");
-    };
-    userProfiles.get(user);
-  };
-
-  // Users can save a tool to profile (requires user authentication)
-  public shared ({ caller }) func saveToolToFavorites(toolId : Nat) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can save favorites");
-    };
     switch (userProfiles.get(caller)) {
-      case (null) {
-        let newProfile : UserProfile = {
-          displayName = "Anonymous";
-          bio = "";
-          favoriteTools = [toolId]; // Use array for favoriteTools
-          memberships = [];
-          badges = [];
-        };
-        userProfiles.add(caller, newProfile);
-      };
       case (?profile) {
-        if (profile.favoriteTools.find<Nat>(func(id) { id == toolId }) != null) {
-          Runtime.trap("Tool already saved");
+        let updatedProfile : UserProfile = {
+          userId = profile.userId;
+          registrationDate = profile.registrationDate;
+          email = profile.email;
+          displayName = newDisplayName;
         };
-        userProfiles.add(caller, {
-          profile with
-          favoriteTools = profile.favoriteTools.concat([toolId]); // Concatenate arrays
-        });
-        switch (tools.get(toolId)) {
-          case (null) {};
-          case (?tool) {
-            tools.add(toolId, {
-              tool with favoriteCount = tool.favoriteCount + 1;
-            });
-          };
-        };
+        userProfiles.add(caller, updatedProfile);
       };
-    };
-  };
-
-  // Track tool usage (requires user authentication)
-  public shared ({ caller }) func trackToolUsage(toolId : Nat) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can track tool usage");
-    };
-    let history = switch (usageHistory.get(caller)) {
-      case (null) { [] : [UsageHistory] };
-      case (?h) { h };
-    };
-    let newEntry : UsageHistory = {
-      toolId;
-      timestamp = Time.now();
-    };
-    usageHistory.add(caller, history.concat([newEntry])); // Concatenate arrays
-    switch (tools.get(toolId)) {
-      case (null) {};
-      case (?tool) {
-        tools.add(toolId, {
-          tool with usageCount = tool.usageCount + 1;
-        });
-      };
-    };
-  };
-
-  // Find tool by name (search)
-  public query ({ caller }) func findToolByName(searchTerm : Text) : async [Tool] {
-    let lowerSearch = searchTerm.toLower();
-    if (searchTerm.size() == 0) {
-      return [];
-    };
-
-    let filteredTools = tools.filter(
-      func(_id, tool) {
-        tool.name.toLower().contains(#text lowerSearch);
-      }
-    );
-
-    let result = filteredTools.values();
-    result.toArray();
-  };
-
-  // Add or update a badge to caller's profile
-  public shared ({ caller }) func addBadgeToProfile(badge : Text) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can add badges");
-    };
-    switch (userProfiles.get(caller)) {
       case (null) {
-        let newProfile : UserProfile = {
-          displayName = "Anonymous";
-          bio = "";
-          favoriteTools = [];
-          memberships = [];
-          badges = [badge]; // Use array for badges
-        };
-        userProfiles.add(caller, newProfile);
-      };
-      case (?profile) {
-        userProfiles.add(caller, {
-          profile with badges = profile.badges.concat([badge]); // Concatenate arrays
-        });
+        Runtime.trap("Profile not found for caller");
       };
     };
+  };
+
+  public query ({ caller }) func getUserDisplayName(principal : Principal) : async ?Text {
+    switch (userProfiles.get(principal)) {
+      case (?profile) {
+        profile.displayName;
+      };
+      case (null) {
+        null;
+      };
+    };
+  };
+
+  // =============== Usage Analysis / Reporting ================
+
+  public query ({ caller }) func queryUserUsage() : async [UserUsageRecord] {
+    let allUsage = userUsageRecords.values().toArray();
+    if (AccessControl.isAdmin(accessControlState, caller)) {
+      allUsage;
+    } else {
+      if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+        Runtime.trap("Unauthorized: Only users can access tool usage records");
+      };
+      allUsage.filter(func(usage) { usage.userId == caller });
+    };
+  };
+
+  // =============== Admin Functions ================
+
+  public shared ({ caller }) func resetUserUsage(userId : Principal) : async () {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can reset user usage stats");
+    };
+    let resetStats : UsageStats = {
+      dailyUsage = 0;
+      weeklyUsage = 0;
+      totalUsage = 0;
+      savedToolsCount = 0;
+    };
+    usageStats.add(userId, resetStats);
+
+    let resetReport : UsageReport = {
+      dailyStats = [];
+      weeklyStats = [];
+      savedToolsCount = 0;
+      totalUsage = 0;
+    };
+    usageReports.add(userId, resetReport);
   };
 };

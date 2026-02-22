@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-verify-component-file-existence-for-all-tools-defined-in-frontend-src-constants-tools-ts-cross-reference-tool-metadata-slugs-and-categories-with-actual-component-files-in-frontend-src-pages-tools-identify-any-missing-component-files-that-would-cause-404-errors",
-      "featureTitle": "Verify component file existence for all tools defined in frontend/src/constants/tools.ts. Cross-reference tool metadata slugs and categories with actual component files in frontend/src/pages/tools/. Identify any missing component files that would cause 404 errors.",
+      "featureId": "feature-update-the-dashboard-page-to-display-placeholder-values-0-or-sensible-fixed-numbers-for-all-usage-statistics-instead-of-the-current-incorrect-values-9114-this-includes-usage-this-week-tools-used-this-week-total-usage-saved-tools-daily-quota-remaining-daily-uses-weekly-quota-remaining-weekly-uses-today-s-usage-and-average-daily",
+      "featureTitle": "Update the Dashboard page to display placeholder values (0 or sensible fixed numbers) for all usage statistics instead of the current incorrect values (9114). This includes: Usage This Week, Tools Used This Week, Total Usage, Saved Tools, Daily Quota remaining, daily uses, Weekly Quota remaining, weekly uses, Today's Usage, and Average Daily.",
       "files": [
-        "frontend/src/constants/tools.ts"
+        "frontend/src/pages/Dashboard.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,15 +17,18 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-177"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-fix-any-case-sensitivity-issues-in-route-definitions-and-component-imports-ensure-that-tool-slug-casing-in-urls-matches-component-file-naming-conventions-e-g-standarddeviationcalculator-tsx-vs-standard-deviation-calculator-in-url",
-      "featureTitle": "Fix any case sensitivity issues in route definitions and component imports. Ensure that tool slug casing in URLs matches component file naming conventions (e.g., StandardDeviationCalculator.tsx vs standard-deviation-calculator in URL).",
+      "featureId": "feature-create-an-admin-panel-page-for-resetting-user-usage-statistics-the-admin-should-be-able-to-select-a-user-and-reset-all-their-usage-counts-daily-usage-weekly-usage-total-usage-saved-tools-count-back-to-zero",
+      "featureTitle": "Create an admin panel page for resetting user usage statistics. The admin should be able to select a user and reset all their usage counts (daily usage, weekly usage, total usage, saved tools count) back to zero.",
       "files": [
-        "frontend/src/constants/tools.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/admin/Dashboard.tsx",
+        "frontend/src/pages/admin/ResetUserStats.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -37,76 +40,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-178"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-tool-metadata-in-frontend-src-constants-tools-ts-for-the-first-batch-of-10-missing-tools-add-complete-metadata-entries-including-name-slug-matching-route-pattern-description-3-5-words-category-matching-existing-category-ids-tags-array-5-8-relevant-keywords-icon-valid-lucide-react-icon-name-pricing-information-isfree-true-cost-0-00-isnew-false-flag-usabilitysteps-array-with-4-6-numbered-instructions-about-object-with-comprehensive-content-introduction-paragraph-keyfeatures-array-with-4-6-bullet-points-whobenefits-array-with-2-3-user-personas-whychoose-array-with-2-3-competitive-advantages-and-faqs-array-with-5-7-relevant-questions-and-detailed-answers",
-      "featureTitle": "Update tool metadata in frontend/src/constants/tools.ts for the first batch of 10 missing tools. Add complete metadata entries including name, slug matching route pattern, description (3-5 words), category matching existing category IDs, tags array (5-8 relevant keywords), icon (valid Lucide React icon name), pricing information (isFree: true, cost: '0.00'), isNew: false flag, usabilitySteps array with 4-6 numbered instructions, about object with comprehensive content (introduction paragraph, keyFeatures array with 4-6 bullet points, whoBenefits array with 2-3 user personas, whyChoose array with 2-3 competitive advantages), and faqs array with 5-7 relevant questions and detailed answers.",
-      "files": [
-        "frontend/src/constants/tools.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-179"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-react-component-files-for-the-first-batch-of-10-restored-tools-in-appropriate-category-subdirectories-under-frontend-src-pages-tools-each-component-must-follow-the-toolpagetemplate-pattern-with-toolhero-section-displaying-unique-gradient-background-main-tool-interface-card-with-functional-inputs-outputs-and-action-buttons-calculate-convert-generate-with-primary-styling-and-reset-button-usabilityguide-section-with-numbered-step-by-step-instructions-aboutthetool-section-with-comprehensive-content-introduction-key-features-who-benefits-why-choose-faq-accordion-with-5-7-questions-and-conditionally-rendered-sections-where-applicable",
-      "featureTitle": "Create React component files for the first batch of 10 restored tools in appropriate category subdirectories under frontend/src/pages/tools/. Each component must follow the ToolPageTemplate pattern with ToolHero section displaying unique gradient background, main tool interface card with functional inputs/outputs and action buttons (Calculate/Convert/Generate with primary styling and Reset button), UsabilityGuide section with numbered step-by-step instructions, AboutTheTool section with comprehensive content (introduction, key features, who benefits, why choose), FAQ accordion with 5-7 questions, and conditionally rendered sections where applicable.",
-      "files": [
-        "frontend/src/pages/tools/analyzers/ReadabilityAnalyzer.tsx",
-        "frontend/src/pages/tools/calculators/AgeCalculator.tsx",
-        "frontend/src/pages/tools/calculators/DateCalculator.tsx",
-        "frontend/src/pages/tools/calculators/DiscountCalculator.tsx",
-        "frontend/src/pages/tools/converters/AreaConverter.tsx",
-        "frontend/src/pages/tools/converters/SpeedConverter.tsx",
-        "frontend/src/pages/tools/developer-tools/FaviconGenerator.tsx",
-        "frontend/src/pages/tools/generators/BarcodeGenerator.tsx",
-        "frontend/src/pages/tools/generators/UsernameGenerator.tsx",
-        "frontend/src/pages/tools/text-tools/TextDiffChecker.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-180"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-distribute-the-10-restored-tools-strategically-across-categories-that-currently-have-fewer-tools-to-improve-category-balance-prioritize-categories-with-fewer-than-8-tools-selecting-useful-utility-tools-that-fit-each-category-s-purpose-document-which-categories-received-new-tools-and-their-current-tool-counts-for-tracking-progress-toward-the-125-tool-goal",
-      "featureTitle": "Distribute the 10 restored tools strategically across categories that currently have fewer tools to improve category balance. Prioritize categories with fewer than 8 tools, selecting useful utility tools that fit each category's purpose. Document which categories received new tools and their current tool counts for tracking progress toward the 125-tool goal.",
-      "files": [
-        "frontend/src/constants/tools.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-185"
+        "REQ-2"
       ],
       "confidence": "high"
     }

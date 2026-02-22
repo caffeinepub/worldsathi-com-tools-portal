@@ -1,16 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix tool routing 404 errors and restore first batch of 10 missing tools to the Worldsathi Tools Portal.
+**Goal:** Simplify the dashboard to show placeholder values and add admin functionality to reset user usage statistics.
 
 **Planned changes:**
-- Audit and fix route definitions in frontend/src/App.tsx to eliminate 404 errors
-- Verify component file existence and fix case sensitivity issues in routing
-- Add complete metadata entries for 10 restored tools to frontend/src/constants/tools.ts
-- Create React component files for 10 tools following ToolPageTemplate pattern
-- Add route definitions for all 10 restored tools with lazy-loaded imports
-- Update backend/main.mo to include tool metadata for 10 restored tools
-- Distribute 10 tools strategically across categories with fewer existing tools
-- Test navigation and verify tools appear correctly throughout the application
+- Update Dashboard page to display placeholder values (0 or sensible defaults) for all usage metrics instead of incorrect values
+- Create admin panel page with user selection and reset functionality for clearing usage statistics
+- Add backend data structures to support future usage tracking (types and storage for usage records)
+- Implement admin reset feature that clears all usage counts for selected users with confirmation dialog
 
-**User-visible outcome:** Users can successfully navigate to 10 newly restored tool pages without encountering 404 errors. The restored tools (Age Calculator, Date Calculator, Discount Calculator, Area Converter, Speed Converter, Barcode Generator, Username Generator, Readability Analyzer, Text Diff Checker, Favicon Generator) are discoverable through category pages, search results, and homepage sections, with fully functional interfaces following the established tool template pattern.
+**User-visible outcome:** Dashboard displays clean placeholder values until tracking is implemented. Admins can reset any user's usage statistics from a dedicated admin panel page.
